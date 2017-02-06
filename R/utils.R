@@ -62,3 +62,5 @@ and <- function(...) magrittr::and(...)
 #' @param tbl A lookup table.
 #' @importFrom fastmatch fmatch
 `%fin%` <- function(a, tbl) fmatch(a, tbl, 0L, NULL) > 0L
+
+`%notin%` <- Negate("%in%")
