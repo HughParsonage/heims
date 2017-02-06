@@ -5,5 +5,4 @@
 #' \code{validate} a function returning \code{TRUE} or \code{FALSE} on vectors which comply with the variable's coding rules.
 #' @source \url{http://heimshelp.education.gov.au/sites/heimshelp/dictionary/pages/data-element-dictionary}
 
-
 "heims_data_dict"
