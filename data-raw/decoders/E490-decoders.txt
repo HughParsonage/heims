@@ -1,0 +1,47 @@
+CODE	Meaning
+201	Deferred all or part of the student contribution through HECS-HELP
+202	Paid the full student contribution up-front with the HECS-HELP discount
+203	Paid the full student contribution up-front without the HECS-HELP discount
+230	Deferred all or part of Award or Enabling course tuition fee through FEE-HELP
+231	Deferred all or part of tuition fee through FEE-HELP - Employer reserved place
+232	Deferred all or part of OUA tuition fee through FEE-HELP
+233	Deferred all or part of BOTP tuition fee through FEE-HELP
+240	OS-HELP for study in non-Asian countries
+241	OS-HELP for study in Asia
+242	OS-HELP Language study
+260	Student in a Commonwealth supported place with an Exemption scholarship (no student contribution to be charged)
+261	A domestic student enrolled in an enabling course (i.e. bridging or supplementary programme)
+262	Student undertaking Work Experience in Industry (WEI) where learning and performance is not directed by, and support is not received from, the provider and for which a student contribution cannot be charged
+270	Student in a non-Commonwealth supported place with an Exemption scholarship (no tuition fee to be charged)
+271	Student undertaking Work Experience in Industry (WEI) where learning and performance is not directed by, and support is not received from, the provider and for which a tuition fee cannot be charged
+280	Deferred all or part of SA-fee for a Course of Study through SA-HELP
+281	Deferred all or part of SA-fee for a Bridging Course for Overseas Trained Professional through SA-HELP
+301	A domestic student enrolled in a non-award course (other than an Enabling course)
+302	Paid full Award or Enabling course tuition fee
+303	Paid full tuition fee - for Employer reserved place
+304	Paid full OUA tuition fee
+305	Paid full BOTP tuition fee
+310	A fee-paying overseas student who is not sponsored under a foreign aid program, and including students with these awards: IPRS (International Postgraduate Research Scheme); SOPF (Special Overseas Postgraduate Fund); Australian-European Awards Program; and the Commonwealth Scholarship and Fellowship Plan
+311	A fee-paying overseas student who is sponsored under a foreign aid program. Includes those with Australian Development Cooperation Scholarships (ADCOS) and any other Australian foreign aid program for which students are enrolled in higher education providers by the Australian Agency for International Development (AusAID)
+320	A domestic student who received a research HECS exemption prior to 1 September 2000 and continues studying on a student contribution exempt basis under the Research Training Scheme (RTS) as a pre-2001 student. Include internal transfers/upgrades/downgrades (as defined under Element 465) (see coding notes)
+330	A domestic student enrolled under the Research Training Scheme (RTS) from 1 September 2000 (see coding notes)
+401	Deferred all/part of tuition fee through VET FEE-HELP - non State Government subsidised
+402	Deferred all/part of tuition fee through VET FEE-HELP - Restricted Access Arrangement
+403	Deferred all/part of tuition fee through VET FEE-HELP - Victorian State Government subsidised
+404	Deferred all/part of tuition fee through VET FEE-HELP - New South Wales State Government subsidised
+405	Deferred all/part of tuition fee through VET FEE-HELP - Queensland State Government subsidised
+406	Deferred all/part of tuition fee through VET FEE-HELP - South Australian State Government subsidised
+407	Deferred all/part of tuition fee through VET FEE-HELP - Western Australian State Government subsidised
+408	Deferred all/part of tuition fee through VET FEE-HELP - Tasmania State Government subsidised
+409	Deferred all/part of tuition fee through VET FEE-HELP - Northern Territory Government subsidised
+410	Deferred all/part of tuition fee through VET FEE-HELP - Australian Capital Territory Government subsidised
+501	Paid full tuition fee - non-State Government subsidised
+502	Paid full tuition fee - Restricted Access Arrangement
+503	Paid full tuition fee - Victorian State Government subsidised
+504	Paid full tuition fee - New South Wales State Government subsidised
+505	Paid full tuition fee - Queensland State Government subsidised
+506	Paid full tuition fee - South Australian State Government subsidised
+507	Paid full tuition fee - Western Australian State Government subsidised
+508	Paid full tuition fee - Tasmania State Government subsidised
+509	Paid full tuition fee - Northern Territory Government subsidised
+510	Paid full tuition fee - Australian Capital Territory Government subsidised
