@@ -15,6 +15,7 @@
 #' @export
 #' @import data.table
 #' @importFrom magrittr %>%
+#' @importFrom dplyr if_else
 
 
 validate_elements <- function(DT, .progress_cat = FALSE){
