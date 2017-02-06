@@ -4,10 +4,12 @@
 \alias{validate_elements}
 \title{Validate HEIMS elements}
 \usage{
-validate_elements(DT)
+validate_elements(DT, .progress_cat = FALSE)
 }
 \arguments{
 \item{DT}{The data.table whose variables are to be validated.}
+
+\item{.progress_cat}{Should the progress of the function be displayed on the console? If \code{TRUE} the name of the element about to be validated is shown.}
 }
 \value{
 A named logical vector, whether or not the variable complies with the style requirements. A value of \code{NA} indicates the variable

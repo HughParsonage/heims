@@ -1,6 +1,7 @@
 #' Validate HEIMS elements
 #' @description Return TRUE or FALSE on whether or not each variable in a data.table complies with the HEIMS code limits
 #' @param DT The data.table whose variables are to be validated.
+#' @param .progress_cat Should the progress of the function be displayed on the console? If \code{TRUE} the name of the element about to be validated is shown.
 #' @return A named logical vector, whether or not the variable complies with the style requirements. A value of \code{NA} indicates the variable
 #' was not checked (perhaps because it is absent from \code{heims_data_dict}).
 #' @details For early detection of invalid results, the type of the variable (in particular integer vs double) is considered first,
@@ -16,15 +17,20 @@
 #' @importFrom magrittr %>%
 
 
-validate_elements <- function(DT){
+validate_elements <- function(DT, .progress_cat = FALSE){
   out <- rep_len(NA, ncol(DT))
   for (n in seq_along(DT)){
     nom <- names(DT)[n]
-    cat(nom, ".", sep = "")
+    if (.progress_cat){
+      cat(nom, ".", sep = "")
+    }
     if (!is.null(heims_data_dict[[nom]]) && is.function(heims_data_dict[[nom]]$validate)){
       DTn <- DT[[n]]
       out[n] <- heims_data_dict[[nom]]$validate(DTn[!is.na(DTn)])
     }
+  }
+  if (.progress_cat){
+    cat("\n")
   }
   names(out) <- names(DT)
   out
