@@ -136,7 +136,7 @@ list(
   "E350" = list(long_name = "Course_of_study_load",
                 orig_name = "E350",
                 mark_missing = function(v) v == 0,
-                validate = function(v) between(v, 0, 10)),
+                validate = function(v) all(between(v, 0, 10))),
   "E354" = list(long_name = "Unit_of_study_cd",
                 orig_name = "E354",
                 mark_missing = never,
