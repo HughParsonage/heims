@@ -349,7 +349,7 @@ list(
   "E490" = list(long_name = "Student_status_cd",
                 orig_name = "E490",
                 mark_missing = never,
-                validate = function(v) all(v %fin% paste0("E", fread("./data-raw/decoders/E490-decoders.txt")[["CODE"]]))),
+                validate = function(v) all(v %fin% E490_decoder[["CODE"]])),
   "E495" = list(long_name = "Indic_student_contr_amt",
                 orig_name = "E495",
                 mark_missing = function(v) v == 99999L,
