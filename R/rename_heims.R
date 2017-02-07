@@ -10,6 +10,7 @@
 #' @export
 rename_heims <- function(DT){
   DTnoms <- names(DT)
+  long_name <- orig_name <- NULL
   decoder <-
     lapply(heims_data_dict, function(x) data.table(long_name = x[names(x) == "long_name"],
                                                    orig_name = x[names(x) == "orig_name"])) %>%
@@ -25,6 +26,7 @@ rename_heims <- function(DT){
 #' @rdname element_decoders
 #' @export element2name
 element2name <- function(v){
+  long_name <- v. <- NULL
   decoder <-
     lapply(heims_data_dict, function(x){
       data.table(long_name = unlist(x[names(x) == "long_name"]),
@@ -33,10 +35,18 @@ element2name <- function(v){
     rbindlist(use.names = TRUE, fill = TRUE) %>%
     .[v. %in% v]
 
+  is_initial <- NULL
+  input <-
+    data.table(v. = v) %>%
+    # A at the end means 'initial'
+    .[, is_initial := grepl("^E[0-9]+A$", v., perl = TRUE)] %>%
+    .[, v. := gsub("^(E[0-9]+)A$", "\\1", v., perl = TRUE)]
+
   decoder %>%
-    .[data.table(v. = v), on = "v."] %>%
+    .[input, on = "v."] %>%
     # Retain the name if join unsuccessful
     .[, long_name := if_else(is.na(long_name), v., long_name)] %>%
+    .[, long_name := if_else(is_initial, paste0(long_name, "_init"), long_name)] %>%
     .[["long_name"]]
 }
 
