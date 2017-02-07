@@ -27,6 +27,9 @@ rename_heims <- function(DT){
 #' @export element2name
 element2name <- function(v){
   long_name <- v. <- NULL
+
+  v <- gsub("^e([0-9]+)$", "E\\1", v)
+
   decoder <-
     lapply(heims_data_dict, function(x){
       data.table(long_name = unlist(x[names(x) == "long_name"]),
