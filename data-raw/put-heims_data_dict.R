@@ -381,6 +381,12 @@ list(
                 orig_name = "E490",
                 mark_missing = never,
                 validate = function(v) all(v %fin% E490_decoder[["CODE"]])),
+  # Ittima email 2017-02-07
+  "U490" = list(long_name = "Student_status_cd_abbrev",
+                orig_name = "U490",
+                mark_missing = never,
+                validate = function(v) is.integer(v) && all(or(between(v, 1, 4),
+                                                               between(v, 8, 9)))),
   "E493" = list(long_name = "Max_edu_level_b4_start",
                 orig_name = "E493",
                 mark_missing = function(v) v == 0 | v == 10000,
