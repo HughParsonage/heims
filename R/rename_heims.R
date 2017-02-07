@@ -38,18 +38,24 @@ element2name <- function(v){
     rbindlist(use.names = TRUE, fill = TRUE) %>%
     .[v. %in% v]
 
-  is_initial <- NULL
+  is_initial <- semester <- NULL
   input <-
     data.table(v. = v) %>%
     # A at the end means 'initial'
     .[, is_initial := grepl("^E[0-9]+A$", v., perl = TRUE)] %>%
+    .[, semester := if_else(grepl("^E[0-9]+_[12]$", v., perl = TRUE),
+                            gsub("^.*_([12])$", "\\1", v., perl = TRUE),
+                            NA_character_)] %>%
     .[, v. := gsub("^(E[0-9]+)A$", "\\1", v., perl = TRUE)]
 
   decoder %>%
     .[input, on = "v."] %>%
     # Retain the name if join unsuccessful
     .[, long_name := if_else(is.na(long_name), v., long_name)] %>%
-    .[, long_name := if_else(is_initial, paste0(long_name, "_init"), long_name)] %>%
+    # Use _init if suffix was A
+    .[, long_name := if_else(!is_initial, long_name, paste0(long_name, "_init"))] %>%
+    # if suffix _1 or _2, reuse in long_name
+    .[, long_name := if_else(is.na(semester), long_name, paste0(long_name, "_", semester))] %>%
     .[["long_name"]]
 }
 
