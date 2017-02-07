@@ -5,16 +5,19 @@ list(
                 orig_name = "E089",
                 validate = function(v) is.integer(v) && all(between(v, 1, 2)),
                 valid = function(v) if (is.integer(v)) between(v, 0, 1) else v %fin% c(0, 1)),
+
   "E091" = list(long_name = "Semester_1",
                 orig_name = "E091",
                 mark_missing = never,
                 validate = function(v) is.integer(v) && all(between(v, 0, 1)),
                 valid = function(v) if (is.integer(v)) between(v, 0, 1) else v %fin% c(0, 1)),
+
   "E092" = list(long_name = "Semester_2",
                 orig_name = "E092",
                 mark_missing = never,
                 validate = function(v) !any(is.na(as.logical(v))),
                 valid = function(v) !is.na(as.logical(v))),
+
   "E095" = list(long_name = "Student_course_combn_is_first",
                 orig_name = "E095",
                 mark_missing = never,
@@ -34,12 +37,12 @@ list(
                 orig_name = "E307",
                 mark_missing = never,
                 validate = always,
-                valid = !never),
+                valid = every),
   "E308" = list(long_name = "Course_name",
                 orig_name = "E308",
                 mark_missing = never,
                 validate = always,
-                valid = !never),
+                valid = every),
   "E310" = list(long_name = "Course_type",
                 orig_name = "E310",
                 mark_missing = never,
@@ -60,7 +63,7 @@ list(
                 orig_name = "E313",
                 mark_missing = never,
                 validate = always,
-                valid = !never),
+                valid = every),
   "E314" = list(long_name = "DOB",
                 orig_name = "E314",
                 mark_missing = function(v) v == 19010101,
@@ -87,7 +90,7 @@ list(
                                                      between(as.integer(substr(v, 2, 5)), 1, 9998))))),
                 valid = function(v) or(substr(v, 2, 5) == "9999",
                                        or(v %fin% paste0("X", 1200:9299),
-                                          between(as.integer(substr(v, 2, 5)), 1, 9998))),
+                                          between(as.integer(substr(v, 2, 5)), 1, 9998)))),
 
   "E320" = list(long_name = "Home_location",
                 orig_name = "E320",
@@ -99,7 +102,6 @@ list(
                 valid = function(v) or(substr(v, 2, 5) == "9999",
                                        or(v %fin% paste0("X", 1200:9299),
                                           between(as.integer(substr(v, 2, 5)), 1, 9998)))),
-
 
 
 
@@ -117,12 +119,12 @@ list(
                 orig_name = "E329",
                 mark_missing = never,
                 validate = function(v) is.integer(v) && all(between(v, 1, 5)),
-                valid = function(v) if (is.integer(v)) between(v, 1, 5)) else v %fin% c(1, 2, 3, 4, 5),
+                valid = function(v) if (is.integer(v)) between(v, 1, 5) else v %fin% c(1, 2, 3, 4, 5)),
   "E330" = list(long_name = "Attendance_type",
                 orig_name = "E330",
                 mark_missing = function(v) v == 9L,
                 validate = function(v) is.integer(v) && all(v %fin% c(0L, 1L, 2L, 9L)),
-                valid = function(v) v %fin% c(0, 1, 2, 9),
+                valid = function(v) v %fin% c(0, 1, 2, 9)),
   "E331" = list(long_name = "Maj_course_ind",
                 orig_name = "E331",
                 mark_missing = never,
@@ -231,6 +233,12 @@ list(
                 mark_missing = never,
                 # Note: uses dollars not cents
                 validate = function(v) is.double(v) && all(between(v, 0, 999999))),
+
+
+
+
+
+
   "E385" = list(long_name = "Tot_exemption_granted",
                 orig_name = "E385",
                 mark_missing = never,
