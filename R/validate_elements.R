@@ -20,8 +20,9 @@
 
 validate_elements <- function(DT, .progress_cat = FALSE){
   out <- rep_len(NA, ncol(DT))
+  noms <- gsub("A$", "", gsub("_[12]", "", names(DT)))
   for (n in seq_along(DT)){
-    nom <- names(DT)[n]
+    nom <- noms[n]
     if (.progress_cat){
       cat(nom, ".", sep = "")
     }
