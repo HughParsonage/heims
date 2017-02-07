@@ -16,6 +16,10 @@ OR <- `||`
 never  <- function(v) logical(length(v))
 
 #' @rdname utilities
+#' @export every
+every <- function(v) !never(v)
+
+#' @rdname utilities
 #' @export always
 always <- function(v) TRUE
 

@@ -5,6 +5,7 @@
 \alias{AND}
 \alias{OR}
 \alias{never}
+\alias{every}
 \alias{always}
 \alias{is.Date}
 \alias{is.YearMonth}
@@ -20,6 +21,8 @@ AND()
 OR()
 
 never(v)
+
+every(v)
 
 always(v)
 
