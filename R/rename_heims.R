@@ -30,13 +30,18 @@ element2name <- function(v){
 
   v <- gsub("^e([0-9]+)$", "E\\1", v)
 
+  v_nosuffix <-
+   v %>%
+    gsub("_[12]$", "", .) %>%
+    gsub("A$", "", .)
+
   decoder <-
     lapply(heims_data_dict, function(x){
       data.table(long_name = unlist(x[names(x) == "long_name"]),
                  v. = unlist(x[names(x) == "orig_name"]))
     }) %>%
     rbindlist(use.names = TRUE, fill = TRUE) %>%
-    .[v. %in% v]
+    .[v. %in% v_nosuffix]
 
   is_initial <- semester <- NULL
   input <-
@@ -46,7 +51,8 @@ element2name <- function(v){
     .[, semester := if_else(grepl("^E[0-9]+_[12]$", v., perl = TRUE),
                             gsub("^.*_([12])$", "\\1", v., perl = TRUE),
                             NA_character_)] %>%
-    .[, v. := gsub("^(E[0-9]+)A$", "\\1", v., perl = TRUE)]
+    .[, v. := gsub("^(E[0-9]+)A$", "\\1", v., perl = TRUE)] %>%
+    .[, v. := gsub("_[12]", "", v., perl = TRUE)]
 
   decoder %>%
     .[input, on = "v."] %>%
