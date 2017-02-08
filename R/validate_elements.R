@@ -1,4 +1,5 @@
 #' Validate HEIMS elements
+#' @name element_validation
 #' @description Return TRUE or FALSE on whether or not each variable in a data.table complies with the HEIMS code limits
 #' @param DT The data.table whose variables are to be validated.
 #' @param .progress_cat Should the progress of the function be displayed on the console? If \code{TRUE} the name of the element about to be validated is shown.
@@ -12,12 +13,12 @@
 #' X <- data.frame(E306 = as.integer(c(0, 1011, 999, 9998)))
 #' validate_elements(X)  # TRUE
 #'
-#' @export validate_elements prop_elements_valid
 #' @import data.table
 #' @importFrom magrittr %>%
 #' @importFrom dplyr if_else
 
-
+#' @rdname element_validation
+#' @export validate_elements
 validate_elements <- function(DT, .progress_cat = FALSE){
   out <- rep_len(NA, ncol(DT))
   # These suffixes define the insert method/event, not the variable
@@ -43,6 +44,8 @@ validate_elements <- function(DT, .progress_cat = FALSE){
   out
 }
 
+#' @rdname element_validation
+#' @export prop_elements_valid
 prop_elements_valid <- function(DT){
   out <- rep_len(NA_real_, ncol(DT))
 
