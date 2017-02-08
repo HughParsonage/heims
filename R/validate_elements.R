@@ -12,7 +12,7 @@
 #' X <- data.frame(E306 = as.integer(c(0, 1011, 999, 9998)))
 #' validate_elements(X)  # TRUE
 #'
-#' @export
+#' @export validate_elements prop_elements_valid
 #' @import data.table
 #' @importFrom magrittr %>%
 #' @importFrom dplyr if_else
@@ -40,5 +40,29 @@ validate_elements <- function(DT, .progress_cat = FALSE){
     cat("\n")
   }
   names(out) <- names(DT)
+  out
+}
+
+prop_elements_valid <- function(DT){
+  out <- rep_len(NA_real_, ncol(DT))
+
+  noms <- gsub("A$", "", gsub("_[12]", "", names(DT)))
+
+  # e550 == E550
+  noms <- gsub("^e([0-9]+)$", "E\\1", noms)
+
+  for (n in seq_along(DT)){
+    nom <- noms[n]
+    if (!is.null(heims_data_dict[[nom]]) && is.function(heims_data_dict[[nom]]$validate)){
+      DTn <- DT[[n]]
+      if (heims_data_dict[[nom]]$validate(DTn[!is.na(DTn)])){
+        out[n] <- 1
+      } else {
+        if (!is.null(heims_data_dict[[nom]]) && is.function(heims_data_dict[[nom]]$valid)){
+          out[n] <- mean(heims_data_dict[[nom]]$valid(DTn))
+        }
+      }
+    }
+  }
   out
 }
