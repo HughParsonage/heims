@@ -11,3 +11,8 @@ test_that("validate_elements returns FALSE when invalid", {
   X <- data.frame(E306 = as.integer(c(0, 1011, 999, 9998)))
   expect_false(all(validate_elements(X)))
 })
+
+test_that("Valid elements for TER return TRUE or FALSE as expected", {
+  expect_true(heims_data_dict$E369$valid(31))
+  expect_false(heims_data_dict$E369$valid(29))
+})
