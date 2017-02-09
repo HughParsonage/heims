@@ -17,6 +17,8 @@ count_elements_invalid(DT, char = FALSE)
 \item{DT}{The data.table whose variables are to be validated.}
 
 \item{.progress_cat}{Should the progress of the function be displayed on the console? If \code{TRUE} the name of the element about to be validated is shown.}
+
+\item{char}{Return as character vector, in particular marking -- any complete or completely absent values.}
 }
 \value{
 A named logical vector, whether or not the variable complies with the style requirements. A value of \code{NA} indicates the variable

@@ -3,6 +3,7 @@
 #' @description Return TRUE or FALSE on whether or not each variable in a data.table complies with the HEIMS code limits
 #' @param DT The data.table whose variables are to be validated.
 #' @param .progress_cat Should the progress of the function be displayed on the console? If \code{TRUE} the name of the element about to be validated is shown.
+#' @param char Return as character vector, in particular marking -- any complete or completely absent values.
 #' @return A named logical vector, whether or not the variable complies with the style requirements. A value of \code{NA} indicates the variable
 #' was not checked (perhaps because it is absent from \code{heims_data_dict}).
 #' @details For early detection of invalid results, the type of the variable (in particular integer vs double) is considered first,
