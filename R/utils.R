@@ -27,11 +27,11 @@ always <- function(v) TRUE
 #' @export is.Date
 is.Date <- function(v){
   if (is.integer(v) || is.double(v)){
-    all(and(between(v / 10000, 1900, 2017),
-            and(between((v %% 10000L) %/% 100, 1, 12),
-                between(v %% 100, 1, 31))))
+    and(between(v / 10000, 1900, 2017),
+        and(between((v %% 10000L) %/% 100, 1, 12),
+            between(v %% 100, 1, 31)))
   } else {
-    !any(is.na(as.Date(v, format = "%Y%m%d")))
+    !is.na(as.Date(v, format = "%Y%m%d"))
   }
 }
 

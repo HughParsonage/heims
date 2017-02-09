@@ -1,3 +1,6 @@
+library(fastmatch)
+library(data.table)
+
 source("./R/utils.R")
 
 list(
@@ -26,7 +29,8 @@ list(
   "E300" = list(long_name = "Record_type_cd",
                 orig_name = "E300",
                 mark_missing = never,
-                validate = function(v) is.character(v) && all(v %fin% c("#", "$", "%", "1", "2", "3"))),
+                validate = function(v) is.character(v) && all(v %fin% c("#", "$", "%", "1", "2", "3")),
+                valid = function(v) v %fin% c("#", "$", "%", "1", "2", "3")),
   "E306" = list(long_name = "HE_Provider_cd",
                 orig_name = "E306",
                 mark_missing = function(v) v == 0L,
@@ -50,7 +54,7 @@ list(
                                                                       11, 8:10, 13, 20:22,
                                                                       30, 41, 42, 50, 60,
                                                                       61, 80, 81, 82, 99)),
-                valid = v %fin% c(1, 2, 12, 14, 3:7,
+                valid = function(v) v %fin% c(1, 2, 12, 14, 3:7,
                                   11, 8:10, 13, 20:22,
                                   30, 41, 42, 50, 60,
                                   61, 80, 81, 82, 99)),
@@ -113,7 +117,7 @@ list(
   "E328" = list(long_name = "Course_commencement_date",
                 orig_name = "E328",
                 mark_missing = never,
-                validate = function(v) is.integer(v) && is.Date(v),
+                validate = function(v) is.integer(v) && all(is.Date(v)),
                 valid = function(v) is.Date(v)),
   "E329" = list(long_name = "Mode_of_attendance",
                 orig_name = "E329",
@@ -269,17 +273,16 @@ list(
                                                               between(nth_digit_of(v, 4), 0, 1) &
                                                               between(nth_digit_of(v, 3), 0, 1) &
                                                               between(nth_digit_of(v, 2), 0, 2)),
-                valid = function(v) if (is.integer(v)){
-                  between(v %% 10, 0, 2) &
-                    between(nth_digit_of(v, 8), 0, 2) &
-                    between(nth_digit_of(v, 7), 0, 1) &
-                    between(nth_digit_of(v, 6), 0, 1) &
-                    between(nth_digit_of(v, 5), 0, 1) &
-                    between(nth_digit_of(v, 4), 0, 1) &
-                    between(nth_digit_of(v, 3), 0, 1) &
-                    between(nth_digit_of(v, 2), 0, 2)
-                  } else {
-                    stop("Var E386: Not an integer")
+                valid = function(v){
+                    suppressWarnings({v <- as.integer(v)})
+                    between(v %% 10, 0, 2) &
+                      between(nth_digit_of(v, 8), 0, 2) &
+                      between(nth_digit_of(v, 7), 0, 1) &
+                      between(nth_digit_of(v, 6), 0, 1) &
+                      between(nth_digit_of(v, 5), 0, 1) &
+                      between(nth_digit_of(v, 4), 0, 1) &
+                      between(nth_digit_of(v, 3), 0, 1) &
+                      between(nth_digit_of(v, 2), 0, 2)
                   }),
   "E390" = list(long_name = "Eligibility",
                 orig_name = "E390",
@@ -497,7 +500,10 @@ list(
                 mark_missing = function(v) substr(v, 2, 5) == "9999",
                 validate = function(v) is.character(v) && all(v %fin% c(paste0("X", c(1200:9299, 9999)),
                                                                         paste0("A", formatC(1:9998, width = 4, flag = "0")),
-                                                                        "99999"))),
+                                                                        "99999")),
+                valid = function(v) v %fin% c(paste0("X", c(1200:9299, 9999)),
+                                              paste0("A", formatC(1:9998, width = 4, flag = "0")),
+                                              "99999")),
   "E459" = list(long_name = "Campus_location",
                 orig_name = "E459",
                 mark_missing = never,
@@ -518,11 +524,13 @@ list(
   "E489" = list(long_name = "Census_date",
                 orig_name = "E489",
                 mark_missing = never,
-                validate = function(v) is.Date(v)),
+                validate = function(v) all(is.Date(v)),
+                valid = function(v) is.Date(v)),
   "E490" = list(long_name = "Student_status_cd",
                 orig_name = "E490",
                 mark_missing = never,
-                validate = function(v) all(v %fin% E490_decoder[["CODE"]])),
+                validate = function(v) all(v %fin% E490_decoder[["CODE"]]),
+                valid = function(v) v %fin% E490_decoder[["CODE"]]),
   # Ittima email 2017-02-07
   "U490" = list(long_name = "Student_status_cd_abbrev",
                 orig_name = "U490",
