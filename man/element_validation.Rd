@@ -4,11 +4,14 @@
 \alias{element_validation}
 \alias{validate_elements}
 \alias{prop_elements_valid}
+\alias{count_elements_invalid}
 \title{Validate HEIMS elements}
 \usage{
 validate_elements(DT, .progress_cat = FALSE)
 
-prop_elements_valid(DT)
+prop_elements_valid(DT, char = FALSE)
+
+count_elements_invalid(DT, char = FALSE)
 }
 \arguments{
 \item{DT}{The data.table whose variables are to be validated.}

@@ -46,7 +46,7 @@ validate_elements <- function(DT, .progress_cat = FALSE){
 
 #' @rdname element_validation
 #' @export prop_elements_valid
-prop_elements_valid <- function(DT){
+prop_elements_valid <- function(DT, char = FALSE){
   out <- rep_len(NA_real_, ncol(DT))
 
   noms <- gsub("A$", "", gsub("_[12]", "", names(DT)))
@@ -59,13 +59,43 @@ prop_elements_valid <- function(DT){
     if (!is.null(heims_data_dict[[nom]]) && is.function(heims_data_dict[[nom]]$validate)){
       DTn <- DT[[n]]
       if (heims_data_dict[[nom]]$validate(DTn[!is.na(DTn)])){
-        out[n] <- 1
+        out[n] <- if (char) "--" else 1
       } else {
         if (!is.null(heims_data_dict[[nom]]) && is.function(heims_data_dict[[nom]]$valid)){
-          out[n] <- mean(heims_data_dict[[nom]]$valid(DTn))
+          prop <- mean(heims_data_dict[[nom]]$valid(DTn), na.rm = TRUE)
+          out[n] <- if (char) paste0(round(prop * 100), "%") else prop
         }
       }
     }
   }
+  names(out) <- names(DT)
+  out
+}
+
+#' @rdname element_validation
+#' @export count_elements_invalid
+count_elements_invalid <- function(DT, char = FALSE){
+  out <- rep_len(NA_real_, ncol(DT))
+
+  noms <- gsub("A$", "", gsub("_[12]", "", names(DT)))
+
+  # e550 == E550
+  noms <- gsub("^e([0-9]+)$", "E\\1", noms)
+
+  for (n in seq_along(DT)){
+    nom <- noms[n]
+    if (!is.null(heims_data_dict[[nom]]) && is.function(heims_data_dict[[nom]]$validate)){
+      DTn <- DT[[n]]
+      if (heims_data_dict[[nom]]$validate(DTn[!is.na(DTn)])){
+        out[n] <- if (char) "--" else 1
+      } else {
+        if (!is.null(heims_data_dict[[nom]]) && is.function(heims_data_dict[[nom]]$valid)){
+          prop <- sum(!heims_data_dict[[nom]]$valid(DTn), na.rm = TRUE)
+          out[n] <- if (char) paste0(round(prop * 100), "%") else prop
+        }
+      }
+    }
+  }
+  names(out) <- names(DT)
   out
 }
