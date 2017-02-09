@@ -1,11 +1,16 @@
 CODE	Meaning
+110	Deferred all or part of the student contribution through HECS-HELP (YEARS: 2005--2008)
+111	Paid the full student contribution up-front with the HECS-HELP discount (YEARS: 2005--2008)
+112	Paid the full student contribution up-front without the HECS-HELP discount (YEARS: 2005--2008)
 201	Deferred all or part of the student contribution through HECS-HELP
 202	Paid the full student contribution up-front with the HECS-HELP discount
+220	Deferred all or part of the tuition fee through FEE-HELP (YEARS: 2005--2008)
 203	Paid the full student contribution up-front without the HECS-HELP discount
 230	Deferred all or part of Award or Enabling course tuition fee through FEE-HELP
 231	Deferred all or part of tuition fee through FEE-HELP - Employer reserved place
 232	Deferred all or part of OUA tuition fee through FEE-HELP
 233	Deferred all or part of BOTP tuition fee through FEE-HELP
+250	A domestic student holding a Commonwealth-funded, merit-based, undergraduate HECS-exemption scholarship for disadvantaged students (YEARS: 2005--2008)
 240	OS-HELP for study in non-Asian countries
 241	OS-HELP for study in Asia
 242	OS-HELP Language study
@@ -25,6 +30,8 @@ CODE	Meaning
 311	A fee-paying overseas student who is sponsored under a foreign aid program. Includes those with Australian Development Cooperation Scholarships (ADCOS) and any other Australian foreign aid program for which students are enrolled in higher education providers by the Australian Agency for International Development (AusAID)
 320	A domestic student who received a research HECS exemption prior to 1 September 2000 and continues studying on a student contribution exempt basis under the Research Training Scheme (RTS) as a pre-2001 student. Include internal transfers/upgrades/downgrades (as defined under Element 465) (see coding notes)
 330	A domestic student enrolled under the Research Training Scheme (RTS) from 1 September 2000 (see coding notes)
+340	A Commonwealth funded VET student enrolled in an Australian Maritime College Special Course (YEARS: 2005-2006)
+341	A non-Commonwealth funded VET student in an Australian Maritime College Special Course (YEARS: 2005-2006)
 401	Deferred all/part of tuition fee through VET FEE-HELP - non State Government subsidised
 402	Deferred all/part of tuition fee through VET FEE-HELP - Restricted Access Arrangement
 403	Deferred all/part of tuition fee through VET FEE-HELP - Victorian State Government subsidised
