@@ -78,7 +78,8 @@ list(
   "E315" = list(long_name = "Gender",
                 orig_name = "E315",
                 mark_missing = function(v) v == "X",
-                validate = function(v) all(v %in% c("M", "F", "X")),
+                validate = function(v) all(v %fin% c("M", "F", "X", "N")),
+                ad_hoc_validation_note = "N was also used in 14 cases.",
                 valid = function(v) v %fin% c("M", "F", "X")),
   "E316" = list(long_name = "ATSI_cd",
                 orig_name = "E316",
@@ -152,8 +153,13 @@ list(
   "E339" = list(long_name = "EFTSL",
                 orig_name = "E339",
                 mark_missing = never,
-                validate = function(v) is.double(v) && all(between(v, 0, 1)),
-                valid = function(v) between(v, 0, 1)),
+                # Was originally
+                # validate = function(v) is.double(v) && all(between(v, 0, 1)),
+                # but due to three elements EFTSL = {1.25, 1.50, 3.00}
+                # now use
+                validate = function(v) is.double(v) && all(between(v, 0, 3)),
+                ad_hoc_validation_note = "Three elements had EFTSL of 1.25, 1.50, and 3.00. The EFTSL = 3.00 load also had a start date of 2003, suggesting coalescing of loads into one insert.",
+                valid = function(v) between(v, 0, 3)),
   "E346" = list(long_name = "Country_of_birth",
                 orig_name = "E346",
                 mark_missing = function(v) v >= 9998,
