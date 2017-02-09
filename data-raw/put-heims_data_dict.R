@@ -672,8 +672,11 @@ list(
   "E560" = list(long_name = "Credit_used_value",
                 orig_name = "E560",
                 mark_missing = function(v) v == 0,
-                validate = function(v) is.integer(v) && all(between(v, 0, 9999)),
-                valid = function(v) between(v, 0, 9999)),
+                # Should be:
+                # validate = function(v) is.integer(v) && all(between(v, 0, 9999)),
+                # but due to upstream reencoding:
+                validate = function(v) is.double(v) && all(between(v, 0, 9.999)),
+                valid = function(v) between(v, 0, 9.999)),
   "E561" = list(long_name = "Prior_creditable_study_dets",
                 orig_name = "E561",
                 mark_missing = function(v) v == 0,
@@ -877,8 +880,11 @@ list(
   "E931" = list(long_name = "Aggreg_EFTSL",
                 orig_name = "E931",
                 mark_missing = never,
-                validate = function(v) is.integer(v) && all(between(v, 0, 99999)),
-                valid = function(v) between(v, 0, 99999)),
+                # original was:
+                # validate = function(v) is.integer(v) && all(between(v, 0, 99999)),
+                # but due to upstream re-encoding:
+                validate = function(v) is.double(v) && all(between(v, 0, 9.9999)),
+                valid = function(v) between(v, 0, 9.9999)),
   "E996" = list(long_name = "State_of_institution",
                 orig_name = "E996",
                 mark_missing = never,
