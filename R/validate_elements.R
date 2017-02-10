@@ -22,8 +22,15 @@
 #' @export validate_elements
 validate_elements <- function(DT, .progress_cat = FALSE){
   out <- rep_len(NA, ncol(DT))
+
+  avbl_noms <- names(heims_data_dict)[names(heims_data_dict) %in% names(DT)]
+
   # These suffixes define the insert method/event, not the variable
-  noms <- gsub("A$", "", gsub("_[12]", "", names(DT)))
+  # _A ==> initial, unless present in data dictionary
+  noms <-
+    if_else(names(DT) %in% avbl_noms,
+            names(DT),
+            gsub("A$", "", gsub("_[12]", "", names(DT))))
 
   # e550 == E550
   noms <- gsub("^e([0-9]+)$", "E\\1", noms)
