@@ -642,12 +642,9 @@ list(
   "E529" = list(long_name = "Loan_fee",
                 orig_name = "E529",
                 mark_missing = never,
-                validate = function(v) is.integer(v) && all(between(v, 0, 99999999)),
-                valid = function(v) if (is.integer(v)){
-                  between(v, 0, 99999999)
-                } else {
-                  v %fin% seq.int(0, 99999999)
-                }),
+                validate = function(v) is.double(v) && all(between(v, 0, 99999999 / 10)),
+                ad_hoc_validation_note = "Due to upstream reencoding, assumed to be in dollars.",
+                valid = function(v) between(v, 0, 99999999 / 10)),
   "E533" = list(long_name = "Course_of_study_cd",
                 orig_name = "E533",
                 mark_missing = function(v) if (is.numeric(v)) v == 0L else v == "0000000000",
@@ -680,12 +677,10 @@ list(
   "E558" = list(long_name = "HELP_debt_amt",
                 orig_name = "E558",
                 mark_missing = never,
-                validate = function(v) is.integer(v) && all(between(v, 0, 99999999)),
-                valid = function(v) if (is.integer(v)){
-                  between(v, 0, 99999999)
-                } else {
-                  v %fin% seq.int(0, 99999999)
-                }),
+                # validate = function(v) is.integer(v) && all(between(v, 0, 99999999)),
+                validate = function(v) is.double(v) && all(between(v, 0, 99999999 / 100)),
+                ad_hoc_validation_note = "Due to upstream reencoding, interpretable as dollars.",
+                valid = function(v) between(v, 0, 99999999 / 100)),
   "E560" = list(long_name = "Credit_used_value",
                 orig_name = "E560",
                 mark_missing = function(v) v == 0,
