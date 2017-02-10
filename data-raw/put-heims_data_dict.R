@@ -82,7 +82,7 @@ list(
                 mark_missing = function(v) v == "X",
                 validate = function(v) all(v %fin% c("M", "F", "X", "N")),
                 ad_hoc_validation_note = "N was also used in 14 cases.",
-                valid = function(v) v %fin% c("M", "F", "X")),
+                valid = function(v) v %fin% c("M", "F", "X", "N")),
   "E316" = list(long_name = "ATSI_cd",
                 orig_name = "E316",
                 mark_missing = function(v) v == 9,
