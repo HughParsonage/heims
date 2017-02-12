@@ -738,10 +738,13 @@ list(
                 orig_name = "E565",
                 mark_missing = never,
                 validate = function(v) is.integer(v) && all(between(v, 0, 9999)),
+                ad_hoc_validation_note = "Mixture of doubles and integers in EFTSL",
                 valid = function(v) if (is.integer(v)){
                   between(v, 0, 9999)
                 } else {
-                  v %fin% seq.int(0, 9999)
+                  if_else(v > 10,
+                          v %fin% seq.int(0, 9999),
+                          between(v, 0, 10))
                 }),
   "E566" = list(long_name = "Credit_offered_as_EFTSL_by",
                 orig_name = "E566",
