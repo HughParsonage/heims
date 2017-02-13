@@ -30,20 +30,32 @@ E316_decoder <-
   fread("./data-raw/decoders/E316-decoder.csv") %>%
   setkey(E316)
 
+force_integer <- function(x){
+  suppressWarnings(as.integer(x))
+}
+
 E346_decoder <-
   fread("./data-raw/decoders/ABS-language-codes.csv", na.strings = "") %>%
+  mutate(Region_code = as.integer(force_integer(V1) * 1000),
+         Country_broad_code = as.integer(force_integer(V2) * 100)) %>%
+  .[] %>%
   mutate(
     Region_name = if_else(!is.na(V1), V2, NA_character_),
-    Country_name = if_else(!is.na(V3), V4, NA_character_),
-    Region_name = zoo::na.locf(Region_name, na.rm = FALSE),
-    Country_name = zoo::na.locf(Country_name, na.rm = FALSE),
-    Country_code = V3
+    Country_name = coalesce(V4, V3, V2),
+    # Region_name = zoo::na.locf(Region_name, na.rm = FALSE),
+    # Country_name = zoo::na.locf(Country_name, na.rm = FALSE),
+    Country_code = force_integer(V3)
+    # Country_code = zoo::na.locf(Country_code, na.rm = FALSE)
   ) %>%
-  .[!is.na(V4)] %>%
-  .[, Country_code := as.integer(V3)] %>%
-  .[, .(Country_code, Country_name, Country_code)] %>%
+  .[, Country_code := coalesce(Region_code, Country_broad_code, force_integer(V3))] %>%
+  .[, .(Country_code, Country_name)] %>%
+  .[complete.cases(.)] %>%
   .[, E346 := Country_code] %>%
-  setkey(Country_code)
+  rbind(data.table(E346 = c(9998L, 9999L),
+                   Country_code = c(9998L, 9999L),
+                   Country_name = c(NA_character_, NA_character_))) %>%
+  setkey(Country_code) %>%
+  .[]
 
 E348_decoder <-
   fread("./data-raw/decoders/E348-decoder.csv", na.strings = "") %>%
