@@ -7,6 +7,7 @@
 \alias{E310_decoder}
 \alias{E312_decoder}
 \alias{E316_decoder}
+\alias{E346_decoder}
 \alias{E348_decoder}
 \alias{E490_decoder}
 \alias{HE_Provider_decoder}
@@ -20,6 +21,8 @@ E310_decoder
 E312_decoder
 
 E316_decoder
+
+E346_decoder
 
 E348_decoder
 
