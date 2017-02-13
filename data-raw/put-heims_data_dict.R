@@ -77,7 +77,7 @@ list(
                 valid = every),
   "E314" = list(long_name = "DOB",
                 orig_name = "E314",
-                mark_missing = function(v) v == 19010101,
+                mark_missing = function(v) v %fin% c(19010101, 19000101, 18991230),
                 validate = function(v) is.integer(v) && all(is.Date(v)),
                 valid = function(v) is.Date(v)),
   "E315" = list(long_name = "Gender",
