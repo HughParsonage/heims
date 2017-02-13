@@ -61,9 +61,9 @@ list(
                                                                       30, 41, 42, 50, 60,
                                                                       61, 80, 81, 82, 99)),
                 valid = function(v) v %fin% c(1, 2, 12, 14, 3:7,
-                                  11, 8:10, 13, 20:22,
-                                  30, 41, 42, 50, 60,
-                                  61, 80, 81, 82, 99),
+                                              11, 8:10, 13, 20:22,
+                                              30, 41, 42, 50, 60,
+                                              61, 80, 81, 82, 99),
                 decoder = E310_decoder),
   "E312" = list(long_name = "Special_course",
                 orig_name = "E312",
@@ -78,10 +78,8 @@ list(
   "E314" = list(long_name = "DOB",
                 orig_name = "E314",
                 mark_missing = function(v) v == 19010101,
-                validate = function(v) AND(is.integer(v) && all(between(v, 19010101, 20171231)),
-                                           all(is.Date(v))),
-                valid = function(v) and(between(v, 19010101, 20171231),
-                                        is.Date(v))),
+                validate = function(v) is.integer(v) && all(is.Date(v)),
+                valid = function(v) is.Date(v)),
   "E315" = list(long_name = "Gender",
                 orig_name = "E315",
                 mark_missing = function(v) v %fin% c("X", "U"),
@@ -185,21 +183,21 @@ list(
                                                                         "A998",
                                                                         "A999")),
                 valid = function(v) v %fin% c("0000",
-                                             "0001",
-                                             seq.int(1900,
-                                                     2099),
-                                             "A998",
-                                             "A999")),
+                                              "0001",
+                                              seq.int(1900,
+                                                      2099),
+                                              "A998",
+                                              "A999")),
   "E348" = list(long_name = "Language_home",
                 orig_name = "E348",
                 mark_missing = function(v) v >= 9998,
                 validate = function(v) is.integer(v) && all(v %fin% c(1L,
-                                                                     1201L, # English
-                                                                     seq.int(1000, 1199),
-                                                                     seq.int(1300, 9799),
-                                                                     8000L, # Indig
-                                                                     9998L,
-                                                                     9999L)),
+                                                                      1201L, # English
+                                                                      seq.int(1000, 1199),
+                                                                      seq.int(1300, 9799),
+                                                                      8000L, # Indig
+                                                                      9998L,
+                                                                      9999L)),
                 valid = function(v) v %fin% c(1L,
                                               1201L, # English
                                               seq.int(1000, 1199),
@@ -248,13 +246,13 @@ list(
                                           v == 9999))),
   "E369" = list(long_name = "TER",
                 orig_name = "E369",
-                mark_missing = function(v) v >= 800,
-                validate = function(v) is.integer(v) && all(or(or(v == 1L,
+                mark_missing = function(v) v >= 800 | between(v, 2, 29),
+                validate = function(v) is.integer(v) && all(or(or(v == 1L | between(v, 2, 29),
                                                                   between(v, 30L, 100L)),
                                                                v %fin% c(800L, 998L,
                                                                          999L))),
-                ad_hoc_validation_note = "v == 800 appears for two entries (in 2007 and 2008): assumed to be NA. Otherwise missing >= 998",
-                valid = function(v) or(or(v == 1L,
+                ad_hoc_validation_note = "v == 800 appears for two entries (in 2007 and 2008): assumed to be NA. Otherwise missing >= 998. Values 15 25 28 29 also present ",
+                valid = function(v) or(or(v == 1L | between(v, 2, 29),
                                           between(v, 30L, 100L)),
                                        v %fin% c(800L, 998L,
                                                  999L))),
@@ -288,16 +286,16 @@ list(
                                                               between(nth_digit_of(v, 3), 0, 1) &
                                                               between(nth_digit_of(v, 2), 0, 2)),
                 valid = function(v){
-                    suppressWarnings({v <- as.integer(v)})
-                    between(v %% 10, 0, 2) &
-                      between(nth_digit_of(v, 8), 0, 2) &
-                      between(nth_digit_of(v, 7), 0, 1) &
-                      between(nth_digit_of(v, 6), 0, 1) &
-                      between(nth_digit_of(v, 5), 0, 1) &
-                      between(nth_digit_of(v, 4), 0, 1) &
-                      between(nth_digit_of(v, 3), 0, 1) &
-                      between(nth_digit_of(v, 2), 0, 2)
-                  }),
+                  suppressWarnings({v <- as.integer(v)})
+                  between(v %% 10, 0, 2) &
+                    between(nth_digit_of(v, 8), 0, 2) &
+                    between(nth_digit_of(v, 7), 0, 1) &
+                    between(nth_digit_of(v, 6), 0, 1) &
+                    between(nth_digit_of(v, 5), 0, 1) &
+                    between(nth_digit_of(v, 4), 0, 1) &
+                    between(nth_digit_of(v, 3), 0, 1) &
+                    between(nth_digit_of(v, 2), 0, 2)
+                }),
   "E390" = list(long_name = "Eligibility",
                 orig_name = "E390",
                 mark_missing = never,
@@ -366,16 +364,16 @@ list(
                                                                      999)),
                 valid = function(v){
                   v %fin% c(1,
-                           5,
-                           13,
-                           14,
-                           42,
-                           66,
-                           100,
-                           200,
-                           220,
-                           seq.int(201, 210),
-                           999)
+                            5,
+                            13,
+                            14,
+                            42,
+                            66,
+                            100,
+                            200,
+                            220,
+                            seq.int(201, 210),
+                            999)
                 }),
   "E409" = list(long_name = "Postal_address_postcode",
                 orig_name = "E409",
@@ -803,8 +801,8 @@ list(
                 orig_name = "E574",
                 mark_missing = function(v) v %in% c(1, 49, 98, 99, 59),
                 validate = function(v) is.integer(v) && all(v %fin% c(c(1, 49, 98, 99, 59),
-                                                                     20, 21, 22, 23, 24, 25, 26,
-                                                                     40, 41, 42, 43, 44, 45, 46)),
+                                                                      20, 21, 22, 23, 24, 25, 26,
+                                                                      40, 41, 42, 43, 44, 45, 46)),
                 valid = function(v) v %fin% c(c(1, 49, 98, 99, 59),
                                               20, 21, 22, 23, 24, 25, 26,
                                               40, 41, 42, 43, 44, 45, 46)),
