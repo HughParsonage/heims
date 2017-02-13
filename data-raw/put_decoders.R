@@ -35,7 +35,7 @@ force_integer <- function(x){
 }
 
 E346_decoder <-
-  fread("./data-raw/decoders/ABS-language-codes.csv", na.strings = "") %>%
+  fread("./data-raw/decoders/ABS-country-codes.csv", na.strings = "") %>%
   mutate(Region_code = as.integer(force_integer(V1) * 1000),
          Country_broad_code = as.integer(force_integer(V2) * 100)) %>%
   .[] %>%
