@@ -1,5 +1,25 @@
 #' Decoders
 #' @name decoders
 #'
+NULL
 
+#' @rdname decoders
+"E306_decoder"
+
+#' @rdname decoders
+"E310_decoder"
+
+#' @rdname decoders
+"E312_decoder"
+
+#' @rdname decoders
+"E316_decoder"
+
+#' @rdname decoders
+"E348_decoder"
+
+#' @rdname decoders
 "E490_decoder"
+
+#' @rdname decoders
+"HE_Provider_decoder"

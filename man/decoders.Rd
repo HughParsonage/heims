@@ -3,11 +3,29 @@
 \docType{data}
 \name{decoders}
 \alias{decoders}
+\alias{E306_decoder}
+\alias{E310_decoder}
+\alias{E312_decoder}
+\alias{E316_decoder}
+\alias{E348_decoder}
 \alias{E490_decoder}
+\alias{HE_Provider_decoder}
 \title{Decoders}
-\format{An object of class \code{data.table} (inherits from \code{data.frame}) with 46 rows and 2 columns.}
+\format{An object of class \code{data.table} (inherits from \code{data.frame}) with 635 rows and 3 columns.}
 \usage{
+E306_decoder
+
+E310_decoder
+
+E312_decoder
+
+E316_decoder
+
+E348_decoder
+
 E490_decoder
+
+HE_Provider_decoder
 }
 \description{
 Decoders

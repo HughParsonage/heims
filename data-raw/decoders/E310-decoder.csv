@@ -1,0 +1,27 @@
+E310,Course_type,Course_type_short
+1,Higher Doctorate,Doctorate
+2,Doctorate by research,Doctorate
+12,Doctorate by coursework,Doctorate
+14,Masters (Extended),Masters
+3,Masters (Research),Masters
+4,Masters (Coursework),Masters
+5,"Postgraduate Qualifying or Preliminary (for Master's, Doctorate or Higher Doctorate)",Masters
+6,"Graduate Diploma/ Postgraduate Diploma (pass or honours) involving new academic, professional or vocational area",GradDip
+7,Graduate Diploma/ Postgraduate Diploma (pass or honours) extending skills and knowledge in a professional area previously studied,GradDip
+11,Graduate Certificate,GradCert
+8,Bachelors Graduate Entry,Bachelors
+9,Bachelors Honours,BachelorsHons
+10,Bachelors Pass,Bachelors
+13,Associate degree,AssocDegree
+20,Advanced Diploma,AdvDip
+21,Diploma,Dip
+22,Other undergraduate award course,Other
+30,Enabling course,Enabling
+41,Cross Institutional program for undergraduate courses at home Higher Education Provider,Cross_institutional_prog_undergrad
+42,Cross Institutional program for postgraduate courses at home Higher Education Provider,Cross_institutional_prog_postgrad
+50,Non-award course (including Bridging for overseas trained professionals),Non_award
+60,Open Universities Australia undergraduate studies,OUAUndergrad
+61,Open Universities Australia postgraduate studies,OUAPostgrad
+80,VET Graduate Certificate,VETGradCert
+81,VET Graduate Diploma,VETGradDip
+82,Certificate IV,CertIV
