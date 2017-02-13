@@ -30,15 +30,32 @@ E316_decoder <-
   fread("./data-raw/decoders/E316-decoder.csv") %>%
   setkey(E316)
 
+E346_decoder <-
+  fread("./data-raw/decoders/ABS-language-codes.csv", na.strings = "") %>%
+  mutate(
+    Region_name = if_else(!is.na(V1), V2, NA_character_),
+    Country_name = if_else(!is.na(V3), V4, NA_character_),
+    Region_name = zoo::na.locf(Region_name, na.rm = FALSE),
+    Country_name = zoo::na.locf(Country_name, na.rm = FALSE),
+    Country_code = V3
+  ) %>%
+  .[!is.na(V4)] %>%
+  .[, Country_code := as.integer(V3)] %>%
+  .[, .(Country_code, Country_name, Country_code)] %>%
+  .[, E346 := Country_code] %>%
+  setkey(Country_code)
+
 E348_decoder <-
   fread("./data-raw/decoders/E348-decoder.csv", na.strings = "") %>%
   setkey(E348)
+
 
 devtools::use_data(E490_decoder,
                    E306_decoder, HE_Provider_decoder,
                    E310_decoder,
                    E312_decoder,
                    E316_decoder,
+                   E346_decoder,
                    E348_decoder,
                    internal = FALSE, overwrite = TRUE)
 
