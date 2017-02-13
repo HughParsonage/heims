@@ -26,8 +26,8 @@ always <- function(v) TRUE
 #' @rdname utilities
 #' @export is.Date
 is.Date <- function(v){
-  if (is.integer(v) || is.double(v)){
-    and(between(v / 10000, 1900, 2017),
+  if (is.numeric(v)){
+    and(between(v / 10000, 1899, 2017),
         and(between((v %% 10000L) %/% 100, 1, 12),
             between(v %% 100, 1, 31)))
   } else {
