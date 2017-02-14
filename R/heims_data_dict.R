@@ -3,6 +3,7 @@
 #' \describe{
 #' \item{\code{long_name}}{a human-readable version of the variable; \code{orig_name} the element number;}
 #' \item{\code{mark_missing}}{a vectorized-function returning \code{TRUE} on values of the variable which should be coded as \code{NA};}
+#' \item{\code{ad_hoc_prepare}}{a function to apply before validation;}
 #' \item{\code{validate}}{a single-value function returning \code{TRUE} or \code{FALSE} on vectors which comply with the variable's coding rules.}
 #' \item{\code{ad_hoc_validation_note}}{If the data dictionary did not cover elements in the file, how the \code{validate} function was altered to suffer them.}
 #' \item{\code{valid}}{a vectorized function returning \code{TRUE} or \code{FALSE} on vectors which do not comply with the variable's coding rules.}

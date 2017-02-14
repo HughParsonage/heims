@@ -15,6 +15,8 @@ test_that("validate_elements returns FALSE when invalid", {
 })
 
 test_that("Valid elements for TER return TRUE or FALSE as expected", {
-  expect_true(heims_data_dict$E369$valid(31))
+  x <- c(31, 29)
+  y <- heims_data_dict$E369$ad_hoc_prepare(x)
+  expect_true(heims_data_dict$E369$valid(y[1]))
   expect_false(heims_data_dict$E369$valid(29))
 })
