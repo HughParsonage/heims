@@ -569,14 +569,21 @@ list(
                                                                between(v, 8, 9)))),
   "E493" = list(long_name = "Max_edu_level_b4_start",
                 orig_name = "E493",
-                mark_missing = function(v) v %fin% c(0, 9999, 10000),
-                ad_hoc_validation_note = "e.g. 40000 -> 49999",
-                validate = function(v) is.integer(v) && all(or(v %fin% c(0, 9999, 10000),
+                mark_missing = function(v) between(v, 0, 19999),
+                ad_hoc_prepare = function(v) if_else(and(between(v, 20e3, 119999),
+                                                         (v %% 10e3) <= 1899), # i.e. year but not plausible
+                                                                               # N.B. we can't assume 07 -> 2007 because that
+                                                                               # would admit or not exclude implausible values (1811) etc
+                                                                               # likely some are MMDD dates of birth rather than YYYY
+                                                     (v %/% 10000L) * 10000L + 9999L, # force year component to be missing
+                                                     v),
+                ad_hoc_validation_note = "e.g. 40000 -> 49999; treat values leq 19999 as missing (including years without edu level)",
+                validate = function(v) is.integer(v) && all(or(between(v, 0, 19999),
                                                                and(between(v %/% 10000, 2, 11),
                                                                    or(or(between(v %% 10000, 1900, 2017),
                                                                          (v %% 10000) %fin% c(0, 9999)),
                                                                       v == 90000)))),
-                valid = function(v) or(v %fin% c(0, 9999, 10000),
+                valid = function(v) or(between(v, 0, 19999),
                                        and(between(v %/% 10000, 2, 11),
                                            or(or(between(v %% 10000, 1900, 2017),
                                                  (v %% 10000) %fin% c(0, 9999)),

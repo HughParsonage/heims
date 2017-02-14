@@ -14,6 +14,16 @@ test_that("validate_elements returns FALSE when invalid", {
   expect_false(all(validate_elements(X)))
 })
 
+test_that("Element E493 prepared as expected", {
+  expect_identical(heims_data_dict$E493$ad_hoc_prepare(as.integer(c(c(0, 10e3),
+                                                                    c(seq.int(2, 11) * 10e3 + 2002),
+                                                                    c(20004, 30017)))),
+                   as.integer(c(c(0, 10e3),
+                                c(seq.int(2, 11) * 10e3 + 2002),
+                                29999, 39999)))
+
+})
+
 test_that("Valid elements for TER return TRUE or FALSE as expected", {
   x <- c(31, 29)
   y <- heims_data_dict$E369$ad_hoc_prepare(x)
