@@ -54,6 +54,7 @@ E346_decoder <-
   rbind(data.table(E346 = c(9998L, 9999L),
                    Country_code = c(9998L, 9999L),
                    Country_name = c(NA_character_, NA_character_))) %>%
+  rbind(fread("./data-raw/decoders/ABS-country-code-2006-2nd-edn.csv"), use.names = TRUE) %>%
   setkey(Country_code) %>%
   .[]
 
