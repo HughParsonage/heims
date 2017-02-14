@@ -61,6 +61,10 @@ or <- function(...) magrittr::or(...)
 and <- function(...) magrittr::and(...)
 
 #' @rdname utilities
+#' @export if_else
+if_else <- function(condition, true, false, missing = NULL) dplyr::if_else(condition, true, false, missing = NULL)
+
+#' @rdname utilities
 #' @export %fin%
 #' @param a Element suspected to be in \code{tbl}
 #' @param tbl A lookup table.
