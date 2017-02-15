@@ -10,6 +10,7 @@
 \alias{E346_decoder}
 \alias{E348_decoder}
 \alias{E490_decoder}
+\alias{E562_decoder}
 \alias{HE_Provider_decoder}
 \title{Decoders}
 \format{An object of class \code{data.table} (inherits from \code{data.frame}) with 635 rows and 3 columns.}
@@ -27,6 +28,8 @@ E346_decoder
 E348_decoder
 
 E490_decoder
+
+E562_decoder
 
 HE_Provider_decoder
 }

@@ -25,4 +25,7 @@ NULL
 "E490_decoder"
 
 #' @rdname decoders
+"E562_decoder"
+
+#' @rdname decoders
 "HE_Provider_decoder"
