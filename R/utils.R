@@ -62,7 +62,7 @@ and <- function(...) magrittr::and(...)
 
 #' @rdname utilities
 #' @export if_else
-if_else <- function(condition, true, false, missing = NULL) dplyr::if_else(condition, true, false, missing = NULL)
+if_else <- function(...) dplyr::if_else(...)
 
 #' @rdname utilities
 #' @export %fin%

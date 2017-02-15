@@ -13,6 +13,7 @@
 \alias{between}
 \alias{or}
 \alias{and}
+\alias{if_else}
 \alias{\%fin\%}
 \title{Utility functions}
 \usage{
@@ -37,6 +38,8 @@ between(...)
 or(...)
 
 and(...)
+
+if_else(...)
 
 a \%fin\% tbl
 }
