@@ -12,8 +12,8 @@ rename_heims <- function(DT){
   DTnoms <- names(DT)
   long_name <- orig_name <- NULL
   decoder <-
-    lapply(heims_data_dict, function(x) data.table(long_name = x[names(x) == "long_name"],
-                                                   orig_name = x[names(x) == "orig_name"])) %>%
+    lapply(heims_data_dict, function(x) data.table(long_name = unlist(x[names(x) == "long_name"]),
+                                                   orig_name = unlist(x[names(x) == "orig_name"]))) %>%
     rbindlist(use.names = TRUE, fill = TRUE) %>%
     .[orig_name %in% DTnoms]
 
