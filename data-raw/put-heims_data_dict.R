@@ -438,7 +438,8 @@ list(
                   v == 0 | between(v, 10000, 129999)
                 } else {
                   v %fin% c(0, seq.int(10e3, 129999))
-                }),
+                },
+                decoder = function(DT) decode_using(DT, E461_decoder)),
   "E462" = list(long_name = "FOE_supp_cd",
                 orig_name = "E462",
                 mark_missing = never,
