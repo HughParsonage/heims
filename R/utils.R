@@ -72,3 +72,15 @@ if_else <- function(...) dplyr::if_else(...)
 `%fin%` <- function(a, tbl) fmatch(a, tbl, 0L, NULL) > 0L
 
 `%notin%` <- Negate("%in%")
+
+#' @rdname utilities
+#' @export rm_leading_0s
+#' @param v Character vector.
+rm_leading_0s <- function(v){
+  if (is.character(v)){
+    v <- gsub("^0+", "", v, perl = TRUE)
+  }
+  v
+}
+
+
