@@ -15,6 +15,7 @@
 \alias{and}
 \alias{if_else}
 \alias{\%fin\%}
+\alias{rm_leading_0s}
 \title{Utility functions}
 \usage{
 AND()
@@ -42,6 +43,8 @@ and(...)
 if_else(...)
 
 a \%fin\% tbl
+
+rm_leading_0s(v)
 }
 \arguments{
 \item{v}{A vector.}
@@ -53,6 +56,8 @@ a \%fin\% tbl
 \item{a}{Element suspected to be in \code{tbl}}
 
 \item{tbl}{A lookup table.}
+
+\item{v}{Character vector.}
 }
 \description{
 Only included here because of the unusual nature of \code{\link{heims_data_dict}}.

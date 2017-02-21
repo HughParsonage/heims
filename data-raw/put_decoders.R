@@ -30,6 +30,10 @@ E316_decoder <-
   fread("./data-raw/decoders/E316-decoder.csv") %>%
   setkey(E316)
 
+E329_decoder <-
+  fread("./data-raw/decoders/E329-ModeAttendance-decoder.tsv") %>%
+  setkey(E329)
+
 force_integer <- function(x){
   suppressWarnings(as.integer(x))
 }
@@ -68,7 +72,7 @@ E358_decoder <-
   setkey(E358)
 
 E461_decoder <-
-  fread("./data-raw/decoders/E461-decoder.txt") %>%
+  fread("./data-raw/decoders/E461-FOE-decoder.tsv") %>%
   setkey(E461)
 
 E562_decoder <-
@@ -80,8 +84,10 @@ devtools::use_data(E490_decoder,
                    E310_decoder,
                    E312_decoder,
                    E316_decoder,
+                   E329_decoder,
                    E346_decoder,
                    E348_decoder,
+                   E358_decoder,
                    E461_decoder,
                    E562_decoder,
                    internal = FALSE, overwrite = TRUE)
