@@ -298,7 +298,8 @@ list(
                     between(nth_digit_of(v, 4), 0, 1) &
                     between(nth_digit_of(v, 3), 0, 1) &
                     between(nth_digit_of(v, 2), 0, 2)
-                }),
+                },
+                decoder = E386_decoder),
   "E390" = list(long_name = "Eligibility",
                 orig_name = "E390",
                 mark_missing = never,
