@@ -472,7 +472,8 @@ list(
                   between(v, 10e3, 129999)
                 } else {
                   v %fin% seq.int(10e3, 129999)
-                }),
+                },
+                decoder = E463_decoder),
   "E464" = list(long_name = "Discipline_cd",
                 orig_name = "E464",
                 mark_missing = never,

@@ -135,18 +135,27 @@ E392_decoder <-
              Max_student_contr = c("Not exempt", "Max Cth contrib.", "Max Cth contr. for nursing"),
              key = "E392")
 
+FOE_uniter <-
+  fread("./data-raw/foegrattan-ittima.csv") %>%
+  setnames("foecode", heims_data_dict$E461$long_name) %>%
+  setkeyv(heims_data_dict$E461$long_name)
+
 E461_decoder <-
   fread("./data-raw/decoders/E461-FOE-decoder.tsv") %>%
   setkey(E461)
+
+E463_decoder <-
+  FOE_uniter %>%
+  copy %>%
+  select(E463 = FOE_cd,
+         Specialization = foename) %>%
+  setkey(E463)
 
 E562_decoder <-
   fread("./data-raw/decoders/E562-decoder.txt") %>%
   setkey(E562)
 
-FOE_uniter <-
-  fread("./data-raw/foegrattan-ittima.csv") %>%
-  setnames("foecode", heims_data_dict$E461$long_name) %>%
-  setkeyv(heims_data_dict$E461$long_name)
+
 
 E922_decoder <-
   data.table(E922 = c(1L, 2L),
@@ -168,6 +177,7 @@ devtools::use_data(E089_decoder,
                    E386_decoder,
                    E392_decoder,
                    E461_decoder,
+                   E463_decoder,
                    E562_decoder,
                    E922_decoder,
                    FOE_uniter,
