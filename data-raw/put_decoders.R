@@ -38,7 +38,7 @@ E329_decoder <-
   setkey(E329)
 
 E330_decoder <-
-  fread("./data-raw/decoders/E330-ModeAttendance-decoder.csv") %>%
+  fread("./data-raw/decoders/E330-decoder.csv") %>%
   setkey(E330)
 
 force_integer <- function(x){

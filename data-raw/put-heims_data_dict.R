@@ -945,7 +945,8 @@ list(
                   v %fin% c("1", "2")
                 } else {
                   v %fin% c(1, 2)
-                }),
+                },
+                decoder = E922_decoder),
   "E931" = list(long_name = "Aggreg_EFTSL",
                 orig_name = "E931",
                 mark_missing = never,
