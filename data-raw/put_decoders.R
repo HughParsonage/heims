@@ -24,6 +24,7 @@ E306_decoder <-
 
 E310_decoder <-
   fread("./data-raw/decoders/E310-decoder.csv") %>%
+  mutate(Course_type = substr(Course_type, 0, 38)) %>%
   mutate(Course_type = factor(Course_type, levels = unique(.$Course_type), ordered = TRUE)) %>%
   mutate(Course_type_short = factor(Course_type_short, levels = unique(.$Course_type_short), ordered = TRUE)) %>%
   as.data.table %>%
