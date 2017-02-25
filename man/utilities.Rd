@@ -16,6 +16,7 @@
 \alias{if_else}
 \alias{\%fin\%}
 \alias{rm_leading_0s}
+\alias{as.integer64}
 \title{Utility functions}
 \usage{
 AND()
@@ -45,6 +46,8 @@ if_else(...)
 a \%fin\% tbl
 
 rm_leading_0s(v)
+
+as.integer64(v)
 }
 \arguments{
 \item{v}{A vector.}
@@ -56,8 +59,6 @@ rm_leading_0s(v)
 \item{a}{Element suspected to be in \code{tbl}}
 
 \item{tbl}{A lookup table.}
-
-\item{v}{Character vector.}
 }
 \description{
 Only included here because of the unusual nature of \code{\link{heims_data_dict}}.

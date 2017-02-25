@@ -75,7 +75,6 @@ if_else <- function(...) dplyr::if_else(...)
 
 #' @rdname utilities
 #' @export rm_leading_0s
-#' @param v Character vector.
 rm_leading_0s <- function(v){
   if (is.character(v)){
     v <- gsub("^0+", "", v, perl = TRUE)
@@ -83,4 +82,7 @@ rm_leading_0s <- function(v){
   v
 }
 
+#' @rdname utilities
+#' @export as.integer64
+as.integer64 <- function(v) bit64::as.integer64(v)
 
