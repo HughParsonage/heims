@@ -3,6 +3,9 @@ library(dplyr)
 library(dtplyr)
 library(magrittr)
 
+# In case library(fastmatch) in effect
+coalesce <- function(...) dplyr::coalesce(...)
+
 E490_decoder <-
   data.table::fread("./data-raw/decoders/E490-decoders.txt")
 
@@ -60,7 +63,8 @@ E346_decoder <-
                    Country_name = c(NA_character_, NA_character_))) %>%
   rbind(fread("./data-raw/decoders/ABS-country-code-2006-2nd-edn.csv"), use.names = TRUE) %>%
   rbind(fread("./data-raw/decoders/ABS-country-code-1998-suppl.csv"), use.names = TRUE) %>%
-  setkey(Country_code) %>%
+  .[, Country_code := NULL] %>%
+  setkey(E346) %>%
   .[]
 
 E348_decoder <-
