@@ -132,6 +132,11 @@ FOE_uniter <-
   setnames("foecode", heims_data_dict$E461$long_name) %>%
   setkeyv(heims_data_dict$E461$long_name)
 
+E922_decoder <-
+  data.table(E922 = c(1L, 2L),
+             Commencing_student = c(TRUE, FALSE),
+             key = "E922")
+
 devtools::use_data(E490_decoder,
                    E306_decoder, HE_Provider_decoder,
                    E310_decoder,
@@ -145,6 +150,7 @@ devtools::use_data(E490_decoder,
                    E386_decoder,
                    E461_decoder,
                    E562_decoder,
+                   E922_decoder,
                    FOE_uniter,
                    internal = FALSE, overwrite = TRUE)
 
