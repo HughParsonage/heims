@@ -97,7 +97,7 @@ list(
                 ad_hoc_validation_note = "U was also used in 14 cases.",
                 valid = function(v) v %fin% c("M", "F", "X", "U"),
                 decoder = function(DT){
-                  DT[, Gender := if_else(x %fin% c("F", "M"), x, "M")]
+                  DT[, Gender := coalesce(E315, "M")]
                   DT[, "E315" := NULL]
                 }),
   "E316" = list(long_name = "ATSI_cd",
@@ -319,7 +319,9 @@ list(
   "E390" = list(long_name = "Eligibility",
                 orig_name = "E390",
                 mark_missing = never,
-                validate = function(v) is.integer(v) && all(between(v, 0, 3)),
+                # is.logical --> accommodate all NA
+                validate = function(v) AND(is.logical(v) || is.integer(v),
+                                           all(between(v, 0, 3), na.rm = TRUE)),
                 valid = function(v) v %fin% seq.int(0, 3)),
   "E392" = list(long_name = "Max_student_contr_ind",
                 orig_name = "E392",
@@ -440,11 +442,13 @@ list(
                 orig_name = "E460",
                 mark_missing = never,
                 validate = function(v){
+                  v <- as.double(v)
                   v <- if_else(v > 10, v / 1000, v)
                   all(between(v, 0, 10))
                 },
                 ad_hoc_validation_note = "Put as double, despite data dictionary. Some values were nonetheless left in thousands, in particular Shafston Institute of Technology 4369 entries. Assume values above 10 are thousandths.",
                 valid = function(v){
+                  v <- as.double(v)
                   v <- if_else(v > 10, v / 1000, v)
                   between(v, 0, 10)
                 }),
@@ -782,7 +786,8 @@ list(
   "E565" = list(long_name = "Credit_offered_as_EFTSL",
                 orig_name = "E565",
                 mark_missing = never,
-                validate = function(v) is.integer(v) && all(between(v, 0, 9999)),
+                validate = function(v) AND(is.integer(v) || is.double(v),
+                                           all(between(v, 0, 9999))),
                 ad_hoc_validation_note = "Mixture of doubles and integers in EFTSL",
                 valid = function(v) if (is.integer(v)){
                   between(v, 0, 9999)
@@ -790,6 +795,10 @@ list(
                   if_else(v > 10,
                           v %fin% seq.int(0, 9999),
                           between(v, 0, 10))
+                },
+                decoder = function(DT){
+                  DT[, Credit_offered_as_EFTSL := if_else(E565 > 10, E565 / 1000, as.double(E565))]
+                  DT[, "E565" := NULL]
                 }),
   "E566" = list(long_name = "Credit_offered_as_EFTSL_by",
                 orig_name = "E566",
@@ -821,8 +830,7 @@ list(
 
   "E572" = list(long_name = "Year_left_school",
                 orig_name = "E572",
-                mark_missing = function(v) or(v == 0L,
-                                              v == 1L,
+                mark_missing = function(v) or(v == 0L | v == 1L,
                                               v >= 9997L),
                 validate = function(v) is.integer(v) && all(between(v, 0, 9999)),
                 valid = function(v) if (is.integer(v)){
@@ -851,7 +859,7 @@ list(
   "E578" = list(long_name = "Completion_percentage",
                 orig_name = "E578",
                 mark_missing = function(v) v == 100L,
-                validate = function(v) is.integer(v) && all(between(v, 0, 100)),
+                validate = function(v) is.integer(v) && all(between(v, 0, 100), na.rm = TRUE),
                 valid = function(v) if (is.integer(v)){
                   between(v, 0, 100)
                 } else {
@@ -976,7 +984,7 @@ list(
                                                                                 "NT",
                                                                                 "ACT",
                                                                                 "MUL",
-                                                                                "OS")),
+                                                                                "OS"), na.rm = TRUE),
                 valid = function(v) trimws(v) %fin% c("NSW",
                                                       "VIC",
                                                       "QLD",
@@ -990,7 +998,7 @@ list(
   "E997" = list(long_name = "Participation_age",
                 orig_name = "E997",
                 mark_missing = function(v) v == 0,
-                validate = function(v) is.integer(v) && all(v == 0 | between(v, 12, 99)),
+                validate = function(v) is.integer(v) && all(v == 0 | between(v, 12, 99), na.rm = TRUE),
                 valid = function(v) v %fin% c(0, seq.int(12, 99)))
 ) -> heims_data_dict
 

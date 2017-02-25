@@ -64,21 +64,24 @@ E346_decoder <-
   mutate(
     Region_name = if_else(!is.na(V1), V2, NA_character_),
     Country_name = coalesce(V4, V3, V2),
-    # Region_name = zoo::na.locf(Region_name, na.rm = FALSE),
+    Region_name = zoo::na.locf(Region_name, na.rm = FALSE),
     # Country_name = zoo::na.locf(Country_name, na.rm = FALSE),
     Country_code = force_integer(V3)
     # Country_code = zoo::na.locf(Country_code, na.rm = FALSE)
   ) %>%
   .[, Country_code := coalesce(Region_code, Country_broad_code, force_integer(V3))] %>%
-  .[, .(Country_code, Country_name)] %>%
+  .[, .(Country_code, Country_name, Region_name)] %>%
   .[complete.cases(.)] %>%
   .[, E346 := Country_code] %>%
   rbind(data.table(E346 = c(9998L, 9999L),
                    Country_code = c(9998L, 9999L),
-                   Country_name = c(NA_character_, NA_character_))) %>%
-  rbind(fread("./data-raw/decoders/ABS-country-code-2006-2nd-edn.csv"), use.names = TRUE) %>%
-  rbind(fread("./data-raw/decoders/ABS-country-code-1998-suppl.csv"), use.names = TRUE) %>%
+                   Country_name = c(NA_character_, NA_character_),
+                   Region_name = c(NA_character_, NA_character_))) %>%
+  rbind(fread("./data-raw/decoders/ABS-country-code-2006-2nd-edn.csv"), use.names = TRUE, fill = TRUE) %>%
+  rbind(fread("./data-raw/decoders/ABS-country-code-1998-suppl.csv"), use.names = TRUE, fill = TRUE) %>%
   .[, Country_code := NULL] %>%
+  .[, Country_of_birth := trimws(gsub("[\\(,].*$", "", Country_name))] %>%
+  .[, .(E346, Country_of_birth, Region_name)] %>%
   setkey(E346) %>%
   .[]
 
