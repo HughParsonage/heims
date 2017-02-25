@@ -119,6 +119,11 @@ E386_decoder <-
   dcast.data.table(E386 ~ disability) %>%
   setkey(E386)
 
+E392_decoder <-
+  data.table(E392 = c(0, 7, 5),
+             Max_student_contr = c("Not exempt", "Max Cth contrib.", "Max Cth contr. for nursing"),
+             key = "E392")
+
 E461_decoder <-
   fread("./data-raw/decoders/E461-FOE-decoder.tsv") %>%
   setkey(E461)
@@ -148,6 +153,7 @@ devtools::use_data(E490_decoder,
                    E348_decoder,
                    E358_decoder,
                    E386_decoder,
+                   E392_decoder,
                    E461_decoder,
                    E562_decoder,
                    E922_decoder,
