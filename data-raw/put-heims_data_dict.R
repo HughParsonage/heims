@@ -83,7 +83,13 @@ list(
                 orig_name = "E314",
                 mark_missing = function(v) v %fin% c(19010101, 19000101, 18991230),
                 validate = function(v) is.integer(v) && all(is.Date(v)),
-                valid = function(v) is.Date(v)),
+                valid = function(v) is.Date(v),
+                decoder = function(DT){
+                  stopifnot("E314" %in% names(DT))
+                  E314 <- NULL
+                  DT[, "DOB" := as.Date(paste(E314 %/% 10e3, (E314 %% 10e3) %/% 100, E314 %% 100, sep = "-"))]
+                  DT[, E314 := NULL]
+                }),
   "E315" = list(long_name = "Gender",
                 orig_name = "E315",
                 mark_missing = function(v) v %fin% c("X", "U"),
