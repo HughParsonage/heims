@@ -12,6 +12,8 @@
 \item{\code{validate}}{a single-value function returning \code{TRUE} or \code{FALSE} on vectors which comply with the variable's coding rules.}
 \item{\code{ad_hoc_validation_note}}{If the data dictionary did not cover elements in the file, how the \code{validate} function was altered to suffer them.}
 \item{\code{valid}}{a vectorized function returning \code{TRUE} or \code{FALSE} on vectors which do not comply with the variable's coding rules.}
+\item{\code{decoder}}{A function of the \code{data.table} decoding the variable decoded.}
+\item{\code{post_fst}}{a vectorized function to be performed after fst (when conversion to fst loses information, e.g. integer64).}
 }}
 \source{
 \url{http://heimshelp.education.gov.au/sites/heimshelp/dictionary/pages/data-element-dictionary}
@@ -25,7 +27,7 @@ HEIMS data dictionary
 \details{
 Abbreviations in \code{long_name}:
 \describe{
-\item{\code{amt}}{Amoun}
+\item{\code{amt}}{Amount}
 \item{\code{cd}}{Code}
 \item{\code{det}}{Detail(s)}
 \item{\code{FOE}}{Field of education}
