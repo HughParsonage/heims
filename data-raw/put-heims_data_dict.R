@@ -543,11 +543,22 @@ list(
                 ad_hoc_validation_note = "Two values 'X9998' and 'X1100' were also observed.",
                 valid = function(v) v %fin% c(paste0("X", c(1200:9299, 9999)),
                                               paste0("A", formatC(1:9998, width = 4, flag = "0")),
-                                              "99999")),
+                                              "99999"),
+                decoder = function(DT){
+                  DT[, Campus_postcode := if_else(grepl("^A", E477, perl = TRUE),
+                                                  gsub("^A", "", E477, perl = TRUE),
+                                                  NA_character_)]
+                  DT[, E477 := NULL]
+                  DT
+                }),
+
   "E459" = list(long_name = "Campus_location",
                 orig_name = "E459",
                 mark_missing = never,
-                validate = function(v) !any(is.na(as.logical(v - 1L)))),
+                validate = function(v) is.integer(v) && between(v, 1L, 2L),
+                decoder = data.table(E459 = c(1L, 2L),
+                                     Campus_location = c("Australia", "Offshore"),
+                                     key = "E459")),
 
   "E486" = list(long_name = "Suburb",
                 orig_name = "E486",
