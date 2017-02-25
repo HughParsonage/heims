@@ -320,7 +320,8 @@ list(
                 # http://heimshelp.education.gov.au/sites/heimshelp/2008_data_requirements/2008dataelements/pages/392
                 # Past elements had other values (which were treited in 2013: http://heimshelp.education.gov.au/sites/heimshelp/supporting_information/pages/392)
                 validate = function(v) is.integer(v) && all(v %in% c(0, 1, 2, 3, 4, 6, 7, 5)),
-                valid = function(v) v %fin% c(0, 1, 2, 3, 4, 6, 7, 5)),
+                valid = function(v) v %fin% c(0, 1, 2, 3, 4, 6, 7, 5),
+                decoder = E392_decoder),
   "E394" = list(long_name = "Course_of_study_name",
                 orig_name = "E394",
                 mark_missing = never,
