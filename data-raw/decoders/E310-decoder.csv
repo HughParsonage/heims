@@ -17,9 +17,9 @@ E310,Course_type,Course_type_short
 21,Diploma,Dip
 22,Other undergraduate award course,Other
 30,Enabling course,Enabling
-41,Cross Institutional program for undergraduate courses at home Higher Education Provider,Cross_institutional_prog_undergrad
-42,Cross Institutional program for postgraduate courses at home Higher Education Provider,Cross_institutional_prog_postgrad
-50,Non-award course (including Bridging for overseas trained professionals),Non_award
+41,Cross Institutional program for undergraduate courses at home Higher Education Provider,Xinst. prog undergrad
+42,Cross Institutional program for postgraduate courses at home Higher Education Provider,Xinst. prog postgrad
+50,Non-award course (including Bridging for overseas trained professionals),Non-award
 60,Open Universities Australia undergraduate studies,OUAUndergrad
 61,Open Universities Australia postgraduate studies,OUAPostgrad
 80,VET Graduate Certificate,VETGradCert
