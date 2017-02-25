@@ -28,6 +28,9 @@ NULL
 "E358_decoder"
 
 #' @rdname decoders
+"E386_decoder"
+
+#' @rdname decoders
 "E461_decoder"
 
 #' @rdname decoders
@@ -37,4 +40,9 @@ NULL
 "E562_decoder"
 
 #' @rdname decoders
+"FOE_uniter"
+
+#' @rdname decoders
 "HE_Provider_decoder"
+
+

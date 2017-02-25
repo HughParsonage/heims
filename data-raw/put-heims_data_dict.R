@@ -441,7 +441,7 @@ list(
                 } else {
                   v %fin% c(0, seq.int(10e3, 129999))
                 },
-                decoder = function(DT) decode_using(DT, E461_decoder)),
+                decoder = FOE_uniter[, .(FOE_cd, foegrattan)] %>% setnames(c("FOE_cd", "foegrattan"), c("E461", "FOE_Grattan"))),
   "E462" = list(long_name = "FOE_supp_cd",
                 orig_name = "E462",
                 mark_missing = never,

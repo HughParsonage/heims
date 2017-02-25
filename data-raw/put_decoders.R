@@ -119,6 +119,11 @@ E562_decoder <-
   fread("./data-raw/decoders/E562-decoder.txt") %>%
   setkey(E562)
 
+FOE_uniter <-
+  fread("./data-raw/foegrattan-ittima.csv") %>%
+  setnames("foecode", heims_data_dict$E461$long_name) %>%
+  setkeyv(heims_data_dict$E461$long_name)
+
 devtools::use_data(E490_decoder,
                    E306_decoder, HE_Provider_decoder,
                    E310_decoder,
