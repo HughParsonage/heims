@@ -27,7 +27,10 @@ list(
                 mark_missing = never,
                 validate = function(v) is.integer(v) && all(between(v, 1, 2)),
                 valid = function(v) if (is.integer(v)) between(v, 1, 2) else v %fin% c(1, 2),
-                decoder = function(DT) decode_using(data.table(E095 = c(1L, 2L), Student_course_combn_is_first = c(TRUE, FALSE)))
+                decoder = function(DT) decode_using(DT,
+                                                    data.table(E095 = c(1L, 2L),
+                                                               Student_course_combn_is_first = c(TRUE, FALSE),
+                                                               key = "E095"))
                   ),
   "E300" = list(long_name = "Record_type_cd",
                 orig_name = "E300",
