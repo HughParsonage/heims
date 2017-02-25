@@ -41,6 +41,12 @@ E330_decoder <-
   fread("./data-raw/decoders/E330-decoder.csv") %>%
   setkey(E330)
 
+E331_decoder <-
+  data.table(E331 = c(1, 2, 3),
+             Simult_enrol = c(FALSE, TRUE, TRUE),
+             Major_course = c(NA, TRUE, FALSE),
+             key = "E331")
+
 force_integer <- function(x){
   suppressWarnings(as.integer(x))
 }
@@ -149,6 +155,7 @@ devtools::use_data(E490_decoder,
                    E316_decoder,
                    E329_decoder,
                    E330_decoder,
+                   E331_decoder,
                    E346_decoder,
                    E348_decoder,
                    E358_decoder,
