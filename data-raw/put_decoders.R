@@ -37,6 +37,10 @@ E329_decoder <-
   fread("./data-raw/decoders/E329-ModeAttendance-decoder.tsv") %>%
   setkey(E329)
 
+E330_decoder <-
+  fread("./data-raw/decoders/E330-ModeAttendance-decoder.csv") %>%
+  setkey(E330)
+
 force_integer <- function(x){
   suppressWarnings(as.integer(x))
 }
@@ -134,6 +138,7 @@ devtools::use_data(E490_decoder,
                    E312_decoder,
                    E316_decoder,
                    E329_decoder,
+                   E330_decoder,
                    E346_decoder,
                    E348_decoder,
                    E358_decoder,
