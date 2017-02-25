@@ -238,7 +238,7 @@ list(
                 validate = function(v) is.integer(v) && all(or(between(v, 1, 5),
                                                                v == 8 | v == 9)),
                 valid = function(v) v %fin% c(seq.int(1, 5), 8, 9),
-                decoder = function(DT) decode_using(DT, E358_decoder)),
+                decoder = E358_decoder),
   "E367" = list(long_name = "Prior_studies_exemption",
                 orig_name = "E367",
                 mark_missing = function(v) v == 0,
