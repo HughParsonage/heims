@@ -95,7 +95,11 @@ list(
                 mark_missing = function(v) v %fin% c("X", "U"),
                 validate = function(v) all(v %fin% c("M", "F", "X", "U")),
                 ad_hoc_validation_note = "U was also used in 14 cases.",
-                valid = function(v) v %fin% c("M", "F", "X", "U")),
+                valid = function(v) v %fin% c("M", "F", "X", "U"),
+                decoder = function(DT){
+                  DT[, Gender := if_else(x %fin% c("F", "M"), x, "M")]
+                  DT[, "E315" := NULL]
+                }),
   "E316" = list(long_name = "ATSI_cd",
                 orig_name = "E316",
                 mark_missing = function(v) v == 9,
