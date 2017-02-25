@@ -6,6 +6,11 @@ library(magrittr)
 # In case library(fastmatch) in effect
 coalesce <- function(...) dplyr::coalesce(...)
 
+E089_decoder <-
+  data.table(E089 = c(1L, 2L),
+             is_1st_completion_record = c(TRUE, FALSE),
+             key = "E089")
+
 E490_decoder <-
   data.table::fread("./data-raw/decoders/E490-decoders.txt")
 
@@ -148,7 +153,8 @@ E922_decoder <-
              Commencing_student = c(TRUE, FALSE),
              key = "E922")
 
-devtools::use_data(E490_decoder,
+devtools::use_data(E089_decoder,
+                   E490_decoder,
                    E306_decoder, HE_Provider_decoder,
                    E310_decoder,
                    E312_decoder,

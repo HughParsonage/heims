@@ -8,7 +8,8 @@ list(
   "E089" = list(long_name = "Initial_student_record_ind",
                 orig_name = "E089",
                 validate = function(v) is.integer(v) && all(between(v, 1, 2)),
-                valid = function(v) if (is.integer(v)) between(v, 0, 1) else v %fin% c(0, 1)),
+                valid = function(v) if (is.integer(v)) between(v, 0, 1) else v %fin% c(0, 1),
+                decoder = E089_decoder),
 
   "E091" = list(long_name = "Semester_1",
                 orig_name = "E091",
