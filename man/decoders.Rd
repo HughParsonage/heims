@@ -19,6 +19,7 @@
 \alias{E392_decoder}
 \alias{E461_decoder}
 \alias{E463_decoder}
+\alias{E464_decoder}
 \alias{E490_decoder}
 \alias{E562_decoder}
 \alias{E922_decoder}
@@ -58,6 +59,8 @@ E392_decoder
 E461_decoder
 
 E463_decoder
+
+E464_decoder
 
 E490_decoder
 
