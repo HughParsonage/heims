@@ -90,6 +90,9 @@ list(
                   E314 <- NULL
                   DT[, "DOB" := as.Date(paste(E314 %/% 10e3, (E314 %% 10e3) %/% 100, E314 %% 100, sep = "-"))]
                   DT[, E314 := NULL]
+                },
+                post_fst = function(DT){
+                  setattr(DT[["DOB"]], "class", "Date")
                 }),
   "E315" = list(long_name = "Gender",
                 orig_name = "E315",
@@ -595,12 +598,17 @@ list(
                 orig_name = "E488",
                 mark_missing = function(v) v == "00",
                 validate = function(v) is.character(v),
-                post_fst = as.integer64),
+                post_fst = function(DT){
+                  setattr(DT[["CHESSN"]], "class", "integer64")
+                }),
   "E489" = list(long_name = "Census_date",
                 orig_name = "E489",
                 mark_missing = never,
                 validate = function(v) all(is.Date(v)),
-                valid = function(v) is.Date(v)),
+                valid = function(v) is.Date(v),
+                post_fst = function(DT){
+                  setattr(DT[["Census_date"]], "class", "Date")
+                }),
   "E490" = list(long_name = "Student_status_cd",
                 orig_name = "E490",
                 mark_missing = never,
@@ -637,7 +645,7 @@ list(
                                               v == 90000))),
                 decoder = function(DT){
                   Edu_level <-
-                    data.table(E493 = c(2, 3, 4, 5, 7, 8, 9, 10, 11) * 10e3,
+                    data.table(E493 = as.integer(c(2, 3, 4, 5, 7, 8, 9, 10, 11) * 10e3),
                                Max_edu_level_ante = c("Complete Postgrad",
                                                       "Complete Bachelor",
                                                       "Complete Sub-degree",
@@ -650,8 +658,10 @@ list(
                                key = "E493")
 
                   DT %>%
-                    .[, Year_Max_edu_level_ante := if_else(E493 > 10000, E493 %% 10000L, NA_integer_)] %>%
+                    .[, Year_Max_edu_level_ante := if_else(E493 > 19999L, E493 %% 10000L, NA_integer_)] %>%
+                    setkeyv("E493") %>%
                     Edu_level[., roll = -Inf] %>%
+                    setkey(NULL) %>%
                     .[]
                 }),
   "E495" = list(long_name = "Indic_student_contr_amt",
