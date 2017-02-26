@@ -44,5 +44,20 @@ test_that("Given the completions 2015 file, won't error", {
   decode_heims(copy(raw_enrol2015))
 })
 
+test_that("Given the course 2015 file, won't error", {
+  file <- "~/Students/course2015/course2015.csv"
+  skip_if_not(file.exists(file))
+  raw_course2015 <- fread(file, na.strings = c("", "NA", "?", ".", "*", "**"))
+
+  decode_heims(copy(raw_course2015))
+})
+
+test_that("Given the load 2015 file, won't error", {
+  file <- "~/Students/load2015/load2015.csv"
+  skip_if_not(file.exists(file))
+  raw_course2015 <- fread(file, na.strings = c("", "NA", "?", ".", "*", "**"))
+
+  decode_heims(copy(raw_course2015))
+})
 
 
