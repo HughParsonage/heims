@@ -599,8 +599,9 @@ list(
   "E490" = list(long_name = "Student_status_cd",
                 orig_name = "E490",
                 mark_missing = never,
-                validate = function(v) all(v %fin% E490_decoder[["CODE"]]),
-                valid = function(v) v %fin% E490_decoder[["CODE"]]),
+                validate = function(v) all(v %fin% E490_decoder[["E490"]]),
+                valid = function(v) v %fin% E490_decoder[["E490"]],
+                decoder = E490_decoder),
   # Ittima email 2017-02-07
   "U490" = list(long_name = "Student_status_cd_abbrev",
                 orig_name = "U490",

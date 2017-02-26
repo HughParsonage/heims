@@ -11,9 +11,6 @@ E089_decoder <-
              is_1st_completion_record = c(TRUE, FALSE),
              key = "E089")
 
-E490_decoder <-
-  data.table::fread("./data-raw/decoders/E490-decoders.txt")
-
 E306_decoder <-
   HE_Provider_decoder <-
   fread("./data-raw/decoders/Providers-by-code-Appendix-A.csv") %>%
@@ -158,6 +155,19 @@ E463_decoder <-
   select(E463 = FOE_cd,
          Specialization = foename) %>%
   setkey(E463)
+
+# Abbreviated because actuals are ridic
+E490_decoder <-
+  data.table::fread("./data-raw/decoders/E490-decoders.txt") %>%
+  rename(E490 = CODE,
+         Student_status_cd = Meaning) %>%
+  mutate(Paid_upfront = if_else(grepl("^Paid( the)? full", Student_status_cd, perl = TRUE),
+                                TRUE,
+                                if_else(grepl("^Deferred", Student_status_cd, perl = TRUE),
+                                        FALSE,
+                                        NA))) %>%
+  select(E490, Paid_upfront) %>%
+  setkey(E490)
 
 E562_decoder <-
   fread("./data-raw/decoders/E562-decoder.txt") %>%
