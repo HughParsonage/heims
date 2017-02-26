@@ -239,7 +239,9 @@ list(
                 orig_name = "E355",
                 mark_missing = never,
                 validate = function(v) is.integer(v) && all(between(v, 1, 5)),
-                valid = function(v) v %fin% seq.int(1, 5)),
+                valid = function(v) v %fin% seq.int(1, 5),
+                decoder = E355_decoder),
+
   "E358" = list(long_name = "CitizenResidentInd",
                 orig_name = "E358",
                 mark_missing = function(v) v == 9,

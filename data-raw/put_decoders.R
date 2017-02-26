@@ -90,6 +90,10 @@ E348_decoder <-
   fread("./data-raw/decoders/E348-decoder.csv", na.strings = "") %>%
   setkey(E348)
 
+E355_decoder <-
+  fread("./data-raw/decoders/E355-decoder.csv") %>%
+  setkey(E355)
+
 E358_decoder <-
   fread("./data-raw/decoders/E358-decoder.txt") %>%
   setkey(E358)
@@ -177,6 +181,7 @@ devtools::use_data(E089_decoder,
                    E331_decoder,
                    E346_decoder,
                    E348_decoder,
+                   E355_decoder,
                    E358_decoder,
                    E386_decoder,
                    E392_decoder,
