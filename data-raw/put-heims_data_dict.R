@@ -601,7 +601,8 @@ list(
   "E488" = list(long_name = "CHESSN",
                 orig_name = "E488",
                 mark_missing = function(v) v == "00",
-                validate = function(v) is.character(v),
+                ad_hoc_validation_note = "Treat as number, because it is. Import Z's as NA (only value that requires char).",
+                validate = function(v) is.integer(v) || is.integer64(v),
                 post_fst = function(DT){
                   setattr(DT[["CHESSN"]], "class", "integer64")
                 }),
