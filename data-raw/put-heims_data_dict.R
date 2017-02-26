@@ -1087,10 +1087,10 @@ list(
                                                       "OS")),
   "E997" = list(long_name = "Participation_age",
                 orig_name = "E997",
-                mark_missing = function(v) v %fin% c(0, 2) | !between(v, 11, 99),
+                mark_missing = function(v) v %fin% c(0, 2) | !between(v, 0, 99),
                 ad_hoc_validation_note = "Some ages 115 and 11: guessing 11 is genuine.",
-                validate = function(v) is.integer(v) && all(v %fin% c(0, 2, seq.int(11, 115)), na.rm = TRUE),
-                valid = function(v) v %fin% c(0, 2, seq.int(11, 115)))
+                validate = function(v) is.integer(v) && all(v %fin% c(0, 2, seq.int(0, 115)), na.rm = TRUE),
+                valid = function(v) v %fin% c(0, 2, seq.int(0, 115)))
 ) -> heims_data_dict
 
 devtools::use_data(heims_data_dict, overwrite = TRUE)
