@@ -145,7 +145,16 @@ list(
                 orig_name = "E328",
                 mark_missing = never,
                 validate = function(v) is.integer(v) && all(is.YearMonth(v)),
-                valid = function(v) is.YearMonth(v)),
+                valid = function(v) is.YearMonth(v),
+                decoder = function(DT){
+                  stopifnot("E328" %in% names(DT))
+                  E314 <- NULL
+                  DT[, "Course_commencement_date" := as.Date(paste0(E328 %/% 100, "-", E328 %% 100, "-01"))]
+                  DT[, E328 := NULL]
+                },
+                post_fst = function(DT){
+                  setattr(DT[["Course_commencement_date"]], "class", "Date")
+                }),
   "E329" = list(long_name = "Mode_of_attendance",
                 orig_name = "E329",
                 mark_missing = never,
@@ -601,6 +610,12 @@ list(
                 mark_missing = never,
                 validate = function(v) all(is.Date(v)),
                 valid = function(v) is.Date(v),
+                decoder = function(DT){
+                  stopifnot("E489" %in% names(DT))
+                  E314 <- NULL
+                  DT[, "Census_date" := as.Date(paste(E489 %/% 10e3, (E489 %% 10e3) %/% 100, E489 %% 100, sep = "-"))]
+                  DT[, E489 := NULL]
+                },
                 post_fst = function(DT){
                   setattr(DT[["Census_date"]], "class", "Date")
                 }),
@@ -747,7 +762,12 @@ list(
                 orig_name = "E534",
                 mark_missing = never,
                 validate = function(v) is.integer(v) && is.YearMonth(v),
-                valid = function(v) is.YearMonth(v)),
+                valid = function(v) is.YearMonth(v),
+                decoder = function(DT){
+                  DT[, Course_start_date := as.Date(paste0(E534 %/% 100, "-", E534 %% 100, "-01"))]
+                  DT[, E534 := NULL]
+                  DT
+                }),
   "E536" = list(long_name = "Course_fee_type",
                 orig_name = "E536",
                 mark_missing = function(v) v == 0L,
