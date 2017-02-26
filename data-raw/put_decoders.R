@@ -156,6 +156,14 @@ E463_decoder <-
          Specialization = foename) %>%
   setkey(E463)
 
+E464_decoder <-
+  FOE_uniter %>%
+  copy %>%
+  select(E464 = FOE_cd,
+         Discipline = foename) %>%
+  setkey(E464)
+
+
 # Abbreviated because actuals are ridic
 E490_decoder <-
   data.table::fread("./data-raw/decoders/E490-decoders.txt") %>%
@@ -197,6 +205,7 @@ devtools::use_data(E089_decoder,
                    E392_decoder,
                    E461_decoder,
                    E463_decoder,
+                   E464_decoder,
                    E562_decoder,
                    E922_decoder,
                    FOE_uniter,
