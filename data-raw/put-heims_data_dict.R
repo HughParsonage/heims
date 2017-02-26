@@ -51,7 +51,7 @@ list(
                 mark_missing = never,
                 validate = always,
                 valid = every),
-  "E308" = list(long_name = "Course_name",
+  "E308" = list(long_name = "Course_name_inclMajor",
                 orig_name = "E308",
                 mark_missing = never,
                 validate = always,
