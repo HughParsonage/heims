@@ -1029,9 +1029,9 @@ list(
   "E913" = list(long_name = "Age_EOY",
                 orig_name = "E913",
                 ad_hoc_validation_note = "High ages most likely due to DOBs",
-                mark_missing = function(v) v == 0 | !between(v, 12, 115),
-                validate = function(v) is.integer(v) && all(v == 0 | between(v, 12, 115)),
-                valid = function(v) v %fin% c(0, seq.int(12, 115))),
+                mark_missing = function(v) v == 0 | !between(v, 0, 115),
+                validate = function(v) is.integer(v) && all(v == 0 | between(v, 0, 115)),
+                valid = function(v) v %fin% c(0, seq.int(0, 115))),
 
   "E919" = list(long_name = "State_permanent_home",
                 orig_name = "E919",
