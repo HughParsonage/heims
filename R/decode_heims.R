@@ -1,16 +1,25 @@
 #' Decode HEIMS elements
 #' @param DT A \code{data.table} with the original column names.
+#' @param show_progress Display the progress of the function (which is likely to be slow).
 #' @return DT with the values decoded and the names renamed.
 #' @export decode_heims
 
-decode_heims <- function(DT){
+decode_heims <- function(DT, show_progress = FALSE){
   orig_key <- key(DT)
   `_order` <- NULL
   DT[, `_order` := seq_len(.N)]
   DTnoms <- names(DT)
 
-  # Reverse to preserve (somewhat) colorder
+  if (show_progress){
+    progress <- 0
+    n_names <- length(DTnoms)
+  }
+
   for (orig in DTnoms){
+    if (show_progress){
+      progress <- progress + 1
+      cat(orig, "\t\t", Sys.time, "\t", progress, "/", n_names, "\n", sep = "")
+    }
     if (orig %in% names(heims_data_dict)){
       dict_entry <- heims_data_dict[[orig]]
 

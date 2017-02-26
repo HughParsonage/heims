@@ -4,10 +4,12 @@
 \alias{decode_heims}
 \title{Decode HEIMS elements}
 \usage{
-decode_heims(DT)
+decode_heims(DT, show_progress = FALSE)
 }
 \arguments{
 \item{DT}{A \code{data.table} with the original column names.}
+
+\item{show_progress}{Display the progress of the function (which is likely to be slow).}
 }
 \value{
 DT with the values decoded and the names renamed.
