@@ -177,6 +177,10 @@ E490_decoder <-
   select(E490, Paid_upfront) %>%
   setkey(E490)
 
+U490_decoder <-
+  fread("./data-raw/decoders/U490-decoder.tsv") %>%
+  setkey(U490)
+
 E562_decoder <-
   fread("./data-raw/decoders/E562-decoder.txt") %>%
   setkey(E562)
@@ -189,7 +193,6 @@ E922_decoder <-
              key = "E922")
 
 devtools::use_data(E089_decoder,
-                   E490_decoder,
                    E306_decoder, HE_Provider_decoder,
                    E310_decoder,
                    E312_decoder,
@@ -206,6 +209,8 @@ devtools::use_data(E089_decoder,
                    E461_decoder,
                    E463_decoder,
                    E464_decoder,
+                   E490_decoder,
+                   U490_decoder,
                    E562_decoder,
                    E922_decoder,
                    FOE_uniter,
