@@ -50,7 +50,10 @@ decode_heims <- function(DT){
   rename_heims(DT)
 
   setcolorder(DT, names(DT)[order(vapply(DT, uniqueN, integer(1)))])
-  setcolorder(DT, c("CHESSN", "HE_Provider_name", "Student_id", setdiff(names(DT), c("CHESSN", "HE_Provider_name", "Student_id"))))
+  setcolorder(DT, c(intersect(names(DT),
+                              c("CHESSN", "HE_Provider_name", "Student_id")),
+                    setdiff(names(DT),
+                            c("CHESSN", "HE_Provider_name", "Student_id"))))
 
   setkeyv(DT, orig_key)
   DT %>%
