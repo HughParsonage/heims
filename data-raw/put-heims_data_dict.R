@@ -101,11 +101,14 @@ list(
                   DT[, Gender := coalesce(E315, "M")]
                   DT[, "E315" := NULL]
                 }),
+
   "E316" = list(long_name = "ATSI_cd",
                 orig_name = "E316",
                 mark_missing = function(v) v == 9,
                 validate = function(v) is.integer(v) && all(v %in% c(2:5, 9)),
-                valid = function(v) v %fin% c(2:5, 9)),
+                valid = function(v) v %fin% c(2:5, 9),
+                decoder = E316_decoder),
+
   "E319" = list(long_name = "Term_location",
                 orig_name = "E319",
                 mark_missing = function(v) substr(v, 2, 5) == "9999",
