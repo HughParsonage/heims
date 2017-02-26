@@ -4,23 +4,55 @@
 #' @export decode_heims
 
 decode_heims <- function(DT){
+  orig_key <- key(DT)
+  `_order` <- NULL
   DT[, `_order` := seq_len(.N)]
   DTnoms <- names(DT)
+
+  # Reverse to preserve (somewhat) colorder
   for (orig in DTnoms){
-    dict_entry <- heims_data_dict[[orig]]
-    if ("decoder" %in% names(dict_entry)){
-      if (is.data.table(dict_entry[["decoder"]])){
-        DT_decoder <- dict_entry[["decoder"]]
-        setkeyv(DT, key(DT_decoder))
-        DT <- DT_decoder[DT, roll=TRUE]
-      } else {
-        if (is.function(dict_entry[["decoder"]])){
-          decoder_fn <- dict_entry[["decoder"]]
-          DT <- decoder_fn(DT)
+    if (orig %in% names(heims_data_dict)){
+      dict_entry <- heims_data_dict[[orig]]
+
+      origcol_not_na <-
+        DT[[orig]]
+
+      origcol_not_na <- origcol_not_na[!is.na(origcol_not_na)]
+
+      if (length(origcol_not_na) > 0 && !dict_entry$validate(origcol_not_na)){
+        stop(orig, " was not validated.")
+      }
+
+      if ("decoder" %in% names(dict_entry)){
+        if (is.data.table(dict_entry[["decoder"]])){
+          DT_decoder <- dict_entry[["decoder"]]
+          setkeyv(DT, key(DT_decoder))
+          DT <- DT_decoder[DT, roll=TRUE]
+        } else {
+          if (is.function(dict_entry[["decoder"]])){
+            decoder_fn <- dict_entry[["decoder"]]
+            DT <- decoder_fn(DT)
+          }
         }
+        # Drop the original column
+        if (orig %in% names(DT)){
+          DT[, (orig) := NULL]
+        }
+      } else {
+        if ("mark_missing" %in% names(dict_entry)){
+          DT[, (orig) := dplyr::na_if(DT[[orig]], dict_entry$mark_missing(DT[[orig]]))]
+        }
+
       }
     }
   }
+
+  rename_heims(DT)
+
+  setcolorder(DT, names(DT)[order(vapply(DT, uniqueN, integer(1)))])
+  setcolorder(DT, c("CHESSN", "HE_Provider_name", "Student_id", setdiff(names(DT), c("CHESSN", "HE_Provider_name", "Student_id"))))
+
+  setkeyv(DT, orig_key)
   DT %>%
     setorderv("_order") %>%
     .[, `_order` := NULL] %>%
