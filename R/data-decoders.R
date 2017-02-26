@@ -61,6 +61,9 @@ NULL
 "U490_decoder"
 
 #' @rdname decoders
+"E551_decoder"
+
+#' @rdname decoders
 "E562_decoder"
 
 #' @rdname decoders

@@ -181,6 +181,10 @@ U490_decoder <-
   fread("./data-raw/decoders/U490-decoder.tsv") %>%
   setkey(U490)
 
+E551_decoder <-
+  fread("./data-raw/decoders/E551-decoder.tsv") %>%
+  setkey(E551)
+
 E562_decoder <-
   fread("./data-raw/decoders/E562-decoder.txt") %>%
   setkey(E562)
@@ -211,6 +215,7 @@ devtools::use_data(E089_decoder,
                    E464_decoder,
                    E490_decoder,
                    U490_decoder,
+                   E551_decoder,
                    E562_decoder,
                    E922_decoder,
                    FOE_uniter,

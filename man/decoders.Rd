@@ -22,6 +22,7 @@
 \alias{E464_decoder}
 \alias{E490_decoder}
 \alias{U490_decoder}
+\alias{E551_decoder}
 \alias{E562_decoder}
 \alias{E922_decoder}
 \alias{FOE_uniter}
@@ -66,6 +67,8 @@ E464_decoder
 E490_decoder
 
 U490_decoder
+
+E551_decoder
 
 E562_decoder
 

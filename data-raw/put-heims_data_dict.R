@@ -761,7 +761,9 @@ list(
                 orig_name = "E551",
                 mark_missing = never,
                 validate = function(v) is.integer(v) && all(between(v, 1, 3)),
-                valid = function(v) v %fin% seq.int(1, 3)),
+                valid = function(v) v %fin% seq.int(1, 3),
+                decoder = E551_decoder),
+
   "E558" = list(long_name = "HELP_debt_amt",
                 orig_name = "E558",
                 mark_missing = never,
