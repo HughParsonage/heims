@@ -1,3 +1,4 @@
+library(magrittr)
 library(heims)
 library(fastmatch)
 library(data.table)
@@ -624,7 +625,26 @@ list(
                                        and(between(v %/% 10000, 2, 11),
                                            or(or(between(v %% 10000, 1900, 2017),
                                                  (v %% 10000) %fin% c(0, 9999)),
-                                              v == 90000)))),
+                                              v == 90000))),
+                decoder = function(DT){
+                  Edu_level <-
+                    data.table(E493 = c(2, 3, 4, 5, 7, 8, 9, 10, 11) * 10e3,
+                               Max_edu_level_ante = c("Complete Postgrad",
+                                                      "Complete Bachelor",
+                                                      "Complete Sub-degree",
+                                                      "Incomplete HE course",
+                                                      "Complete high school",
+                                                      "Other qualification",
+                                                      "No prior edu",
+                                                      "Complete VET",
+                                                      "Incomplete VET"),
+                               key = "E493")
+
+                  DT %>%
+                    .[, Year_Max_edu_level_ante := if_else(E493 > 10000, E493 %% 10000L, NA_integer_)] %>%
+                    Edu_level[., roll = -Inf] %>%
+                    .[]
+                }),
   "E495" = list(long_name = "Indic_student_contr_amt",
                 orig_name = "E495",
                 mark_missing = function(v) v == 99999L,
@@ -655,11 +675,12 @@ list(
   "E500" = list(long_name = "Overseas_student_fee_",
                 orig_name = "E500",
                 mark_missing = never,
-                validate = function(v) is.integer(v) && all(between(v, 0, 99999)),
+                validate = function(v) is.integer(v) && all(between(v, 0, 999999)),
+                ad_hoc_validation_note = "Some fees exceed 100,000 (not by much)",
                 valid = function(v) if (is.integer(v)){
-                  between(v, 0, 99999)
+                  between(v, 0, 999999)
                 } else {
-                  v %fin% seq.int(0, 99999)
+                  v %fin% seq.int(0, 999999)
                 }),
 
   "E521" = list(long_name = "OS_HELP_Study_period_start_date",
@@ -846,7 +867,22 @@ list(
                                                                       40, 41, 42, 43, 44, 45, 46)),
                 valid = function(v) v %fin% c(c(1, 49, 98, 99, 59),
                                               20, 21, 22, 23, 24, 25, 26,
-                                              40, 41, 42, 43, 44, 45, 46)),
+                                              40, 41, 42, 43, 44, 45, 46),
+                decoder = function(DT){
+                  edu_decoder <- data.table(d1 = c(0:6),
+                                            Education_parent1 = c("Postgrad",
+                                                                  "Bachelor",
+                                                                  "Other HE",
+                                                                  "Year 12",
+                                                                  "Not Year 12",
+                                                                  "Year 10",
+                                                                  "Not Year 10"),
+                                            key = "d1")
+                  DT[, d1 := E573 %% 10]
+                  DT <- merge(DT, edu_decoder, by = "d1", all.x = TRUE)
+                  DT[, d1 := NULL]
+                  DT
+                }),
   "E574" = list(long_name = "Education_parent2",
                 orig_name = "E574",
                 mark_missing = function(v) v %in% c(1, 49, 98, 99, 59),
@@ -855,7 +891,22 @@ list(
                                                                       40, 41, 42, 43, 44, 45, 46)),
                 valid = function(v) v %fin% c(c(1, 49, 98, 99, 59),
                                               20, 21, 22, 23, 24, 25, 26,
-                                              40, 41, 42, 43, 44, 45, 46)),
+                                              40, 41, 42, 43, 44, 45, 46),
+                decoder = function(DT){
+                  edu_decoder <- data.table(d1 = c(0:6),
+                                            Education_parent2 = c("Postgrad",
+                                                                  "Bachelor",
+                                                                  "Other HE",
+                                                                  "Year 12",
+                                                                  "Not Year 12",
+                                                                  "Year 10",
+                                                                  "Not Year 10"),
+                                            key = "d1")
+                  DT[, d1 := E574 %% 10]
+                  DT <- merge(DT, edu_decoder, by = "d1", all.x = TRUE)
+                  DT[, d1 := NULL]
+                  DT
+                }),
   "E578" = list(long_name = "Completion_percentage",
                 orig_name = "E578",
                 mark_missing = function(v) v == 100L,
@@ -937,11 +988,12 @@ list(
                 validate = function(v) all(or(v %in% c(9999, 10000),
                                               between(v, 20000, 29999))),
                 valid = function(v) v %fin% c(9999, 10000, seq.int(20e3, 29999))),
-  "E913" = list(long_name = "Age",
+  "E913" = list(long_name = "Age_EOY",
                 orig_name = "E913",
-                mark_missing = function(v) v == 0,
-                validate = function(v) is.integer(v) && all(v == 0 | between(v, 12, 99)),
-                valid = function(v) v %fin% c(0, seq.int(12, 99))),
+                ad_hoc_validation_note = "High ages most likely due to DOBs",
+                mark_missing = function(v) v == 0 | !between(v, 12, 115),
+                validate = function(v) is.integer(v) && all(v == 0 | between(v, 12, 115)),
+                valid = function(v) v %fin% c(0, seq.int(12, 115))),
 
   "E919" = list(long_name = "State_permanent_home",
                 orig_name = "E919",
@@ -997,9 +1049,10 @@ list(
                                                       "OS")),
   "E997" = list(long_name = "Participation_age",
                 orig_name = "E997",
-                mark_missing = function(v) v == 0,
-                validate = function(v) is.integer(v) && all(v == 0 | between(v, 12, 99), na.rm = TRUE),
-                valid = function(v) v %fin% c(0, seq.int(12, 99)))
+                mark_missing = function(v) v %fin% c(0, 2) | !between(v, 11, 99),
+                ad_hoc_validation_note = "Some ages 115 and 11: guessing 11 is genuine.",
+                validate = function(v) is.integer(v) && all(v %fin% c(0, 2, seq.int(11, 115)), na.rm = TRUE),
+                valid = function(v) v %fin% c(0, 2, seq.int(11, 115)))
 ) -> heims_data_dict
 
 devtools::use_data(heims_data_dict, overwrite = TRUE)

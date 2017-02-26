@@ -127,7 +127,7 @@ E386_decoder <-
                    disability = paste0(c("any", "hearing", "learning", "mobility", "visual", "medical", "other", "wants_services"), "_disability")),
         by = "digits") %>%
   merge(data.table(v = 0:2,
-                   answer = c(NA, FALSE, TRUE)), by = "v") %>%
+                   answer = c(NA, TRUE, FALSE)), by = "v") %>%
   filter(nth_digit_of(E386, n = 9 - digits) == v) %>%
   select(E386, disability, answer) %>%
   unique %>%

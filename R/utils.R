@@ -65,6 +65,10 @@ and <- function(...) magrittr::and(...)
 if_else <- function(...) dplyr::if_else(...)
 
 #' @rdname utilities
+#' @export coalesce
+coalesce <- function(...) dplyr::coalesce(...)
+
+#' @rdname utilities
 #' @export %fin%
 #' @param a Element suspected to be in \code{tbl}
 #' @param tbl A lookup table.

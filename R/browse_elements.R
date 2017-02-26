@@ -7,6 +7,8 @@ browse_elements <- function(pattern){
     pattern <- paste0("(", paste0(pattern, collapse = ")|("), ")")
   }
 
+  long_name <- NULL
+
   lapply(heims_data_dict, function(x){
     data.table(long_name = unlist(x[names(x) == "long_name"]),
                orig_name = unlist(x[names(x) == "orig_name"]))

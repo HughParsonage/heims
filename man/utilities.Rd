@@ -14,6 +14,7 @@
 \alias{or}
 \alias{and}
 \alias{if_else}
+\alias{coalesce}
 \alias{\%fin\%}
 \alias{rm_leading_0s}
 \alias{as.integer64}
@@ -42,6 +43,8 @@ or(...)
 and(...)
 
 if_else(...)
+
+coalesce(...)
 
 a \%fin\% tbl
 

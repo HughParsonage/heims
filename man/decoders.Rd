@@ -3,23 +3,31 @@
 \docType{data}
 \name{decoders}
 \alias{decoders}
+\alias{E089_decoder}
 \alias{E306_decoder}
 \alias{E310_decoder}
 \alias{E312_decoder}
 \alias{E316_decoder}
 \alias{E329_decoder}
+\alias{E330_decoder}
+\alias{E331_decoder}
 \alias{E346_decoder}
 \alias{E348_decoder}
 \alias{E358_decoder}
 \alias{E386_decoder}
+\alias{E392_decoder}
 \alias{E461_decoder}
+\alias{E463_decoder}
 \alias{E490_decoder}
 \alias{E562_decoder}
+\alias{E922_decoder}
 \alias{FOE_uniter}
 \alias{HE_Provider_decoder}
 \title{Decoders}
-\format{An object of class \code{data.table} (inherits from \code{data.frame}) with 635 rows and 3 columns.}
+\format{An object of class \code{data.table} (inherits from \code{data.frame}) with 2 rows and 2 columns.}
 \usage{
+E089_decoder
+
 E306_decoder
 
 E310_decoder
@@ -30,6 +38,10 @@ E316_decoder
 
 E329_decoder
 
+E330_decoder
+
+E331_decoder
+
 E346_decoder
 
 E348_decoder
@@ -38,11 +50,17 @@ E358_decoder
 
 E386_decoder
 
+E392_decoder
+
 E461_decoder
+
+E463_decoder
 
 E490_decoder
 
 E562_decoder
+
+E922_decoder
 
 FOE_uniter
 

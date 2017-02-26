@@ -8,7 +8,8 @@ Imports:
   data.table,
   dplyr,
   fastmatch,
-  magrittr
+  magrittr,
+  bit64
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

@@ -4,6 +4,9 @@
 NULL
 
 #' @rdname decoders
+"E089_decoder"
+
+#' @rdname decoders
 "E306_decoder"
 
 #' @rdname decoders
@@ -19,6 +22,12 @@ NULL
 "E329_decoder"
 
 #' @rdname decoders
+"E330_decoder"
+
+#' @rdname decoders
+"E331_decoder"
+
+#' @rdname decoders
 "E346_decoder"
 
 #' @rdname decoders
@@ -31,13 +40,22 @@ NULL
 "E386_decoder"
 
 #' @rdname decoders
+"E392_decoder"
+
+#' @rdname decoders
 "E461_decoder"
+
+#' @rdname decoders
+"E463_decoder"
 
 #' @rdname decoders
 "E490_decoder"
 
 #' @rdname decoders
 "E562_decoder"
+
+#' @rdname decoders
+"E922_decoder"
 
 #' @rdname decoders
 "FOE_uniter"
