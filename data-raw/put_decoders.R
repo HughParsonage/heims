@@ -2,6 +2,7 @@ library(data.table)
 library(dplyr)
 library(dtplyr)
 library(magrittr)
+library(heims)
 
 # In case library(fastmatch) in effect
 coalesce <- function(...) dplyr::coalesce(...)
