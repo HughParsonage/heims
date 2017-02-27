@@ -457,13 +457,18 @@ list(
                  ad_hoc_validation_note = "Not present in data dictionary but inferred due to only non-missing values being Y, N.",
                  valid = function(v) v %fin% c("N", "Y"),
                  decoder = data.table(E446A = c("N", "Y"), Variation_reason_cd_init = c(FALSE, TRUE), key = "E446A")),
-  "E455" = list(long_name = "Combined_course_study_ind",
+  "E455" = list(long_name = "is_Combined_course",
                 orig_name = "E455",
                 mark_missing = never,
                 validate = function(v) OR(is.logical(v),
                                           AND(is.integer(v),
                                               all(between(v, 0, 1)))),
-                valid = function(v) v == 0 | v == 1),
+                valid = function(v) v == 0 | v == 1,
+                decoder = function(DT){
+                  DT[, is_Combined_course := as.logical(E455)]
+                  DT[, E455 := NULL]
+                  DT
+                }),
   "E460" = list(long_name = "Prev_RTS_EFTSL",
                 orig_name = "E460",
                 mark_missing = never,
