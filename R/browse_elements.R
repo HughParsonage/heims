@@ -1,5 +1,5 @@
 #' Browse elements for description
-#' @param pattern A perl expression or expressions to match in the long name as in \code{\link{heims_data_dict}}.
+#' @param pattern A case-insensitive perl expression or expressions to match in the long name as in \code{\link{heims_data_dict}}.
 #' @export browse_elements
 
 browse_elements <- function(pattern){
@@ -14,5 +14,5 @@ browse_elements <- function(pattern){
                orig_name = unlist(x[names(x) == "orig_name"]))
   }) %>%
     rbindlist(use.names = TRUE, fill = TRUE) %>%
-    .[grepl(pattern, long_name, perl = TRUE)]
+    .[grepl(pattern, long_name, perl = TRUE, ignore.case = TRUE)]
 }

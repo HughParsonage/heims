@@ -7,7 +7,7 @@
 browse_elements(pattern)
 }
 \arguments{
-\item{pattern}{A perl expression or expressions to match in the long name as in \code{\link{heims_data_dict}}.}
+\item{pattern}{A case-insensitive perl expression or expressions to match in the long name as in \code{\link{heims_data_dict}}.}
 }
 \description{
 Browse elements for description
