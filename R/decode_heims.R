@@ -49,7 +49,19 @@ decode_heims <- function(DT, show_progress = FALSE){
         }
       } else {
         if ("mark_missing" %in% names(dict_entry)){
-          DT[, (orig) := dplyr::na_if(DT[[orig]], dict_entry$mark_missing(DT[[orig]]))]
+          switch(class(DT[[orig]]),
+                 "logical" = {
+                   DT[, (orig) := if_else(dict_entry$mark_missing(DT[[orig]]), NA, DT[[orig]])]
+                 },
+                 "integer" = {
+                   DT[, (orig) := if_else(dict_entry$mark_missing(DT[[orig]]), NA_integer_, DT[[orig]])]
+                 },
+                 "numeric" = {
+                   DT[, (orig) := if_else(dict_entry$mark_missing(DT[[orig]]), NA_real_, DT[[orig]])]
+                 },
+                 "character" = {
+                   DT[, (orig) := if_else(dict_entry$mark_missing(DT[[orig]]), NA_character_, DT[[orig]])]
+                 })
         }
 
       }
