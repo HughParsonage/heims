@@ -144,7 +144,8 @@ list(
                 mark_missing = function(v) v %fin% c(2L, 3L, 99L),
                 ad_hoc_validation_note = "2 & 3 not in dicts but in file.",
                 validate = function(v) is.integer(v) && all(v %fin% c(1L, 2L, 3L, 31L, 33L, 34L, 36L, 37L, 29L, 99L), na.rm = TRUE),
-                valid = function(v) v %fin% c(1L, 2L, 3L, 31L, 33L, 34L, 36L, 37L, 29L, 99L)),
+                valid = function(v) v %fin% c(1L, 2L, 3L, 31L, 33L, 34L, 36L, 37L, 29L, 99L),
+                decoder = E327_decoder),
 
   "E328" = list(long_name = "Course_commencement_date",
                 orig_name = "E328",

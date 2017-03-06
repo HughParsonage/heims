@@ -37,6 +37,10 @@ E316_decoder <-
   fread("./data-raw/decoders/E316-decoder.csv") %>%
   setkey(E316)
 
+E327_decoder <-
+  fread("./data-raw/decoders/E327_decoder.csv") %>%
+  setkey(E327)
+
 E329_decoder <-
   fread("./data-raw/decoders/E329-ModeAttendance-decoder.tsv") %>%
   setkey(E329)
@@ -202,6 +206,7 @@ devtools::use_data(E089_decoder,
                    E310_decoder,
                    E312_decoder,
                    E316_decoder,
+                   E327_decoder,
                    E329_decoder,
                    E330_decoder,
                    E331_decoder,
