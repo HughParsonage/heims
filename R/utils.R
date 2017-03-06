@@ -90,3 +90,7 @@ rm_leading_0s <- function(v){
 #' @export as.integer64
 as.integer64 <- function(v) bit64::as.integer64(v)
 
+#' @rdname utilities
+#' @export is.integer64
+is.integer64 <- function(v) bit64::is.integer64(v)
+

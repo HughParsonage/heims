@@ -18,6 +18,7 @@
 \alias{\%fin\%}
 \alias{rm_leading_0s}
 \alias{as.integer64}
+\alias{is.integer64}
 \title{Utility functions}
 \usage{
 AND()
@@ -51,6 +52,8 @@ a \%fin\% tbl
 rm_leading_0s(v)
 
 as.integer64(v)
+
+is.integer64(v)
 }
 \arguments{
 \item{v}{A vector.}
