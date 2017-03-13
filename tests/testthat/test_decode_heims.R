@@ -60,4 +60,17 @@ test_that("Given the load 2015 file, won't error", {
   decode_heims(copy(raw_load2015))
 })
 
+test_that("Known row present and decoded correctly", {
+  skip_if_not(file.exists("~/Students/2014/enrol2014.csv"))
+  enrol2014 <- fread_heims("~/Students/2014/enrol2014.csv")[9456]
+  enrol2014_decoded <- decode_heims(copy(enrol2014))
+  expect_equal(enrol2014_decoded[["Country_of_birth"]], "Australia")
+  # http://heimshelp.education.gov.au/sites/heimshelp/2012_data_requirements/2012dataelements/pages/573
+  expect_equal(enrol2014_decoded[["Education_parent1"]], "Not Year 12")
+  expect_equal(enrol2014_decoded[["Education_parent2"]], "Year 10")
+  expect_equal(enrol2014_decoded[["Attendance_type"]], "Full-time")
+  expect_equal(as.character(enrol2014_decoded[["Course_type"]]), "Bachelors Pass")
+  expect_false(enrol2014_decoded[["any_disability"]])
+})
+
 
