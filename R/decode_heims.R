@@ -13,6 +13,16 @@ decode_heims <- function(DT, show_progress = FALSE){
   DT[, `_order` := seq_len(.N)]
   DTnoms <- names(DT)
 
+  # do ad_hoc_prepares
+  for (j in seq_along(DT)){
+    k <- DTnoms[j]
+    # Consult the dictionary. If there is an ad_hoc_prepare
+    # element, apply it now, otherwise leave as is.
+    if ("ad_hoc_prepare" %in% names(heims_data_dict[[k]]) && is.function(heims_data_dict[[k]]$ad_hoc_prepare)){
+      set(DT, j = j, value = heims_data_dict[[k]]$ad_hoc_prepare(DT[[j]]))
+    }
+  }
+
   if (show_progress){
     progress <- 0
     n_names <- length(DTnoms)
