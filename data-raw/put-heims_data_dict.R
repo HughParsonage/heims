@@ -710,7 +710,7 @@ list(
                     setkeyv("E493") %>%
                     Edu_level[., roll = -Inf] %>%
                     setkey(NULL) %>%
-                    .[]
+                    .[, Year_Max_edu_level_ante := if_else(Year_Max_edu_level_ante == 9999, NA_integer_, Year_Max_edu_level_ante)]
                 }),
   "E495" = list(long_name = "Indic_student_contr_amt",
                 orig_name = "E495",
