@@ -16,13 +16,23 @@ list(
                 orig_name = "E091",
                 mark_missing = never,
                 validate = function(v) is.integer(v) && all(between(v, 0, 1)),
-                valid = function(v) if (is.integer(v)) between(v, 0, 1) else v %fin% c(0, 1)),
+                valid = function(v) if (is.integer(v)) between(v, 0, 1) else v %fin% c(0, 1),
+                decoder = function(DT){
+                  DT[, E091 := as.logical(E091)]
+                  setnames(DT, "E091", "Semester_1")
+                  DT
+                }),
 
   "E092" = list(long_name = "Semester_2",
                 orig_name = "E092",
                 mark_missing = never,
                 validate = function(v) !any(is.na(as.logical(v))),
-                valid = function(v) !is.na(as.logical(v))),
+                valid = function(v) !is.na(as.logical(v)),
+                decoder = function(DT){
+                  DT[, E092 := as.logical(E092)]
+                  setnames(DT, "E092", "Semester_2")
+                  DT
+                }),
 
   "E095" = list(long_name = "Student_course_combn_is_first",
                 orig_name = "E095",
