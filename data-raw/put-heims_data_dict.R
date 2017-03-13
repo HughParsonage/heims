@@ -542,11 +542,14 @@ list(
                 },
                 decoder = E464_decoder),
 
-  "E465" = list(long_name = "Sep_status_High_Degree_Research",
+  "E465" = list(long_name = "change_due_xfer_to_research_course",
                 orig_name = "E465",
                 mark_missing = never,
                 validate = function(v) all(v %in% c(1, 2, 3, 9)),
-                valid = function(v) v %fin% c(1, 2, 3, 9)),
+                valid = function(v) v %fin% c(1, 2, 3, 9),
+                decoder = data.table(E465 = c(1L, 2L, 3L, 9L),
+                                     change_due_xfer_to_research_course = c(0L, 1L, -1L, NA_integer_),
+                                     key = "E465")),
 
 
   "E467" = list(long_name = "State_postal",
