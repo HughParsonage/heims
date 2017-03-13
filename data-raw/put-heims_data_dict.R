@@ -1,3 +1,4 @@
+library(lubridate)
 library(magrittr)
 library(heims)
 library(fastmatch)
@@ -98,7 +99,7 @@ list(
                 decoder = function(DT){
                   stopifnot("E314" %in% names(DT))
                   E314 <- NULL
-                  DT[, "DOB" := as.Date(paste(E314 %/% 10e3, (E314 %% 10e3) %/% 100, E314 %% 100, sep = "-"))]
+                  DT[, "DOB" := lubridate::ymd(E314)]
                   DT[, E314 := NULL]
                 },
                 post_fst = function(DT){
@@ -165,7 +166,7 @@ list(
                 decoder = function(DT){
                   stopifnot("E328" %in% names(DT))
                   E314 <- NULL
-                  DT[, "Course_commencement_date" := as.Date(paste0(E328 %/% 100, "-", E328 %% 100, "-01"))]
+                  DT[, "Course_commencement_date" := ymd(E328 * 100 + 1)]
                   DT[, E328 := NULL]
                 },
                 post_fst = function(DT){
@@ -802,7 +803,7 @@ list(
                 validate = function(v) is.integer(v) && is.YearMonth(v),
                 valid = function(v) is.YearMonth(v),
                 decoder = function(DT){
-                  DT[, Course_start_date := as.Date(paste0(E534 %/% 100, "-", E534 %% 100, "-01"))]
+                  DT[, Course_start_date := ymd(E534 * 100 + 1)]
                   DT[, E534 := NULL]
                   DT
                 }),
