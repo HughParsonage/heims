@@ -7,7 +7,7 @@
 decode_heims(DT, show_progress = FALSE)
 }
 \arguments{
-\item{DT}{A \code{data.table} with the original column names.}
+\item{DT}{A \code{data.table} with the original HEIMS column names.}
 
 \item{show_progress}{Display the progress of the function (which is likely to be slow).}
 }
@@ -16,4 +16,9 @@ DT with the values decoded and the names renamed.
 }
 \description{
 Decode HEIMS elements
+}
+\details{
+Each variable in \code{DT} is validated according \code{\link{heims_data_dict}} before being decoded. Any failure stops the validation.
+
+This function takes a long time to finish.
 }

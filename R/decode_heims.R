@@ -9,6 +9,7 @@
 
 decode_heims <- function(DT, show_progress = FALSE){
   orig_key <- key(DT)
+  setnames(DT, old = names(DT), new = gsub("^e", "E", names(DT)))
   `_order` <- NULL
   DT[, `_order` := seq_len(.N)]
   DTnoms <- names(DT)
