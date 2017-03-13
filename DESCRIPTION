@@ -8,9 +8,11 @@ Imports:
   data.table,
   dplyr,
   fastmatch,
-  magrittr
+  magrittr,
+  bit64,
+  lubridate
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Suggests: testthat
-RoxygenNote: 6.0.0
+RoxygenNote: 6.0.1

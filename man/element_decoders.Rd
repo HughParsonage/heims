@@ -16,7 +16,7 @@ element2name(v)
 \item{v}{A vector of element names.}
 }
 \value{
-DT with the new names or the vector with the names translated.
+DT with the new names or the vector with the names translated. For \code{browse_elements}, a \code{data.table} of all element-long name combinations matching the perl regular expression.
 }
 \description{
 Make HEIMS element nos human-readable

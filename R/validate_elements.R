@@ -66,7 +66,14 @@ prop_elements_valid <- function(DT, char = FALSE){
     nom <- noms[n]
     if (!is.null(heims_data_dict[[nom]]) && is.function(heims_data_dict[[nom]]$validate)){
       DTn <- DT[[n]]
-      if (heims_data_dict[[nom]]$validate(DTn[!is.na(DTn)])){
+
+      if (is.function(heims_data_dict[[nom]]$ad_hoc_prepare)){
+        DTn <- heims_data_dict[[nom]]$ad_hoc_prepare(DTn)
+      }
+
+      DTn <- DTn[!is.na(DTn)]
+
+      if (heims_data_dict[[nom]]$validate(DTn)){
         out[n] <- if (char) "--" else 1
       } else {
         if (!is.null(heims_data_dict[[nom]]) && is.function(heims_data_dict[[nom]]$valid)){
@@ -94,7 +101,14 @@ count_elements_invalid <- function(DT, char = FALSE){
     nom <- noms[n]
     if (!is.null(heims_data_dict[[nom]]) && is.function(heims_data_dict[[nom]]$validate)){
       DTn <- DT[[n]]
-      if (heims_data_dict[[nom]]$validate(DTn[!is.na(DTn)])){
+
+      if (is.function(heims_data_dict[[nom]]$ad_hoc_prepare)){
+        DTn <- heims_data_dict[[nom]]$ad_hoc_prepare(DTn)
+      }
+
+      DTn <- DTn[!is.na(DTn)]
+
+      if (heims_data_dict[[nom]]$validate(DTn)){
         out[n] <- if (char) "--" else 1
       } else {
         if (!is.null(heims_data_dict[[nom]]) && is.function(heims_data_dict[[nom]]$valid)){

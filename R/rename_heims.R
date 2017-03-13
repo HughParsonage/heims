@@ -2,7 +2,7 @@
 #' @name element_decoders
 #' @param DT The data table with original names
 #' @param v A vector of element names.
-#' @return DT with the new names or the vector with the names translated.
+#' @return DT with the new names or the vector with the names translated. For \code{browse_elements}, a \code{data.table} of all element-long name combinations matching the perl regular expression.
 #' @details See \code{\link{heims_data_dict}}.
 
 
@@ -12,10 +12,12 @@ rename_heims <- function(DT){
   DTnoms <- names(DT)
   long_name <- orig_name <- NULL
   decoder <-
-    lapply(heims_data_dict, function(x) data.table(long_name = x[names(x) == "long_name"],
-                                                   orig_name = x[names(x) == "orig_name"])) %>%
+    lapply(heims_data_dict, function(x) data.table(long_name = unlist(x[names(x) == "long_name"]),
+                                                   orig_name = unlist(x[names(x) == "orig_name"]))) %>%
     rbindlist(use.names = TRUE, fill = TRUE) %>%
-    .[orig_name %in% DTnoms]
+    .[orig_name %in% DTnoms] %>%
+    .[, long_name := if_else(long_name %fin% DTnoms, paste0(long_name, "_orig"), long_name)] %>%
+    .[, long_name := if_else(long_name == "suburb", "Suburb_ABS", long_name)]
 
   setnames(DT,
            old = decoder[["orig_name"]],
@@ -64,5 +66,7 @@ element2name <- function(v){
     .[, long_name := if_else(is.na(semester), long_name, paste0(long_name, "_", semester))] %>%
     .[["long_name"]]
 }
+
+
 
 

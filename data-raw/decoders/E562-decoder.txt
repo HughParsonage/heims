@@ -1,0 +1,13 @@
+E562	FOE_prior_creditable_VET_study
+100	Natural and Physical Sciences
+200	Information Technology
+300	Engineering and Related Technologies
+400	Architecture and Building
+500	"Agriculture, Environmental and Related Studies"
+600	Health
+700	Education
+800	Management and Commerce
+900	Society and Culture
+1000	Creative Arts
+1100	"Food, Hospitality and Personal Services"
+1200	Mixed Field Programs

@@ -26,8 +26,8 @@ always <- function(v) TRUE
 #' @rdname utilities
 #' @export is.Date
 is.Date <- function(v){
-  if (is.integer(v) || is.double(v)){
-    and(between(v / 10000, 1900, 2017),
+  if (is.numeric(v)){
+    and(between(v / 10000, 1899, 2017),
         and(between((v %% 10000L) %/% 100, 1, 12),
             between(v %% 100, 1, 31)))
   } else {
@@ -61,6 +61,14 @@ or <- function(...) magrittr::or(...)
 and <- function(...) magrittr::and(...)
 
 #' @rdname utilities
+#' @export if_else
+if_else <- function(...) dplyr::if_else(...)
+
+#' @rdname utilities
+#' @export coalesce
+coalesce <- function(...) dplyr::coalesce(...)
+
+#' @rdname utilities
 #' @export %fin%
 #' @param a Element suspected to be in \code{tbl}
 #' @param tbl A lookup table.
@@ -68,3 +76,32 @@ and <- function(...) magrittr::and(...)
 `%fin%` <- function(a, tbl) fmatch(a, tbl, 0L, NULL) > 0L
 
 `%notin%` <- Negate("%in%")
+
+#' @rdname utilities
+#' @export rm_leading_0s
+rm_leading_0s <- function(v){
+  if (is.character(v)){
+    v <- gsub("^0+", "", v, perl = TRUE)
+  }
+  v
+}
+
+#' @rdname utilities
+#' @export as.integer64
+as.integer64 <- function(v) bit64::as.integer64(v)
+
+#' @rdname utilities
+#' @export is.integer64
+is.integer64 <- function(v) bit64::is.integer64(v)
+
+#' @rdname utilities
+#' @export force_integer
+force_integer <- function(v){
+  suppressWarnings(as.integer(v))
+}
+
+#' @rdname utilities
+#' @export ymd
+ymd <- function(...) lubridate::ymd(...)
+
+
