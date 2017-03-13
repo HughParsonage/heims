@@ -100,3 +100,8 @@ force_integer <- function(v){
   suppressWarnings(as.integer(v))
 }
 
+#' @rdname utilities
+#' @export ymd
+ymd <- function(...) lubridate::ymd(...)
+
+

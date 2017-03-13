@@ -20,6 +20,7 @@
 \alias{as.integer64}
 \alias{is.integer64}
 \alias{force_integer}
+\alias{ymd}
 \title{Utility functions}
 \usage{
 AND()
@@ -57,6 +58,8 @@ as.integer64(v)
 is.integer64(v)
 
 force_integer(v)
+
+ymd(...)
 }
 \arguments{
 \item{v}{A vector.}

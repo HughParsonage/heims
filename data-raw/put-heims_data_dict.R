@@ -99,7 +99,7 @@ list(
                 decoder = function(DT){
                   stopifnot("E314" %in% names(DT))
                   E314 <- NULL
-                  DT[, "DOB" := lubridate::ymd(E314)]
+                  DT[, "DOB" := ymd(E314)]
                   DT[, E314 := NULL]
                 },
                 post_fst = function(DT){
@@ -281,7 +281,7 @@ list(
   "E355" = list(long_name = "Unit_of_study_completion_status",
                 orig_name = "E355",
                 mark_missing = never,
-                ad_hoc_prepare = function(v) na_if(v, 0),
+                ad_hoc_prepare = function(v) {v[v == 0L] <- NA_integer_; v},
                 validate = function(v) is.integer(v) && all(between(v, 1, 5), na.rm = TRUE),
                 valid = function(v) v %fin% seq.int(1, 5),
                 decoder = E355_decoder),

@@ -9,7 +9,8 @@ Imports:
   dplyr,
   fastmatch,
   magrittr,
-  bit64
+  bit64,
+  lubridate
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
