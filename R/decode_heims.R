@@ -1,7 +1,10 @@
 #' Decode HEIMS elements
-#' @param DT A \code{data.table} with the original column names.
+#' @param DT A \code{data.table} with the original HEIMS column names.
 #' @param show_progress Display the progress of the function (which is likely to be slow).
 #' @return DT with the values decoded and the names renamed.
+#' @details Each variable in \code{DT} is validated according \code{\link{heims_data_dict}} before being decoded. Any failure stops the validation.
+#'
+#' This function takes a long time to finish.
 #' @export decode_heims
 
 decode_heims <- function(DT, show_progress = FALSE){
