@@ -18,7 +18,7 @@ decode_heims <- function(DT, show_progress = FALSE){
   for (orig in DTnoms){
     if (show_progress){
       progress <- progress + 1
-      cat(orig, "\t\t", Sys.time(), "\t", progress, "/", n_names, "\n", sep = "")
+      cat(orig, "\t\t", as.character(Sys.time()), "\t", formatC(progress, width = nchar(n_names)), "/", n_names, "\n", sep = "")
     }
     if (orig %in% names(heims_data_dict)){
       dict_entry <- heims_data_dict[[orig]]
