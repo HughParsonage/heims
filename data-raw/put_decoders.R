@@ -18,7 +18,7 @@ E306_decoder <-
   setnames("Provider Code", "E306") %>%
   setnames("Provider Name", "HE_Provider_name") %>%
   setnames("Provider Type", "HE_Provider_type") %>%
-  setkey("E306")
+  setkey(E306)
 
 E310_decoder <-
   fread("./data-raw/decoders/E310-decoder.csv") %>%
