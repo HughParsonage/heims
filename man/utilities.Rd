@@ -19,6 +19,7 @@
 \alias{rm_leading_0s}
 \alias{as.integer64}
 \alias{is.integer64}
+\alias{force_integer}
 \title{Utility functions}
 \usage{
 AND()
@@ -54,6 +55,8 @@ rm_leading_0s(v)
 as.integer64(v)
 
 is.integer64(v)
+
+force_integer(v)
 }
 \arguments{
 \item{v}{A vector.}

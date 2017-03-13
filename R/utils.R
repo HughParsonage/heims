@@ -94,3 +94,9 @@ as.integer64 <- function(v) bit64::as.integer64(v)
 #' @export is.integer64
 is.integer64 <- function(v) bit64::is.integer64(v)
 
+#' @rdname utilities
+#' @export force_integer
+force_integer <- function(v){
+  suppressWarnings(as.integer(v))
+}
+
