@@ -239,7 +239,12 @@ list(
                                               seq.int(1900,
                                                       2099),
                                               "A998",
-                                              "A999")),
+                                              "A999"),
+                decoder = function(DT){
+                  DT[, Year_arrived_Aust := force_integer(E347)]
+                  DT[, Year_arrived_Aust := if_else(E347 == "0000", NA_integer_, Year_arrived_Aust)]
+                  DT[, Born_in_Aust := if_else(E347 == "A999", NA, Year_arrived_Aust == 1L)]
+                }),
 
   "E348" = list(long_name = "Language_home",
                 orig_name = "E348",
