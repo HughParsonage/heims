@@ -55,6 +55,10 @@ E331_decoder <-
              Major_course = c(NA, TRUE, FALSE),
              key = "E331")
 
+E337_decoder <-
+  fread("./data-raw/decoders/E337-decoder.txt") %>%
+  setkey(E337)
+
 force_integer <- function(x){
   suppressWarnings(as.integer(x))
 }
@@ -210,6 +214,7 @@ devtools::use_data(E089_decoder,
                    E329_decoder,
                    E330_decoder,
                    E331_decoder,
+                   E337_decoder,
                    E346_decoder,
                    E348_decoder,
                    E355_decoder,
