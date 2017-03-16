@@ -73,4 +73,17 @@ test_that("Known row present and decoded correctly", {
   expect_false(enrol2014_decoded[["any_disability"]])
 })
 
+test_that("Known load decoded correctly", {
+  skip_if_not(file.exists("~/Students/2012/load2012.csv"))
+  load_2012 <- fread_heims("~/Students/2012/load2012.csv")
+  load_2012_9456 <- load_2012[9456]
+  load_2012_9456_decoded <- decode_heims(copy(load_2012_9456))
+  expect_equal(load_2012_9456_decoded[["Student_status_abbrev"]], "Commonwealth Supported student")
+  expect_equal(load_2012_9456_decoded[["Max_student_contr"]], "Max Cth contrib.")
+  expect_equal(load_2012_9456_decoded[["Special_course"]], NA_character_)
+  expect_equal(load_2012_9456_decoded[["Attendance_type"]], "Full-time")
+  expect_equal(load_2012_9456_decoded[["Discipline"]], "Economics")
+  expect_equal(load_2012_9456_decoded[["FOE_name"]], "Business Management")
+})
+
 
