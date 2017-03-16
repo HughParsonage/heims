@@ -1,0 +1,440 @@
+foecode,foecode_actual,foename,foegrattan
+10000,1,NATURAL AND PHYSICAL SCIENCES,Science
+10100,101,Mathematical Sciences,Science
+10101,10101,Mathematics,Science
+10103,10103,Statistics,Science
+10199,10199,"Mathematical Sciences, n.e.c.",Science
+10300,103,Physics and Astronomy,Science
+10301,10301,Physics,Science
+10303,10303,Astronomy,Science
+10500,105,Chemical Sciences,Science
+10501,10501,Organic Chemistry,Science
+10503,10503,Inorganic Chemistry,Science
+10599,10599,"Chemical Sciences, n.e.c.",Science
+10700,107,Earth Sciences,Science
+10701,10701,Atmospheric Sciences,Science
+10703,10703,Geology,Science
+10705,10705,Geophysics,Science
+10707,10707,Geochemistry,Science
+10709,10709,Soil Science,Science
+10711,10711,Hydrology,Science
+10713,10713,Oceanography,Science
+10799,10799,"Earth Sciences, n.e.c.",Science
+10900,109,Biological Sciences,Science
+10901,10901,Biochemistry and Cell Biology,Science
+10903,10903,Botany,Science
+10905,10905,Ecology and Evolution,Science
+10907,10907,Marine Science,Science
+10909,10909,Genetics,Science
+10911,10911,Microbiology,Science
+10913,10913,Human Biology,Science
+10915,10915,Zoology,Science
+10999,10999,"Biological Sciences, n.e.c.",Science
+19900,199,Other Natural and Physical Sciences,Science
+19901,19901,Medical Science,Science
+19903,19903,Forensic Science,Science
+19905,19905,Food Science and Biotechnology,Science
+19907,19907,Pharmacology,Science
+19909,19909,Laboratory Technology,Science
+19999,19999,"Natural and Physical Sciences, n.e.c.",Science
+20000,2,INFORMATION TECHNOLOGY,Information technology
+20100,201,Computer Science,Information technology
+20101,20101,Formal Language Theory,Information technology
+20103,20103,Programming,Information technology
+20105,20105,Computational Theory,Information technology
+20107,20107,Compiler Construction,Information technology
+20109,20109,Algorithms,Information technology
+20111,20111,Data Structures,Information technology
+20113,20113,Networks and Communications,Information technology
+20115,20115,Computer Graphics,Information technology
+20117,20117,Operating Systems,Information technology
+20119,20119,Artificial Intelligence,Information technology
+20199,20199,"Computer Science, n.e.c.",Information technology
+20300,203,Information Systems,Information technology
+20301,20301,Conceptual Modelling,Information technology
+20303,20303,Database Management,Information technology
+20305,20305,Systems Analysis and Design,Information technology
+20307,20307,Decision Support Systems,Information technology
+20399,20399,"Information Systems, n.e.c.",Information technology
+29900,299,Other Information Technology,Information technology
+29901,29901,Security Science,Information technology
+29999,29999,"Information Technology, n.e.c.",Information technology
+30000,3,ENGINEERING AND RELATED TECHNOLOGIES,Engineering
+30100,301,Manufacturing Engineering and Technology,Engineering
+30101,30101,Manufacturing Engineering,Engineering
+30103,30103,Printing,Engineering
+30105,30105,Textile Making,Engineering
+30107,30107,Garment Making,Engineering
+30109,30109,Footwear Making,Engineering
+30111,30111,Wood Machining and Turning,Engineering
+30113,30113,Cabinet Making,Engineering
+30115,30115,Furniture Upholstery and Renovation,Engineering
+30117,30117,Furniture Polishing,Engineering
+30199,30199,"Manufacturing Engineering and Technology, n.e.c.",Engineering
+30300,303,Process and Resources Engineering,Engineering
+30301,30301,Chemical Engineering,Engineering
+30303,30303,Mining Engineering,Engineering
+30305,30305,Materials Engineering,Engineering
+30307,30307,Food Processing Technology,Engineering
+30399,30399,"Process and Resources Engineering, n.e.c.",Engineering
+30500,305,Automotive Engineering and Technology,Engineering
+30501,30501,Automotive Engineering,Engineering
+30503,30503,Vehicle Mechanics,Engineering
+30505,30505,Automotive Electrics and Electronics,Engineering
+30507,30507,Automotive Vehicle Refinishing,Engineering
+30509,30509,Automotive Body Construction,Engineering
+30511,30511,Panel Beating,Engineering
+30513,30513,Upholstery and Vehicle Trimming,Engineering
+30515,30515,Automotive Vehicle Operations,Engineering
+30599,30599,"Automotive Engineering and Technology, n.e.c.",Engineering
+30700,307,Mechanical and Industrial Engineering and Technology,Engineering
+30701,30701,Mechanical Engineering,Engineering
+30703,30703,Industrial Engineering,Engineering
+30705,30705,Toolmaking,Engineering
+30707,30707,"Metal Fitting, Turning and Machining",Engineering
+30709,30709,Sheetmetal Working,Engineering
+30711,30711,Boilermaking and Welding,Engineering
+30713,30713,Metal Casting and Patternmaking,Engineering
+30715,30715,Precision Metalworking,Engineering
+30717,30717,Plant and Machine Operations,Engineering
+30799,30799,"Mechanical and Industrial Engineering and Technology, n.e.c.",Engineering
+30900,309,Civil Engineering,Engineering
+30901,30901,Construction Engineering,Engineering
+30903,30903,Structural Engineering,Engineering
+30905,30905,Building Services Engineering,Engineering
+30907,30907,Water and Sanitary Engineering,Engineering
+30909,30909,Transport Engineering,Engineering
+30911,30911,Geotechnical Engineering,Engineering
+30913,30913,Ocean Engineering,Engineering
+30999,30999,"Civil Engineering, n.e.c.",Engineering
+31100,311,Geomatic Engineering,Engineering
+31101,31101,Surveying,Engineering
+31103,31103,Mapping Science,Engineering
+31199,31199,"Geomatic Engineering, n.e.c.",Engineering
+31300,313,Electrical and Electronic Engineering and Technology,Engineering
+31301,31301,Electrical Engineering,Engineering
+31303,31303,Electronic Engineering,Engineering
+31305,31305,Computer Engineering,Engineering
+31307,31307,Communications Technologies,Engineering
+31309,31309,Communications Equipment Installation and Maintenance,Engineering
+31311,31311,Powerline Installation and Maintenance,Engineering
+31313,31313,"Electrical Fitting, Electrical Mechanics",Engineering
+31315,31315,Refrigeration and Air Conditioning Mechanics,Engineering
+31317,31317,Electronic Equipment Servicing,Engineering
+31399,31399,"Electrical and Electronic Engineering and Technology, n.e.c.",Engineering
+31500,315,Aerospace Engineering and Technology,Engineering
+31501,31501,Aerospace Engineering,Engineering
+31503,31503,Aircraft Maintenance Engineering,Engineering
+31505,31505,Aircraft Operation,Engineering
+31507,31507,Air Traffic Control,Engineering
+31599,31599,"Aerospace Engineering and Technology, n.e.c.",Engineering
+31700,317,Maritime Engineering and Technology,Engineering
+31701,31701,Maritime Engineering,Engineering
+31703,31703,Marine Construction,Engineering
+31705,31705,Marine Craft Operation,Engineering
+31799,31799,"Maritime Engineering and Technology, n.e.c.",Engineering
+39900,399,Other Engineering and Related Technologies,Engineering
+39901,39901,Environmental Engineering,Engineering
+39903,39903,Biomedical Engineering,Engineering
+39905,39905,Fire Technology,Engineering
+39907,39907,Rail Operations,Engineering
+39909,39909,Cleaning,Engineering
+39999,39999,"Engineering and Related Technologies, n.e.c.",Engineering
+40000,4,ARCHITECTURE AND BUILDING,Architecture
+40100,401,Architecture and Urban Environment,Architecture
+40101,40101,Architecture,Architecture
+40103,40103,Urban Design and Regional Planning,Architecture
+40105,40105,Landscape Architecture,Architecture
+40107,40107,Interior and Environmental Design,Architecture
+40199,40199,"Architecture and Urban Environment, n.e.c.",Architecture
+40300,403,Building,Architecture
+40301,40301,Building Science and Technology,Architecture
+40303,40303,Building Construction Management,Architecture
+40305,40305,Building Surveying,Architecture
+40307,40307,Building Construction Economics,Architecture
+40309,40309,Bricklaying and Stonemasonry,Architecture
+40311,40311,Carpentry and Joinery,Architecture
+40313,40313,"Ceiling, Wall and Floor Fixing",Architecture
+40315,40315,Roof Fixing,Architecture
+40317,40317,Plastering,Architecture
+40319,40319,Furnishing Installation,Architecture
+40321,40321,Floor Coverings,Architecture
+40323,40323,Glazing,Architecture
+40325,40325,"Painting, Decorating and Sign Writing",Architecture
+40327,40327,Plumbing,Architecture
+40329,40329,Scaffolding and Rigging,Architecture
+40399,40399,"Building, n.e.c.",Architecture
+50000,5,"AGRICULTURE, ENVIRONMENTAL AND RELATED STUDIES",Agriculture
+50100,501,Agriculture,Agriculture
+50101,50101,Agricultural Science,Agriculture
+50103,50103,Wool Science,Agriculture
+50105,50105,Animal Husbandry,Agriculture
+50199,50199,"Agriculture, n.e.c.",Agriculture
+50300,503,Horticulture and Viticulture,Agriculture
+50301,50301,Horticulture,Agriculture
+50303,50303,Viticulture,Agriculture
+50500,505,Forestry Studies,Agriculture
+50501,50501,Forestry Studies,Agriculture
+50700,507,Fisheries Studies,Agriculture
+50701,50701,Aquaculture,Agriculture
+50799,50799,"Fisheries Studies, n.e.c.",Agriculture
+50900,509,Environmental Studies,Agriculture
+50901,50901,"Land, Parks and Wildlife Management",Agriculture
+50999,50999,"Environmental Studies, n.e.c.",Agriculture
+59900,599,"Other Agriculture, Environmental and Related Studies",Agriculture
+59901,59901,Pest and Weed Control,Agriculture
+59999,59999,"Agriculture, Environmental and Related Studies, n.e.c.",Agriculture
+60000,6,HEALTH,Other health
+60100,601,Medical Studies,Medical
+60101,60101,General Medicine,Medical
+60103,60103,Surgery,Medical
+60105,60105,Psychiatry,Medical
+60107,60107,Obstetrics and Gynaecology,Medical
+60109,60109,Paediatrics,Medical
+60111,60111,Anaesthesiology,Medical
+60113,60113,Pathology,Medical
+60115,60115,Radiology,Medical
+60117,60117,Internal Medicine,Medical
+60119,60119,General Practice,Medical
+60199,60199,"Medical Studies, n.e.c.",Medical
+60300,603,Nursing,Nursing
+60301,60301,General Nursing,Nursing
+60303,60303,Midwifery,Nursing
+60305,60305,Mental Health Nursing,Nursing
+60307,60307,Community Nursing,Nursing
+60309,60309,Critical Care Nursing,Nursing
+60311,60311,Aged Care Nursing,Nursing
+60313,60313,Palliative Care Nursing,Nursing
+60315,60315,Mothercraft Nursing and Family and Child Health Nursing,Nursing
+60399,60399,"Nursing, n.e.c.",Nursing
+60500,605,Pharmacy,Other health
+60501,60501,Pharmacy,Other health
+60700,607,Dental Studies,Medical
+60701,60701,Dentistry,Medical
+60703,60703,Dental Assisting,Medical
+60705,60705,Dental Technology,Medical
+60799,60799,"Dental Studies, n.e.c.",Medical
+60900,609,Optical Science,Other health
+60901,60901,Optometry,Other health
+60903,60903,Optical Technology,Other health
+60999,60999,"Optical Science, n.e.c.",Other health
+61100,611,Veterinary Studies,Medical
+61101,61101,Veterinary Science,Medical
+61103,61103,Veterinary Assisting,Medical
+61199,61199,"Veterinary Studies, n.e.c.",Medical
+61300,613,Public Health,Other health
+61301,61301,Occupational Health and Safety,Other health
+61303,61303,Environmental Health,Other health
+61305,61305,Indigenous Health,Other health
+61307,61307,Health Promotion,Other health
+61309,61309,Community Health ,Other health
+61311,61311,Epidemiology,Other health
+61399,61399,"Public Health, n.e.c.",Other health
+61500,615,Radiography,Other health
+61501,61501,Radiography,Other health
+61700,617,Rehabilitation Therapies,Other health
+61701,61701,Physiotherapy,Other health
+61703,61703,Occupational Therapy,Other health
+61705,61705,Chiropractic and Osteopathy,Other health
+61707,61707,Speech Pathology,Other health
+61709,61709,Audiology,Other health
+61711,61711,Massage Therapy,Other health
+61713,61713,Podiatry,Other health
+61799,61799,"Rehabilitation Therapies, n.e.c.",Other health
+61900,619,Complementary Therapies,Other health
+61901,61901,Naturopathy,Other health
+61903,61903,Acupuncture,Other health
+61905,61905,Traditional Chinese Medicine,Other health
+61999,61999,"Complementary Therapies, n.e.c.",Other health
+69900,699,Other Health,Other health
+69901,69901,Nutrition and Dietetics,Other health
+69903,69903,Human Movement,Other health
+69905,69905,Paramedical Studies,Other health
+69907,69907,First Aid,Other health
+69999,69999,"Health, n.e.c.",Other health
+70000,7,EDUCATION,Education
+70100,701,Teacher Education,Education
+70101,70101,Teacher Education: Early Childhood,Education
+70103,70103,Teacher Education: Primary,Education
+70105,70105,Teacher Education: Secondary,Education
+70107,70107,Teacher-Librarianship,Education
+70109,70109,Teacher Education: Vocational Education and Training,Education
+70111,70111,Teacher Education: Higher Education,Education
+70113,70113,Teacher Education: Special Education,Education
+70115,70115,English as a Second Language Teaching,Education
+70117,70117,Nursing Education Teacher Training,Education
+70199,70199,"Teacher Education, n.e.c.",Education
+70300,703,Curriculum and Education Studies,Education
+70301,70301,Curriculum Studies,Education
+70303,70303,Education Studies,Education
+79900,799,Other Education,Education
+79999,79999,"Education, n.e.c.",Education
+80000,8,MANAGEMENT AND COMMERCE,Commerce
+80100,801,Accounting,Commerce
+80101,80101,Accounting,Commerce
+80300,803,Business and Management,Commerce
+80301,80301,Business Management,Commerce
+80303,80303,Human Resource Management,Commerce
+80305,80305,Personal Management Training,Commerce
+80307,80307,Organisation Management,Commerce
+80309,80309,Industrial Relations,Commerce
+80311,80311,International Business,Commerce
+80313,80313,Public and Health Care Administration,Commerce
+80315,80315,Project Management,Commerce
+80317,80317,Quality Management,Commerce
+80319,80319,Hospitality Management,Commerce
+80321,80321,Farm Management and Agribusiness,Commerce
+80323,80323,Tourism Management,Commerce
+80399,80399,"Business and Management, n.e.c.",Commerce
+80500,805,Sales and Marketing,Commerce
+80501,80501,Sales,Commerce
+80503,80503,Real Estate,Commerce
+80505,80505,Marketing,Commerce
+80507,80507,Advertising,Commerce
+80509,80509,Public Relations,Commerce
+80599,80599,"Sales and Marketing, n.e.c.",Commerce
+80700,807,Tourism,Commerce
+80701,80701,Tourism,Commerce
+80900,809,Office Studies,Commerce
+80901,80901,Secretarial and Clerical Studies,Commerce
+80903,80903,Keyboard Skills,Commerce
+80905,80905,Practical Computing Skills,Commerce
+80999,80999,"Office Studies, n.e.c.",Commerce
+81100,811,"Banking, Finance and Related Fields",Commerce
+81101,81101,Banking and Finance,Commerce
+81103,81103,Insurance and Actuarial Studies,Commerce
+81105,81105,Investment and Securities,Commerce
+81199,81199,"Banking, Finance and Related Fields, n.e.c.",Commerce
+89900,899,Other Management and Commerce,Commerce
+89901,89901,"Purchasing, Warehousing and Distribution",Commerce
+89903,89903,Valuation,Commerce
+89999,89999,"Management and Commerce, n.e.c.",Commerce
+90000,9,SOCIETY AND CULTURE,Humanities
+90100,901,Political Science and Policy Studies,Humanities
+90101,90101,Political Science,Humanities
+90103,90103,Policy Studies,Humanities
+90300,903,Studies in Human Society,Humanities
+90301,90301,Sociology,Humanities
+90303,90303,Anthropology,Humanities
+90305,90305,History,Humanities
+90307,90307,Archaeology,Humanities
+90309,90309,Human Geography,Humanities
+90311,90311,Indigenous Studies,Humanities
+90313,90313,Gender Specific Studies,Humanities
+90399,90399,"Studies in Human Society, n.e.c.",Humanities
+90500,905,Human Welfare Studies and Services,Humanities
+90501,90501,Social Work,Humanities
+90503,90503,Children's Services,Humanities
+90505,90505,Youth Work,Humanities
+90507,90507,Care for the Aged,Humanities
+90509,90509,Care for the Disabled,Humanities
+90511,90511,Residential Client Care,Humanities
+90513,90513,Counselling,Humanities
+90515,90515,Welfare Studies,Humanities
+90599,90599,"Human Welfare Studies and Services, n.e.c.",Humanities
+90700,907,Behavioural Science,Humanities
+90701,90701,Psychology,Humanities
+90799,90799,"Behavioural Science, n.e.c.",Humanities
+90900,909,Law,Law
+90901,90901,Business and Commercial Law,Law
+90903,90903,Constitutional Law,Law
+90905,90905,Criminal Law,Law
+90907,90907,Family Law,Law
+90909,90909,International Law,Law
+90911,90911,Taxation Law,Law
+90913,90913,Legal Practice,Law
+90999,90999,"Law, n.e.c.",Law
+91100,911,Justice and Law Enforcement,Humanities
+91101,91101,Justice Administration,Humanities
+91103,91103,Legal Studies,Humanities
+91105,91105,Police Studies,Humanities
+91199,91199,"Justice and Law Enforcement, n.e.c.",Humanities
+91300,913,"Librarianship, Information Management and Curatorial Studies",Humanities
+91301,91301,Librarianship and Information Management,Humanities
+91303,91303,Curatorial Studies,Humanities
+91500,915,Language and Literature,Humanities
+91501,91501,English Language,Humanities
+91503,91503,Northern European Languages,Humanities
+91505,91505,Southern European Languages,Humanities
+91507,91507,Eastern European Languages,Humanities
+91509,91509,Southwest Asian and North African Languages,Humanities
+91511,91511,Southern Asian Languages,Humanities
+91513,91513,Southeast Asian Languages,Humanities
+91515,91515,Eastern Asian Languages,Humanities
+91517,91517,Australian Indigenous Languages,Humanities
+91519,91519,Translating and Interpreting,Humanities
+91521,91521,Linguistics,Humanities
+91523,91523,Literature,Humanities
+91599,91599,"Language and Literature, n.e.c.",Humanities
+91700,917,Philosophy and Religious Studies,Humanities
+91701,91701,Philosophy,Humanities
+91703,91703,Religious Studies,Humanities
+91900,919,Economics and Econometrics,Commerce
+91901,91901,Economics,Commerce
+91903,91903,Econometrics,Commerce
+92100,921,Sport and Recreation,Humanities
+92101,92101,Sport and Recreation Activities,Humanities
+92103,92103,"Sports Coaching, Officiating and Instruction",Humanities
+92199,92199,"Sport and Recreation, n.e.c.",Humanities
+99900,999,Other Society and Culture,Humanities
+99901,99901,Family and Consumer Studies,Humanities
+99903,99903,Criminology,Humanities
+99905,99905,Security Services,Humanities
+99999,99999,"Society and Culture, n.e.c.",Humanities
+1e+05,10,CREATIVE ARTS,Creative arts
+100100,1001,Performing Arts,Creative arts
+100101,100101,Music,Creative arts
+100103,100103,Drama and Theatre Studies,Creative arts
+100105,100105,Dance,Creative arts
+100199,100199,"Performing Arts, n.e.c.",Creative arts
+100300,1003,Visual Arts and Crafts,Creative arts
+100301,100301,Fine Arts,Creative arts
+100303,100303,Photography,Creative arts
+100305,100305,Crafts,Creative arts
+100307,100307,Jewellery Making,Creative arts
+100309,100309,Floristry,Creative arts
+100399,100399,"Visual Arts and Crafts, n.e.c.",Creative arts
+100500,1005,Graphic and Design Studies,Creative arts
+100501,100501,Graphic Arts and Design Studies,Creative arts
+100503,100503,Textile Design,Creative arts
+100505,100505,Fashion Design,Creative arts
+100599,100599,"Graphic and Design Studies, n.e.c.",Creative arts
+100700,1007,Communication and Media Studies,Humanities
+100701,100701,Audio Visual Studies,Humanities
+100703,100703,Journalism,Humanities
+100705,100705,Written Communication,Humanities
+100707,100707,Verbal Communication,Humanities
+100799,100799,"Communication and Media Studies, n.e.c.",Humanities
+109900,1099,Other Creative Arts,Creative arts
+109999,109999,"Creative Arts, n.e.c.",Creative arts
+110000,11,"FOOD, HOSPITALITY AND PERSONAL SERVICES",Hospitality
+110100,1101,Food and Hospitality,Hospitality
+110101,110101,Hospitality,Hospitality
+110103,110103,Food and Beverage Service,Hospitality
+110105,110105,Butchery,Hospitality
+110107,110107,Baking and Pastrymaking,Hospitality
+110109,110109,Cookery,Hospitality
+110111,110111,Food Hygiene,Hospitality
+110199,110199,"Food and Hospitality, n.e.c.",Hospitality
+110300,1103,Personal Services,Hospitality
+110301,110301,Beauty Therapy,Hospitality
+110303,110303,Hairdressing,Hospitality
+110399,110399,"Personal Services, n.e.c.",Hospitality
+120000,12,MIXED FIELD PROGRAMMES,Mixed field
+120100,1201,General Education Programmes,Mixed field
+120101,120101,General Primary and Secondary Education Programmes,Mixed field
+120103,120103,Literacy and Numeracy Programmes,Mixed field
+120105,120105,Learning Skills Programmes,Mixed field
+120199,120199,"General Education Programmes, n.e.c.",Mixed field
+120300,1203,Social Skills Programmes,Mixed field
+120301,120301,Social and Interpersonal Skills Programmes,Mixed field
+120303,120303,Survival Skills Programmes,Mixed field
+120305,120305,Parental Education Programmes,Mixed field
+120399,120399,"Social Skills Programmes, n.e.c.",Mixed field
+120500,1205,Employment Skills Programmes,Mixed field
+120501,120501,Career Development Programmes,Mixed field
+120503,120503,Job Search Skills Programmes,Mixed field
+120505,120505,Work Practices Programmes,Mixed field
+120599,120599,"Employment Skills Programmes, n.e.c.",Mixed field
+129900,1299,Other Mixed Field Programmes,Mixed field
+129999,129999,"Mixed Field Programmes, n.e.c.",Mixed field

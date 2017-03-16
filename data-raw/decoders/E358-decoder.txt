@@ -1,0 +1,8 @@
+E358	CitizenResidentInd
+1	Aust
+2	NZ
+8	Humanitarian visa
+3	Permanent visa
+4	Temp visa / diplo.
+5	Resid. overseas
+9	NA
