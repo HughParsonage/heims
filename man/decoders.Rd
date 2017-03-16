@@ -12,6 +12,7 @@
 \alias{E327_decoder}
 \alias{E330_decoder}
 \alias{E331_decoder}
+\alias{E337_decoder}
 \alias{E346_decoder}
 \alias{E348_decoder}
 \alias{E355_decoder}
@@ -48,6 +49,8 @@ E327_decoder
 E330_decoder
 
 E331_decoder
+
+E337_decoder
 
 E346_decoder
 

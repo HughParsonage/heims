@@ -31,6 +31,9 @@ NULL
 "E331_decoder"
 
 #' @rdname decoders
+"E337_decoder"
+
+#' @rdname decoders
 "E346_decoder"
 
 #' @rdname decoders
