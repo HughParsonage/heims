@@ -4,7 +4,7 @@
 #' @export
 
 fread_heims <- function(filename){
-  file <- gsub("^.*((enrol)|(completions)|(load)).*$", filename, filename)
+  file <- gsub("^.*((enrol)|(completions)|(load)).*$", "\\1", filename)
   fread(filename,
         na.strings = c("", "NA", "?", ".", "*", "**",
                              # CHESSN
