@@ -11,6 +11,8 @@ Imports:
   magrittr,
   bit64,
   lubridate
+Suggests:
+  dtplyr
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
