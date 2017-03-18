@@ -1,3 +1,4 @@
+#' Join enrol to completion successively
 #' @param enrols A data.table for enrolments (right table in the right outer joins)
 #' @param enrolYearById Two-column data table: one column named the same as
 #'   \code{enrol.id} and the other representing the enrolment year of that id.
@@ -14,6 +15,7 @@
 #'  \code{c("HE_Provider_name", "Student_id", "completion_Year>=enrol_Year")}
 #'   for a non-equi join.
 #' @param debug Print intermediate tables.
+#' @export
 join_enrols_to_completions <- function(enrolTable,
                                        enrolYearById,
                                        enrol.id = "Enrol_Grattan_id",
