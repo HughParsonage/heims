@@ -1,4 +1,7 @@
 test_that("Joined known example", {
+  library(dtplyr)
+  library(dplyr)
+  library(data.table)
 
   # a la enrols
   enrols <-

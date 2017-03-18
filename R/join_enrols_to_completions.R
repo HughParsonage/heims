@@ -29,7 +29,7 @@ join_enrols_to_completions <- function(enrolTable,
             is.data.table(enrolYearById),
             enrol.id %in% names(enrolYearById),
             enrol.id %in% names(enrolTable),
-            is.integer(enrolYearById %>% select_(.dots = setdiff(names(enrolYearById), enrol.id)) %>% .[[1]]),
+            is.integer(dplyr::select_(enrolYearById, .dots = setdiff(names(enrolYearById), enrol.id)) %>% .[[1]]),
             is.list(completionTables))
 
   check_completionTable <- function(el){
@@ -81,6 +81,6 @@ join_enrols_to_completions <- function(enrolTable,
     }
   }
 
-  out[, .(enrol.id, completion.year)]
+  out[, .SD, .SDcols = c(enrol.id, completion.year)]
 }
 
