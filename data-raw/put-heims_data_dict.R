@@ -112,7 +112,8 @@ list(
                 ad_hoc_validation_note = "U was also used in 14 cases.",
                 valid = function(v) v %fin% c("M", "F", "X", "U"),
                 decoder = function(DT){
-                  DT[, Gender := coalesce(E315, "M")]
+                  coalesce_gender <- function(g) {g[!{g %fin% c("M", "F")}] <- "M"; g}
+                  DT[, Gender := coalesce_gender(E315)]
                   DT[, "E315" := NULL]
                 }),
 
