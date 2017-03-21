@@ -4,7 +4,7 @@
 \alias{decode_heims}
 \title{Decode HEIMS elements}
 \usage{
-decode_heims(DT, show_progress = FALSE, selector = NULL)
+decode_heims(DT, show_progress = FALSE, selector)
 }
 \arguments{
 \item{DT}{A \code{data.table} with the original HEIMS column names.}

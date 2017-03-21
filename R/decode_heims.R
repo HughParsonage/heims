@@ -8,7 +8,7 @@
 #' This function takes a long time to finish.
 #' @export decode_heims
 
-decode_heims <- function(DT, show_progress = FALSE, selector = NULL){
+decode_heims <- function(DT, show_progress = FALSE, selector){
   orig_key <- key(DT)
   setnames(DT, old = names(DT), new = gsub("^e", "E", names(DT)))
   `_order` <- NULL
@@ -35,7 +35,7 @@ decode_heims <- function(DT, show_progress = FALSE, selector = NULL){
       progress <- progress + 1
       cat(orig, "\t\t", as.character(Sys.time()), "\t", formatC(progress, width = nchar(n_names)), "/", n_names, "\n", sep = "")
     }
-    if (orig %in% intersect(names(heims_data_dict), NULL)){
+    if (orig %in% if (!missing(selector)) intersect(names(heims_data_dict), selector) else names(heims_data_dict)){
       dict_entry <- heims_data_dict[[orig]]
 
       origcol_not_na <-
