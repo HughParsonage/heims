@@ -1,5 +1,5 @@
 #' Join enrol to completion successively
-#' @param enrols A data.table for enrolments (right table in the right outer joins)
+#' @param enrolTable A data.table for enrolments (right table in the right outer joins)
 #' @param enrolYearById Two-column data table: one column named the same as
 #'   \code{enrol.id} and the other representing the enrolment year of that id.
 #' @param enrol.id The unique identifier of each enrolment.
@@ -54,6 +54,7 @@ join_enrols_to_completions <- function(enrolTable,
   }
 
   out <- copy(enrolTable)
+  .no_match <- NULL
 
   for (i in seq_along(completionTables)){
     completions_tbl <- copy(completionTables[[i]][[1]])

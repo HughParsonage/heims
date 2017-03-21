@@ -10,6 +10,8 @@ join_enrols_to_completions(enrolTable, enrolYearById,
   completion.year = "completion_Year", completionTables, debug = FALSE)
 }
 \arguments{
+\item{enrolTable}{A data.table for enrolments (right table in the right outer joins)}
+
 \item{enrolYearById}{Two-column data table: one column named the same as
 \code{enrol.id} and the other representing the enrolment year of that id.}
 
@@ -31,8 +33,6 @@ the first, \code{DT}, is a data.table, the second is passed to the
  for a non-equi join.}
 
 \item{debug}{Print intermediate tables.}
-
-\item{enrols}{A data.table for enrolments (right table in the right outer joins)}
 }
 \description{
 Join enrol to completion successively
