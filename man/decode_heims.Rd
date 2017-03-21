@@ -4,12 +4,14 @@
 \alias{decode_heims}
 \title{Decode HEIMS elements}
 \usage{
-decode_heims(DT, show_progress = FALSE)
+decode_heims(DT, show_progress = FALSE, selector = NULL)
 }
 \arguments{
 \item{DT}{A \code{data.table} with the original HEIMS column names.}
 
 \item{show_progress}{Display the progress of the function (which is likely to be slow).}
+
+\item{selector}{Original HEIMS names to restrict the decoding to. Other names will be preserved.}
 }
 \value{
 DT with the values decoded and the names renamed.

@@ -1,13 +1,14 @@
 #' Decode HEIMS elements
 #' @param DT A \code{data.table} with the original HEIMS column names.
 #' @param show_progress Display the progress of the function (which is likely to be slow).
+#' @param selector Original HEIMS names to restrict the decoding to. Other names will be preserved.
 #' @return DT with the values decoded and the names renamed.
 #' @details Each variable in \code{DT} is validated according \code{\link{heims_data_dict}} before being decoded. Any failure stops the validation.
 #'
 #' This function takes a long time to finish.
 #' @export decode_heims
 
-decode_heims <- function(DT, show_progress = FALSE){
+decode_heims <- function(DT, show_progress = FALSE, selector = NULL){
   orig_key <- key(DT)
   setnames(DT, old = names(DT), new = gsub("^e", "E", names(DT)))
   `_order` <- NULL
@@ -34,7 +35,7 @@ decode_heims <- function(DT, show_progress = FALSE){
       progress <- progress + 1
       cat(orig, "\t\t", as.character(Sys.time()), "\t", formatC(progress, width = nchar(n_names)), "/", n_names, "\n", sep = "")
     }
-    if (orig %in% names(heims_data_dict)){
+    if (orig %in% intersect(names(heims_data_dict), NULL)){
       dict_entry <- heims_data_dict[[orig]]
 
       origcol_not_na <-
