@@ -1081,7 +1081,8 @@ list(
                 orig_name = "E919",
                 mark_missing = function(v) v == 9, # not idempotent
                 validate = function(v) is.integer(v) && all(between(v, 0, 9), na.rm = TRUE),
-                valid = function(v) v %fin% seq.int(0, 9)),
+                valid = function(v) v %fin% seq.int(0, 9),
+                decoder = E919_decoder),
   "E920" = list(long_name = "State_term_location",
                 orig_name = "E920",
                 mark_missing = function(v) v == 9, # not idempotent
