@@ -198,7 +198,9 @@ E562_decoder <-
   fread("./data-raw/decoders/E562-decoder.txt") %>%
   setkey(E562)
 
-
+E919_decoder <-
+  fread("./data-raw/decoders/E919-decoder.txt", na.strings = "") %>%
+  setkey(E919)
 
 E922_decoder <-
   data.table(E922 = c(1L, 2L),
@@ -228,6 +230,7 @@ devtools::use_data(E089_decoder,
                    U490_decoder,
                    E551_decoder,
                    E562_decoder,
+                   E919_decoder,
                    E922_decoder,
                    FOE_uniter,
                    internal = FALSE, overwrite = TRUE)
