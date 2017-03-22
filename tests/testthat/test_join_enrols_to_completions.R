@@ -1,8 +1,4 @@
 test_that("Joined known example", {
-  library(dtplyr)
-  library(dplyr)
-  library(data.table)
-
   # a la enrols
   enrols <-
     data.table(HE_Provider_name = c("a", "a", "a", "b", "b", "c", "c", "e"),
