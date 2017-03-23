@@ -246,8 +246,12 @@ list(
                                               "A999"),
                 decoder = function(DT){
                   DT[, Year_arrived_Aust := force_integer(E347)]
-                  DT[, Year_arrived_Aust := if_else(E347 == "0000", NA_integer_, Year_arrived_Aust)]
-                  DT[, Born_in_Aust := if_else(E347 == "A999", NA, Year_arrived_Aust == 1L)]
+                  DT[, Year_arrived_Aust := if_else(E347 %fin% c("0000", "0001"),
+                                                    NA_integer_,
+                                                    Year_arrived_Aust)]
+                  DT[, Born_in_Aust := if_else(E347 == "A999", NA, E347 == "0001")]
+                  DT[, E347 := NULL]
+                  DT
                 }),
 
   "E348" = list(long_name = "Language_home",
@@ -1087,7 +1091,8 @@ list(
                 orig_name = "E920",
                 mark_missing = function(v) v == 9, # not idempotent
                 validate = function(v) is.integer(v) && all(between(v, 0, 9), na.rm = TRUE),
-                valid = function(v) v %fin% seq.int(0, 9)),
+                valid = function(v) v %fin% seq.int(0, 9),
+                decoder = E920_decoder),
   "E922" = list(long_name = "Commencing_student_ind",
                 orig_name = "E922",
                 mark_missing = never,
