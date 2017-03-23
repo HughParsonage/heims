@@ -202,6 +202,12 @@ E919_decoder <-
   fread("./data-raw/decoders/E919-decoder.txt", na.strings = "") %>%
   setkey(E919)
 
+E920_decoder <-
+  fread("./data-raw/decoders/E919-decoder.txt", na.strings = "") %>%
+  setnames("E919", "E920") %>%
+  setnames("State_permanent_home", "State_term_location") %>%
+  setkey(E920)
+
 E922_decoder <-
   data.table(E922 = c(1L, 2L),
              Commencing_student = c(TRUE, FALSE),

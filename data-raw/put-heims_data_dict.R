@@ -1092,7 +1092,7 @@ list(
                 mark_missing = function(v) v == 9, # not idempotent
                 validate = function(v) is.integer(v) && all(between(v, 0, 9), na.rm = TRUE),
                 valid = function(v) v %fin% seq.int(0, 9),
-                decoder = setnames(E919_decoder, "E919", "E920") %>% setkey(E920)),
+                decoder = E920_decoder),
   "E922" = list(long_name = "Commencing_student_ind",
                 orig_name = "E922",
                 mark_missing = never,
