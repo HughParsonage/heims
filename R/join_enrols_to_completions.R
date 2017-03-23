@@ -82,6 +82,6 @@ join_enrols_to_completions <- function(enrolTable,
     }
   }
 
-  out[, .SD, .SDcols = c(enrol.id, completion.year)]
+  out[, .SD, .SDcols = c(enrol.id, completion.id, completion.year)]
 }
 
