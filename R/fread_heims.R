@@ -11,7 +11,8 @@ fread_heims <- function(filename){
                              "ZZZZZZZZZZ"),
         # course file does not contain "E313"
         colClasses = switch(file,
-                            "enrol" = list(character = c("E313", "E347")),
+                            "enrol" = list(character = c("E313", "E347"),
+                                           numeric = c("ASGC_remote", "remote")),
                             "completions" = list(character = c("E313", "E347")),
                             "load" = list(character = c("E313")),
                             NULL))
