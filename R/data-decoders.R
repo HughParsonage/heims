@@ -76,6 +76,9 @@ NULL
 "E919_decoder"
 
 #' @rdname decoders
+"E920_decoder"
+
+#' @rdname decoders
 "E922_decoder"
 
 #' @rdname decoders

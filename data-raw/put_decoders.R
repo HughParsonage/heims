@@ -237,6 +237,7 @@ devtools::use_data(E089_decoder,
                    E551_decoder,
                    E562_decoder,
                    E919_decoder,
+                   E920_decoder,
                    E922_decoder,
                    FOE_uniter,
                    internal = FALSE, overwrite = TRUE)
