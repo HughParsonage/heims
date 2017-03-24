@@ -27,6 +27,7 @@
 \alias{E551_decoder}
 \alias{E562_decoder}
 \alias{E919_decoder}
+\alias{E920_decoder}
 \alias{E922_decoder}
 \alias{FOE_uniter}
 \alias{HE_Provider_decoder}
@@ -80,6 +81,8 @@ E551_decoder
 E562_decoder
 
 E919_decoder
+
+E920_decoder
 
 E922_decoder
 
