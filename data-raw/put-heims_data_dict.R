@@ -1140,7 +1140,22 @@ list(
                 mark_missing = function(v) v %fin% c(0, 2) | !between(v, 0, 99),
                 ad_hoc_validation_note = "Some ages 115 and 11: guessing 11 is genuine.",
                 validate = function(v) is.integer(v) && all(v %fin% c(0, 2, seq.int(0, 115)), na.rm = TRUE),
-                valid = function(v) v %fin% c(0, 2, seq.int(0, 115)))
+                valid = function(v) v %fin% c(0, 2, seq.int(0, 115))),
+
+  "A_SES2011" = list(long_name = "SES_2011",
+                     orig_name = "A_SES2011",
+                     mark_missing = function(v) v == "x",
+                     validate = function(v) all(v %fin% c("h", "m", "l", "x")),
+                     valid = function(v) v %fin% c("h", "m", "l", "x"),
+                     decoder = function(DT){
+
+                       DT[, SES_2011 := factor(A_SES2011,
+                                               levels = c("l", "m", "h"),
+                                               labels = c("Low", "Medium", "High"),
+                                               ordered = TRUE)]
+                       DT[, A_SES2011 := NULL]
+                       DT
+                     })
 ) -> heims_data_dict
 
 devtools::use_data(heims_data_dict, overwrite = TRUE)
