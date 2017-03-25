@@ -75,6 +75,11 @@ join_enrols_to_completions <- function(enrolTable,
         print(out)
       }
       out[, .no_match := and(is.na(out[[completion.year]]), out[[".no_match"]])]
+      if (paste0("i.", completion.id) %in% names(out)){
+        # Set completion id to the i.Completion_id (from previous join) or Completion_id if i. is missing
+        out[, (completion.id) := coalesce(out[[paste0("i.", completion.id)]], out[[completion.id]])]
+        out[, (paste0("i.", completion.id)) := NULL]
+      }
       if (paste0("i.", completion.year) %in% names(out)){
         out[, (completion.year) := coalesce(out[[paste0("i.", completion.year)]], out[[completion.year]])]
         out[, (paste0("i.", completion.year)) := NULL]

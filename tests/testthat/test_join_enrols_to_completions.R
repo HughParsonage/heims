@@ -41,5 +41,6 @@ test_that("Joined known example", {
                                                                       list(DT = completions_by_CHESSN,
                                                                            on_key = c("CHESSN", "completion_Year>=enrol_Year")))),
                    data.table(Enrol_Grattan_id = LETTERS[1:8],
+                              Completions_Grattan_id = c("K", "L", NA, "N", NA, NA, NA, NA),
                               completion_Year = as.integer(c(2006, 2006, NA, 2010, NA, NA, NA, NA))))
 })
