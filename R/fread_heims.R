@@ -5,6 +5,7 @@
 
 fread_heims <- function(filename){
   file <- gsub("^.*((enrol)|(completions)|(load)).*$", "\\1", filename)
+
   fread(filename,
         na.strings = c("", "NA", "?", ".", "*", "**",
                              # CHESSN
@@ -15,5 +16,8 @@ fread_heims <- function(filename){
                                            numeric = c("ASGC_remote", "remote")),
                             "completions" = list(character = c("E313", "E347")),
                             "load" = list(character = c("E313")),
-                            NULL))
+                            NULL)) %>%
+    setnames(grep("^e", names(.), value = TRUE),
+             gsub("^e", "E", grep("^e", names(.), value = TRUE))) %>%
+    setcolorder(sort(names(.)))
 }
