@@ -7,18 +7,19 @@
 join_enrols_to_completions(enrolTable, enrolYearById,
   enrol.id = "Enrol_Grattan_id", completionYearById,
   completion.id = "Completions_Grattan_id",
-  completion.year = "completion_Year", completionTables, debug = FALSE)
+  completion.year = "completion_Year", completionTables, injective = FALSE,
+  imatch = "imatch", keep_imatch = FALSE, debug = FALSE)
 }
 \arguments{
 \item{enrolTable}{A data.table for enrolments (right table in the right outer joins)}
 
 \item{enrolYearById}{Two-column data table: one column named the same as
-\code{enrol.id} and the other representing the enrolment year of that id.}
+\code{enrol.id}, which must be an integer column, and the other representing the enrolment year of that id.}
 
 \item{enrol.id}{The unique identifier of each enrolment.}
 
 \item{completionYearById}{Two-column data table: one column named the same as
-\code{completion.id} and the other representing the completion year of that id.}
+\code{completion.id}, which must be an integer column, and the other representing the completion year of that id.}
 
 \item{completion.id}{The unique identifier of each completion (possibly spread
 over multiple tables).}
@@ -31,6 +32,12 @@ the first, \code{DT}, is a data.table, the second is passed to the
 \code{on = } argument \code{data.table}. For example
 \code{c("HE_Provider_name", "Student_id", "completion_Year>=enrol_Year")}
  for a non-equi join.}
+
+\item{injective}{Does the join need to be injective? If \code{TRUE}, the result will be unique on \code{completion.id}, using the earliest match.}
+
+\item{imatch}{Column name indicating the list element on which the successful join occurred.}
+
+\item{keep_imatch}{Should the column \code{imatch} be present in the output?}
 
 \item{debug}{Print intermediate tables.}
 }
