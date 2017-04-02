@@ -289,7 +289,8 @@ list(
                 orig_name = "E355",
                 mark_missing = never,
                 ad_hoc_prepare = function(v) {v[v == 0L] <- NA_integer_; v},
-                validate = function(v) is.integer(v) && all(between(v, 1, 5), na.rm = TRUE),
+                ad_hoc_validation_note = "Many 0s observed. Irreconciable. (Use roll=TRUE).",
+                validate = function(v) is.integer(v) && all(between(v, 0, 5), na.rm = TRUE),
                 valid = function(v) v %fin% seq.int(1, 5),
                 decoder = E355_decoder),
 
