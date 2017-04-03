@@ -21,9 +21,9 @@
 #' @export
 join_enrols_to_completions <- function(enrolTable,
                                        enrolYearById,
-                                       enrol.id = "Enrol_Grattan_id",
+                                       enrol.id = "enrol_row_id",
                                        completionYearById,
-                                       completion.id = "Completions_Grattan_id",
+                                       completion.id = "completions_row_id",
                                        completion.year = "completion_Year",
                                        completionTables,
                                        injective = FALSE,
