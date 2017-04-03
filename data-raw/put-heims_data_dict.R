@@ -319,7 +319,7 @@ list(
                                           v == 9999))),
   "E369" = list(long_name = "TER",
                 orig_name = "E369",
-                mark_missing = function(v) v >= 800,
+                mark_missing = function(v) v >= 800 | v == 1L,
                 ad_hoc_prepare = function(v) if_else(between(v, 2L, 29L), 998L, v),
                 validate = function(v) is.integer(v) && all(or(or(v == 1L | between(v, 2, 29),
                                                                   between(v, 30L, 100L)),
