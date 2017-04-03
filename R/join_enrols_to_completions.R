@@ -115,7 +115,11 @@ join_enrols_to_completions <- function(enrolTable,
       out %>%
       setorderv(imatch) %>%
       # Remove rows where completion id is duplicate (except for NAs).
-      .[(is.na(.[[completion.id]]) | !duplicated(., by = completion.id))]
+      .[, ok := (is.na(.[[completion.id]]) | !duplicated(., by = completion.id))] %>%
+      .[, (completion.id) := if_else(ok, .[[completion.id]], NA_integer_)] %>%
+      .[, (completion.year) := if_else(ok, .[[completion.year]], NA_integer_)] %>%
+      .[, ok := NULL] %>%
+      .[]
   }
 
   setorderv(out, "_order")
