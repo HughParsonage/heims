@@ -89,6 +89,9 @@ E346_decoder <-
   .[, Country_code := NULL] %>%
   .[, Country_of_birth := trimws(gsub("[\\(,].*$", "", Country_name))] %>%
   .[, .(E346, Country_of_birth, Region_name)] %>%
+  .[, Country_of_birth := if_else(Country_of_birth %in% c("England", "Wales", "Scotland"),
+                                  "United Kingdom",
+                                  Country_of_birth)] %>%
   setkey(E346) %>%
   .[]
 

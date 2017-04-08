@@ -5,10 +5,10 @@
 \title{Join enrol to completion successively}
 \usage{
 join_enrols_to_completions(enrolTable, enrolYearById,
-  enrol.id = "Enrol_Grattan_id", completionYearById,
-  completion.id = "Completions_Grattan_id",
-  completion.year = "completion_Year", completionTables, injective = FALSE,
-  imatch = "imatch", keep_imatch = FALSE, debug = FALSE)
+  enrol.id = "enrol_row_id", completionYearById,
+  completion.id = "completions_row_id", completion.year = "completion_Year",
+  completionTables, injective = FALSE, imatch = "imatch",
+  keep_imatch = FALSE, debug = FALSE)
 }
 \arguments{
 \item{enrolTable}{A data.table for enrolments (right table in the right outer joins)}
