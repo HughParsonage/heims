@@ -1,6 +1,7 @@
 #' Decode HEIMS elements
 #' @param DT A \code{data.table} with the original HEIMS column names.
 #' @param show_progress Display the progress of the function (which is likely to be slow).
+#' @param check_valid Check the variable is valid before decoding. Setting to \code{FALSE} is faster, but should only be done when you know the data has been validated.
 #' @param selector Original HEIMS names to restrict the decoding to. Other names will be preserved.
 #' @return DT with the values decoded and the names renamed.
 #' @details Each variable in \code{DT} is validated according \code{\link{heims_data_dict}} before being decoded. Any failure stops the validation.
@@ -8,12 +9,19 @@
 #' This function takes a long time to finish.
 #' @export decode_heims
 
-decode_heims <- function(DT, show_progress = FALSE, selector){
-  orig_key <- key(DT)
+decode_heims <- function(DT, show_progress = FALSE, check_valid = TRUE, selector){
+  had.key <- haskey(DT)
+  if (had.key){
+    orig_key <- key(DT)
+  } else {
+    `_order` <- NULL
+    orig_key <- "_order"
+    DT[, `_order` := seq_len(.N)]
+    DTnoms <- names(DT)
+    setkeyv(DT, "_order")
+  }
+
   setnames(DT, old = names(DT), new = gsub("^e", "E", names(DT)))
-  `_order` <- NULL
-  DT[, `_order` := seq_len(.N)]
-  DTnoms <- names(DT)
 
   # do ad_hoc_prepares
   for (j in seq_along(DT)){
@@ -43,15 +51,20 @@ decode_heims <- function(DT, show_progress = FALSE, selector){
 
       origcol_not_na <- origcol_not_na[!is.na(origcol_not_na)]
 
-      if (length(origcol_not_na) > 0 && !dict_entry$validate(origcol_not_na)){
+      if (check_valid && length(origcol_not_na) > 0 && !dict_entry$validate(origcol_not_na)){
         stop(orig, " was not validated.")
       }
 
       if ("decoder" %in% names(dict_entry)){
         if (is.data.table(dict_entry[["decoder"]])){
           DT_decoder <- dict_entry[["decoder"]]
-          setkeyv(DT, key(DT_decoder))
-          DT <- DT_decoder[DT, roll=TRUE]
+          stopifnot(haskey(DT_decoder))
+          # Limit the reordering to as few as columns as possible
+          D.T <- DT[, .SD, .SDcols = c(key(DT), key(DT_decoder))]
+          setkeyv(D.T, key(DT_decoder))
+          D.T <- DT_decoder[D.T, roll=TRUE]
+          setkey(D.T, key(DT))
+          DT <- D.T[DT]
         } else {
           if (is.function(dict_entry[["decoder"]])){
             decoder_fn <- dict_entry[["decoder"]]
@@ -91,9 +104,9 @@ decode_heims <- function(DT, show_progress = FALSE, selector){
                     setdiff(names(DT),
                             c("CHESSN", "HE_Provider_name", "Student_id"))))
 
+  if (!had.key){
+    DT[, "_order" := NULL]
+  }
   setkeyv(DT, orig_key)
-  DT %>%
-    setorderv("_order") %>%
-    .[, `_order` := NULL] %>%
-    .[]
+  DT
 }
