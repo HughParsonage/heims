@@ -658,9 +658,7 @@ list(
                 validate = function(v) all(is.Date(v)),
                 valid = function(v) is.Date(v),
                 decoder = function(DT){
-                  stopifnot("E489" %in% names(DT))
-                  E314 <- NULL
-                  DT[, "Census_date" := as.Date(paste(E489 %/% 10e3, (E489 %% 10e3) %/% 100, E489 %% 100, sep = "-"))]
+                  DT[, "Census_date" := ymd(E489)]
                   DT[, E489 := NULL]
                 },
                 post_fst = function(DT){
