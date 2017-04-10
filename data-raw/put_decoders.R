@@ -7,10 +7,28 @@ library(heims)
 # In case library(fastmatch) in effect
 coalesce <- function(...) dplyr::coalesce(...)
 
+has_unique_key <- function(DT){
+  haskey(DT) && (uniqueN(DT, by = key(DT)) == length(.subset2(DT, 1)))
+}
+
+setuniquekey <- function(DT, ...){
+  setkey(DT, ...)
+  if (has_unique_key(DT)){
+    return(DT)
+  } else {
+    stop("Key is not unique.")
+  }
+}
+
+
 E089_decoder <-
   data.table(E089 = c(1L, 2L),
              is_1st_completion_record = c(TRUE, FALSE),
              key = "E089")
+
+E095_decoder <-
+  fread("./data-raw/decoders/E095-decoder.csv") %>%
+  setuniquekey(E095)
 
 E306_decoder <-
   HE_Provider_decoder <-
@@ -18,7 +36,8 @@ E306_decoder <-
   setnames("Provider Code", "E306") %>%
   setnames("Provider Name", "HE_Provider_name") %>%
   setnames("Provider Type", "HE_Provider_type") %>%
-  setkey(E306)
+  unique(by = "E306", fromLast = TRUE) %>%
+  setuniquekey(E306)
 
 E310_decoder <-
   fread("./data-raw/decoders/E310-decoder.csv") %>%
@@ -216,7 +235,14 @@ E922_decoder <-
              Commencing_student = c(TRUE, FALSE),
              key = "E922")
 
+lapply(mget(ls(pattern = "decoder")), function(dt){
+  if (!has_unique_key(dt)){
+    print(names(dt))
+    stop("DT has non-unique key")
+  }})
+
 devtools::use_data(E089_decoder,
+                   E095_decoder,
                    E306_decoder, HE_Provider_decoder,
                    E310_decoder,
                    E312_decoder,
