@@ -14,11 +14,10 @@ decode_heims <- function(DT, show_progress = FALSE, check_valid = TRUE, selector
   if (had.key){
     orig_key <- key(DT)
   } else {
-    `_order` <- NULL
-    orig_key <- "_order"
-    DT[, `_order` := seq_len(.N)]
+    orig_key <- "the_order"
+    DT[, (orig_key) := seq_len(.N)]
     DTnoms <- names(DT)
-    setkeyv(DT, "_order")
+    setkeyv(DT, orig_key)
   }
 
   setnames(DT, old = names(DT), new = gsub("^e", "E", names(DT)))
@@ -41,7 +40,8 @@ decode_heims <- function(DT, show_progress = FALSE, check_valid = TRUE, selector
   for (orig in DTnoms){
     if (show_progress){
       progress <- progress + 1
-      cat(orig, "\t\t", as.character(Sys.time()), "\t", formatC(progress, width = nchar(n_names)), "/", n_names, "\n", sep = "")
+      cat(orig, "\t\t\t", as.character(Sys.time()), "\t", formatC(progress, width = nchar(n_names)), "/", n_names, "\n", sep = "")
+      cat(nrow(DT), "\n")
     }
     if (orig %in% if (!missing(selector)) intersect(names(heims_data_dict), selector) else names(heims_data_dict)){
       dict_entry <- heims_data_dict[[orig]]
@@ -60,10 +60,13 @@ decode_heims <- function(DT, show_progress = FALSE, check_valid = TRUE, selector
           DT_decoder <- dict_entry[["decoder"]]
           stopifnot(haskey(DT_decoder))
           # Limit the reordering to as few as columns as possible
-          D.T <- DT[, .SD, .SDcols = c(key(DT), key(DT_decoder))]
+          if (!haskey(DT)) setkeyv(DT, orig_key)
+          D.T <- DT[, .SD, .SDcols = c(orig_key, key(DT_decoder))]
           setkeyv(D.T, key(DT_decoder))
           D.T <- DT_decoder[D.T, roll=TRUE]
-          setkey(D.T, key(DT))
+          # Two joins so need to drop the original name here
+          D.T[, (orig) := NULL]
+          setkeyv(D.T, orig_key)
           DT <- D.T[DT]
         } else {
           if (is.function(dict_entry[["decoder"]])){
@@ -104,9 +107,9 @@ decode_heims <- function(DT, show_progress = FALSE, check_valid = TRUE, selector
                     setdiff(names(DT),
                             c("CHESSN", "HE_Provider_name", "Student_id"))))
 
-  if (!had.key){
-    DT[, "_order" := NULL]
-  }
   setkeyv(DT, orig_key)
+  if (!had.key){
+    DT[, (orig_key) := NULL]
+  }
   DT
 }

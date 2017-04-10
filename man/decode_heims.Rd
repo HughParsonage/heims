@@ -4,12 +4,14 @@
 \alias{decode_heims}
 \title{Decode HEIMS elements}
 \usage{
-decode_heims(DT, show_progress = FALSE, selector)
+decode_heims(DT, show_progress = FALSE, check_valid = TRUE, selector)
 }
 \arguments{
 \item{DT}{A \code{data.table} with the original HEIMS column names.}
 
 \item{show_progress}{Display the progress of the function (which is likely to be slow).}
+
+\item{check_valid}{Check the variable is valid before decoding. Setting to \code{FALSE} is faster, but should only be done when you know the data has been validated.}
 
 \item{selector}{Original HEIMS names to restrict the decoding to. Other names will be preserved.}
 }
