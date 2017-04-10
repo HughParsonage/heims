@@ -4,6 +4,7 @@
 \name{decoders}
 \alias{decoders}
 \alias{E089_decoder}
+\alias{E095_decoder}
 \alias{E306_decoder}
 \alias{E310_decoder}
 \alias{E312_decoder}
@@ -35,6 +36,8 @@
 \format{An object of class \code{data.table} (inherits from \code{data.frame}) with 2 rows and 2 columns.}
 \usage{
 E089_decoder
+
+E095_decoder
 
 E306_decoder
 
