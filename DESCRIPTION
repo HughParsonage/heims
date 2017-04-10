@@ -10,7 +10,8 @@ Imports:
   fastmatch,
   magrittr,
   bit64,
-  lubridate
+  lubridate,
+  fst
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
