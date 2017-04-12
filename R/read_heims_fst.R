@@ -27,7 +27,7 @@ read_heims_fst <- function(filename){
 
   if ("Census_date" %in% noms){
     setattr(out$Census_date, "class", "Date")
-    out[, Semester := month(Census_date) %/% 6 + 1L]
+    out[, Semester := (month(Census_date) - 1L) %/% 6 + 1L]
   }
 
   if ("DOB" %in% noms){
