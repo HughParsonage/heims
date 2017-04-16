@@ -1151,12 +1151,16 @@ list(
                      validate = function(v) all(v %fin% c("h", "m", "l", "x")),
                      valid = function(v) v %fin% c("h", "m", "l", "x"),
                      decoder = function(DT){
-
-                       DT[, SES_2011 := factor(A_SES2011,
-                                               levels = c("l", "m", "h"),
-                                               labels = c("Low", "Medium", "High"),
-                                               ordered = TRUE)]
-                       DT[, A_SES2011 := NULL]
+                       DT[, SES_CD := factor(ses_cd,
+                                          levels = c("l", "m", "h"),
+                                          labels = c("Low", "Medium", "High"),
+                                          ordered = TRUE)]
+                       DT[, A_SES2011 := factor(A_SES2011,
+                                                levels = c("l", "m", "h"),
+                                                labels = c("Low", "Medium", "High"),
+                                                ordered = TRUE)]
+                       DT[, SES := coalesce(SES_CD, A_SES2011)]
+                       DT[, c("A_SES2011", "SES_CD") := NULL]
                        DT
                      })
 ) -> heims_data_dict
