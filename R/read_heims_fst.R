@@ -15,19 +15,22 @@ read_heims_fst <- function(filename){
     setattr(out$CHESSN, "class", "integer64")
   }
 
+  Course_commencement_date <- NULL
   if ("Course_commencement_date" %in% noms){
     setattr(out$Course_commencement_date, "class", "Date")
-    out[, Course_commencement_year := year(Course_commencement_date)]
+    out[, "Course_commencement_year" := year(Course_commencement_date)]
   }
 
+  Course_start_date <- NULL
   if ("Course_start_date" %in% noms){
     setattr(out$Course_start_date, "class", "Date")
-    out[, Cohort := year(Course_start_date)]
+    out[, "Cohort" := year(Course_start_date)]
   }
 
+  Census_date <- NULL
   if ("Census_date" %in% noms){
     setattr(out$Census_date, "class", "Date")
-    out[, Semester := (month(Census_date) - 1L) %/% 6 + 1L]
+    out[, "Semester" := (month(Census_date) - 1L) %/% 6 + 1L]
   }
 
   if ("DOB" %in% noms){

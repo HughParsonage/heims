@@ -99,6 +99,7 @@ decode_heims <- function(DT, show_progress = FALSE, check_valid = TRUE, selector
     }
   }
 
+  CD_SES <- SES_2011 <- NULL
   if (("CD_SES" %in% names(DT)) && ("SES_2011" %in% names(DT))){
     DT[, SES := coalesce(CD_SES, SES_2011)]
     DT[, c("CD_SES", "SES_2011") := NULL]
