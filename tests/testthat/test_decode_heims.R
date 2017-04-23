@@ -13,7 +13,7 @@ test_that("Given a raw load data file, correctly decoded", {
 test_that("Given a raw completions data file, correctly decoded", {
   skip_if_not(file.exists("~/Students/heims-tests/completion_2015_sample50.csv"))
   raw_enrol <-
-    fread("~/Students/heims-tests/completion_2015_sample50.csv", na.strings = "ZZZZZZZZZZ")
+    fread_heims("~/Students/heims-tests/completion_2015_sample50.csv")
 
   decode_heims(copy(raw_enrol))
 
@@ -22,7 +22,7 @@ test_that("Given a raw completions data file, correctly decoded", {
 test_that("Given a raw enrol data file, correctly decoded", {
   skip_if_not(file.exists("~/Students/heims-tests/enrol_2015_sample50.csv"))
   raw_enrol <-
-    fread("~/Students/heims-tests/enrol_2015_sample50.csv", na.strings = "ZZZZZZZZZZ")
+    fread_heims("~/Students/heims-tests/enrol_2015_sample50.csv")
 
   decode_heims(copy(raw_enrol))
 

@@ -272,4 +272,6 @@ devtools::use_data(E089_decoder,
                    FOE_uniter,
                    internal = FALSE, overwrite = TRUE)
 
+# The dictionary depends on the decoders themselves
+source("./data-raw/put-heims_data_dict.R")
 
