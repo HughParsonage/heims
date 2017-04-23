@@ -36,6 +36,7 @@ E306_decoder <-
   setnames("Provider Code", "E306") %>%
   setnames("Provider Name", "HE_Provider_name") %>%
   setnames("Provider Type", "HE_Provider_type") %>%
+  .[, TableA := any(grepl("Table A", HE_Provider_type)), by = HE_Provider_name] %>%
   unique(by = "E306", fromLast = TRUE) %>%
   setuniquekey(E306)
 
