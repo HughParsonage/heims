@@ -8,6 +8,9 @@
 #'
 
 relevel_heims <- function(DT){
+  # CRAN NOTE avoidance: colname of first_levels
+  Variable <- NULL
+
   for (j in seq_along(DT)){
     nom <- names(DT)[j]
     if (nom %in% first_levels$Variable){
