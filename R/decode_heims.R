@@ -75,17 +75,20 @@ decode_heims <- function(DT, show_progress = FALSE, check_valid = TRUE, selector
           }
         }
         # Drop the original column
-        if (orig %in% names(DT)){
+        if (orig %in% names(DT)) {
           DT[, (orig) := NULL]
         }
       } else {
-        if ("mark_missing" %in% names(dict_entry)){
+        if ("mark_missing" %in% names(dict_entry)) {
           switch(class(DT[[orig]]),
                  "logical" = {
                    DT[, (orig) := if_else(dict_entry$mark_missing(DT[[orig]]), NA, DT[[orig]])]
                  },
                  "integer" = {
                    DT[, (orig) := if_else(dict_entry$mark_missing(DT[[orig]]), NA_integer_, DT[[orig]])]
+                 },
+                 "integer64" = {
+                   DT[, (orig) := if_else(dict_entry$mark_missing(DT[[orig]]), as.integer64(NA), DT[[orig]])]
                  },
                  "numeric" = {
                    DT[, (orig) := if_else(dict_entry$mark_missing(DT[[orig]]), NA_real_, DT[[orig]])]
@@ -94,6 +97,7 @@ decode_heims <- function(DT, show_progress = FALSE, check_valid = TRUE, selector
                    DT[, (orig) := if_else(dict_entry$mark_missing(DT[[orig]]), NA_character_, DT[[orig]])]
                  })
         }
+
 
       }
     }

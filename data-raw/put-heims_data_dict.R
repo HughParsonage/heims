@@ -644,7 +644,7 @@ list(
                 validate = function(v) is.integer(v) && v %in% c(0, 1, 2, 6, 7)),
   "E488" = list(long_name = "CHESSN",
                 orig_name = "E488",
-                mark_missing = function(v) v == "00",
+                mark_missing = function(v) v == 0,
                 ad_hoc_validation_note = "Treat as number, because it is. Import Z's as NA (only value that requires char).",
                 validate = function(v) is.integer(v) || is.integer64(v),
                 post_fst = function(DT){
