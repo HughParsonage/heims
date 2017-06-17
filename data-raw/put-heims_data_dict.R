@@ -242,12 +242,26 @@ list(
                                                       2099),
                                               "A998",
                                               "A999"),
-                decoder = function(DT){
+                decoder = function(DT) {
                   DT[, Year_arrived_Aust := force_integer(E347)]
                   DT[, Year_arrived_Aust := if_else(E347 %fin% c("0000", "0001"),
                                                     NA_integer_,
                                                     Year_arrived_Aust)]
-                  DT[, Born_in_Aust := if_else(E347 == "A999", NA, E347 == "0001")]
+                  # If year of arrival does not assert the person was born in Australia,
+                  # it is unknown.
+                  DT[, Born_in_Aust := E347 == "0001" | NA]
+
+                  # However, if the Country of birth is Australia, we can assert whether
+                  # the person was born in Australia.
+                  if (any(c("E346", "Country_of_birth") %in% names(DT))) {
+                    switch(intersect(c("E346", "Country_of_birth"), names(DT)),
+                           "E346" = {
+                             DT[, Born_in_Aust := coalesce(Born_in_Aust, DT[["E346"]] %fin% c(1100, 1101))]
+                           },
+                           "Country_of_birth" = {
+                             DT[, Born_in_Aust := coalesce(Born_in_Aust, DT[["Country_of_birth"]] == "Australia")]
+                           })
+                  }
                   DT[, E347 := NULL]
                   DT
                 }),
