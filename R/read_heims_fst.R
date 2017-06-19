@@ -1,6 +1,6 @@
 #' Read HEIMS data from decoded fst files
 #'
-#' @param filename File path to \code{.fst} file of a decoded HEIMS file (\code{\link{decode_heim}})
+#' @param filename File path to \code{.fst} file of a decoded HEIMS file (\code{\link{decode_heims}})
 #' produced by \code{fst::write.fst}.
 #' @return A \code{data.table} with appropriate attributes.
 #' @export
