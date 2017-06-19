@@ -110,7 +110,7 @@ count_elements_invalid <- function(DT, char = FALSE){
       DTn <- DTn[!is.na(DTn)]
 
       if (heims_data_dict[[nom]]$validate(DTn)) {
-        out[n] <- if (char) "--" else 1
+        out[n] <- if (char) "--" else 0L
       } else {
         if (AND(!is.null(heims_data_dict[[nom]]),
                 # Ensure 'validate' does not get mistaken for valid
