@@ -1,6 +1,7 @@
 #' Read HEIMS data from decoded fst files
 #'
-#' @param filename File path to \code{.fst} file produced by \code{fst::write.fst}.
+#' @param filename File path to \code{.fst} file of a decoded HEIMS file (\code{\link{decode_heim}})
+#' produced by \code{fst::write.fst}.
 #' @return A \code{data.table} with appropriate attributes.
 #' @export
 
@@ -42,6 +43,7 @@ read_heims_fst <- function(filename){
     setkeyv(out, major_id)
   }
 
+  # Put 'id' columns first
   setcolorder(out,
               c(intersect(noms,
                           c(major_id, "CHESSN", "Cohort",
