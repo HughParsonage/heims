@@ -7,8 +7,14 @@
 browse_elements(pattern)
 }
 \arguments{
-\item{pattern}{A case-insensitive perl expression or expressions to match in the long name as in \code{\link{heims_data_dict}}.}
+\item{pattern}{A case-insensitive perl expression or expressions to match in the long name of \code{\link{heims_data_dict}}.}
+}
+\value{
+A \code{data.table} of all element-long name combinations matching the perl regular expression.
 }
 \description{
 Browse elements for description
+}
+\examples{
+browse_elements(c("ProViDer", "Maj"))
 }

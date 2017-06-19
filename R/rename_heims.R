@@ -2,7 +2,7 @@
 #' @name element_decoders
 #' @param DT The data table with original names
 #' @param v A vector of element names.
-#' @return DT with the new names or the vector with the names translated. For \code{browse_elements}, a \code{data.table} of all element-long name combinations matching the perl regular expression.
+#' @return DT with the new names or the vector with the names translated.
 #' @details See \code{\link{heims_data_dict}}.
 
 
