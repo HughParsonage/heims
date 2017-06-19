@@ -17,20 +17,24 @@ test_that("validate_elements returns FALSE when invalid", {
 test_that("prop_elements and count_elements", {
   X <- data.table(E319 = c("X1200", "X999", "99999", "A9998"),
                   E327 = c(1L, 3L, 31L, 33L),
-                  E339 = c(-1, -2, -3, -4))
+                  E339 = c(-1, -2, -3, -4),
+                  # for ad_hoc_prepare
+                  E355 = c(1L, 1L, 1L, 5L))
 
-  expected_prop <- c(0.75, 1, 0)
+  expected_prop <- c(0.75, 1, 0, 1)
   names(expected_prop) <- names(X)
   expect_identical(prop_elements_valid(X),
                    expected_prop)
 
-  expected_count <- c(1, 0, 4)
+  expected_count <- c(1, 0, 4, 0)
   names(expected_count) <- names(X)
   expect_equal(count_elements_invalid(X),
                expected_count)
 
 
+
 })
+
 
 test_that("Element E493 prepared as expected", {
   expect_identical(heims_data_dict$E493$ad_hoc_prepare(as.integer(c(c(0, 10e3),
