@@ -125,20 +125,23 @@ list(
   "E319" = list(long_name = "Term_location",
                 orig_name = "E319",
                 mark_missing = function(v) substr(v, 2, 5) == "9999",
-                validate = function(v) AND(is.character(v),
+                validate = function(v) AND(AND(is.character(v),
+                                               all(nchar(v) == 5)),
                                            all(or(substr(v, 2, 5) == "9999",
                                                   or(v %fin% paste0("X", 1200:9299),
                                                      between(as.integer(substr(v, 2, 5)), 1, 9998))))),
-                valid = function(v) or(substr(v, 2, 5) == "9999",
-                                       or(v %fin% paste0("X", 1200:9299),
-                                          between(as.integer(substr(v, 2, 5)), 1, 9998)))),
+                valid = function(v) and(nchar(v) == 5,
+                                        or(substr(v, 2, 5) == "9999",
+                                           or(v %fin% paste0("X", 1200:9299),
+                                              between(as.integer(substr(v, 2, 5)), 1, 9998))))),
 
   "E320" = list(long_name = "Home_location",
                 orig_name = "E320",
                 mark_missing = function(v) substr(v, 2, 5) == "9999",
                 validate = function(v){
                   v <- v[!is.na(v)]
-                  AND(is.character(v),
+                  AND(AND(is.character(v),
+                          all(nchar(z) == 5)),
                       all(or(substr(v, 2, 5) == "9999",
                              or(v %fin% paste0("X", 1200:9299),
                                 between(as.integer(substr(v, 2, 5)), 1, 9998)))))
