@@ -7,7 +7,8 @@
 read_heims_fst(filename)
 }
 \arguments{
-\item{filename}{File path to \code{.fst} file produced by \code{fst::write.fst}.}
+\item{filename}{File path to \code{.fst} file of a decoded HEIMS file (\code{\link{decode_heim}})
+produced by \code{fst::write.fst}.}
 }
 \value{
 A \code{data.table} with appropriate attributes.
