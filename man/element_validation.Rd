@@ -34,6 +34,7 @@ vetoing a \code{TRUE} result if different.
 \examples{
 X <- data.frame(E306 = c(0, 1011, 999, 9998))
 validate_elements(X)  # FALSE
+prop_elements_valid(X)
 X <- data.frame(E306 = as.integer(c(0, 1011, 999, 9998)))
 validate_elements(X)  # TRUE
 
