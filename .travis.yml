@@ -4,7 +4,15 @@ language: R
 sudo: false
 cache: packages
 
+r_packages:
+  - covr
+  - devtools
+  - roxygen2
+
 # Do not build on these branches
 branches:
   except:
     - decoders
+
+after_success:
+  - Rscript -e 'covr::codecov()'
