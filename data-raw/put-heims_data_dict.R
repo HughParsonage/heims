@@ -48,7 +48,7 @@ list(
                 validate = function(v) is.integer(v) && all(between(v, 1, 3), na.rm = TRUE),
                 ad_hoc_validation_note = "Only 2 used in 2005-2015, so not character vector despite characters AVBL",
                 valid = function(v) v == 2),
-  "E306" = list(long_name = "HE_Provider_cd",
+  "E306" = list(long_name = "HE_Provider_name",
                 orig_name = "E306",
                 mark_missing = function(v) v == 0L,
                 validate = function(v) is.integer(v) && all(or(v == 0L,

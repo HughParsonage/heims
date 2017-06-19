@@ -11,7 +11,7 @@ test_that("validate_elements returns TRUE when valid", {
 
 test_that("validate_elements returns FALSE when invalid", {
   X <- data.frame(E306 = as.integer(c(0, 1011, 999, 9998)))
-  expect_false(all(validate_elements(X)))
+  expect_false(all(validate_elements(X, .progress_cat = TRUE)))
 })
 
 test_that("prop_elements and count_elements", {

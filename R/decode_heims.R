@@ -11,8 +11,13 @@
 
 decode_heims <- function(DT, show_progress = FALSE, check_valid = TRUE, selector){
   had.key <- haskey(DT)
-  if (had.key){
-    orig_key <- key(DT)
+  if (had.key) {
+    DT_key <- key(DT)
+    DT_key <- copy(DT_key)
+    orig_key <- "the_order"
+    DT[, (orig_key) := seq_len(.N)]
+    DTnoms <- names(DT)
+    setkeyv(DT, orig_key)
   } else {
     orig_key <- "the_order"
     DT[, (orig_key) := seq_len(.N)]
@@ -43,7 +48,7 @@ decode_heims <- function(DT, show_progress = FALSE, check_valid = TRUE, selector
       cat(orig, "\t\t\t", as.character(Sys.time()), "\t", formatC(progress, width = nchar(n_names)), "/", n_names, "\n", sep = "")
       cat(nrow(DT), "\n")
     }
-    if (orig %in% if (!missing(selector)) intersect(names(heims_data_dict), selector) else names(heims_data_dict)){
+    if (orig %in% if (F && !missing(selector)) intersect(names(heims_data_dict), selector) else names(heims_data_dict)){
       dict_entry <- heims_data_dict[[orig]]
 
       origcol_not_na <-
@@ -63,8 +68,8 @@ decode_heims <- function(DT, show_progress = FALSE, check_valid = TRUE, selector
           if (!haskey(DT)) setkeyv(DT, orig_key)
           D.T <- DT[, .SD, .SDcols = c(orig_key, key(DT_decoder))]
           setkeyv(D.T, key(DT_decoder))
-          D.T <- DT_decoder[D.T, roll=TRUE]
-          # Two joins so need to drop the original name here
+          D.T <- DT_decoder[D.T, roll = TRUE]
+          # One more join to come so need to drop the original name here
           D.T[, (orig) := NULL]
           setkeyv(D.T, orig_key)
           DT <- D.T[DT]
@@ -118,8 +123,11 @@ decode_heims <- function(DT, show_progress = FALSE, check_valid = TRUE, selector
                             c("CHESSN", "HE_Provider_name", "Student_id"))))
 
   setkeyv(DT, orig_key)
-  if (!had.key){
-    DT[, (orig_key) := NULL]
+  DT[, (orig_key) := NULL]
+  if (had.key) {
+    DT_key_decoded <- element2name(DT_key)
+    setkeyv(DT, DT_key_decoded)
   }
+
   DT
 }

@@ -49,7 +49,18 @@ test_that("Given the course 2015 file, won't error", {
   skip_if_not(file.exists(file))
   raw_course2015 <- fread(file, na.strings = c("", "NA", "?", ".", "*", "**", "ZZZZZZZZZZ"))
 
-  decode_heims(copy(raw_course2015))
+  decode_heims(copy(raw_course2015), show_progress = TRUE)
+  decode_heims(copy(raw_course2015), show_progress = TRUE, check_valid = FALSE)
+})
+
+test_that("Decodes course 2015 file, retains key", {
+  file <- "~/Students/course2015/course2015.csv"
+  skip_if_not(file.exists(file))
+
+  raw_course2015_keyed <- fread_heims(file)
+  setkeyv(raw_course2015_keyed, c("E306", "E307"))
+  course2015_keyed_decoded <- decode_heims(raw_course2015_keyed, check_valid = FALSE)
+  expect_equal(key(course2015_keyed_decoded), c("HE_Provider_name", "Course_cd"))
 })
 
 test_that("Given the load 2015 file, won't error", {
