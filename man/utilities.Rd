@@ -75,3 +75,9 @@ ymd(...)
 \description{
 Only included here because of the unusual nature of \code{\link{heims_data_dict}}.
 }
+\details{
+\code{nth_digit_of} returns the nth digit of the number \strong{starting from the units and going up in magnitude.}
+}
+\examples{
+nth_digit_of(503, 1) == 1
+}

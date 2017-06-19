@@ -26,7 +26,7 @@ always <- function(v) TRUE
 #' @rdname utilities
 #' @export is.Date
 is.Date <- function(v){
-  if (is.numeric(v)){
+  if (is.numeric(v)) {
     and(between(v / 10000, 1899, 2017),
         and(between((v %% 10000L) %/% 100, 1, 12),
             between(v %% 100, 1, 31)))
@@ -43,6 +43,8 @@ is.YearMonth <- function(v) is.Date(v * 100L + 1L)
 #' @rdname utilities
 #' @param x,n vectors
 #' @export nth_digit_of
+#' @details \code{nth_digit_of} returns the nth digit of the number \strong{starting from the units and going up in magnitude.}
+#' @examples nth_digit_of(503, 1) == 1
 nth_digit_of <- function(x, n){
   (x %% 10^n) %/% 10^(n - 1)
 }
