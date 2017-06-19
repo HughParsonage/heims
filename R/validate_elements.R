@@ -11,6 +11,7 @@
 #' @examples
 #' X <- data.frame(E306 = c(0, 1011, 999, 9998))
 #' validate_elements(X)  # FALSE
+#' prop_elements_valid(X)
 #' X <- data.frame(E306 = as.integer(c(0, 1011, 999, 9998)))
 #' validate_elements(X)  # TRUE
 #'
@@ -97,21 +98,25 @@ count_elements_invalid <- function(DT, char = FALSE){
   # e550 == E550
   noms <- gsub("^e([0-9]+)$", "E\\1", noms)
 
-  for (n in seq_along(DT)){
+  for (n in seq_along(DT)) {
     nom <- noms[n]
-    if (!is.null(heims_data_dict[[nom]]) && is.function(heims_data_dict[[nom]]$validate)){
+    if (!is.null(heims_data_dict[[nom]]) && is.function(heims_data_dict[[nom]]$validate)) {
       DTn <- DT[[n]]
 
-      if (is.function(heims_data_dict[[nom]]$ad_hoc_prepare)){
+      if (is.function(heims_data_dict[[nom]]$ad_hoc_prepare)) {
         DTn <- heims_data_dict[[nom]]$ad_hoc_prepare(DTn)
       }
 
       DTn <- DTn[!is.na(DTn)]
 
-      if (heims_data_dict[[nom]]$validate(DTn)){
+      if (heims_data_dict[[nom]]$validate(DTn)) {
         out[n] <- if (char) "--" else 1
       } else {
-        if (!is.null(heims_data_dict[[nom]]) && is.function(heims_data_dict[[nom]]$valid)){
+        if (AND(!is.null(heims_data_dict[[nom]]),
+                # Ensure 'validate' does not get mistaken for valid
+                # due partial string matching.
+                AND("valid" %in% names(heims_data_dict[[nom]]),
+                    is.function(heims_data_dict[[nom]]$valid)))) {
           prop <- sum(!heims_data_dict[[nom]]$valid(DTn), na.rm = TRUE)
           out[n] <- if (char) paste0(round(prop * 100), "%") else prop
         }
