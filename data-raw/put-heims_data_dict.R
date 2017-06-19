@@ -141,7 +141,7 @@ list(
                 validate = function(v){
                   v <- v[!is.na(v)]
                   AND(AND(is.character(v),
-                          all(nchar(z) == 5)),
+                          all(nchar(v) == 5)),
                       all(or(substr(v, 2, 5) == "9999",
                              or(v %fin% paste0("X", 1200:9299),
                                 between(as.integer(substr(v, 2, 5)), 1, 9998)))))
