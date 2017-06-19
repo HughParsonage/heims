@@ -3,7 +3,12 @@
 #' @param DT The data table with original names
 #' @param v A vector of element names.
 #' @return DT with the new names or the vector with the names translated.
-#' @details See \code{\link{heims_data_dict}}.
+#' @details See \code{\link{heims_data_dict}}. Note that \code{\link{decode_heims}} is generally better,
+#' as it decodes the variable if a decoder is present in the dictionary.
+#'
+#' \code{element2name} is the inverse of \code{\link{browse_elements}}:
+#' given an element like \code{E306}, it returns
+#' the name (\code{HE_Provider_cd}.)
 
 
 #' @rdname element_decoders
