@@ -533,7 +533,12 @@ list(
                 } else {
                   v %fin% c(0, seq.int(10e3, 129999))
                 },
-                decoder = FOE_uniter[, .(FOE_cd, foename, foegrattan)] %>% setnames(c("FOE_cd", "foename", "foegrattan"), c("E461", "FOE_name", "FOE_Grattan")) %>% .[, FOE_cd_orig := E461]),
+                decoder = {
+                  out <- FOE_uniter[, .(FOE_cd, foename, foegrattan)]
+                  setnames(out, c("FOE_cd", "foename", "foegrattan"), c("E461", "FOE_name", "FOE_Grattan"))
+                  out[, FOE_cd_orig := E461]
+                  out
+                  }),
   "E462" = list(long_name = "FOE_supp_cd",
                 orig_name = "E462",
                 mark_missing = never,
@@ -727,12 +732,12 @@ list(
                                                       "Incomplete VET"),
                                key = "E493")
 
-                  DT %>%
-                    .[, Year_Max_edu_level_ante := if_else(E493 > 19999L, E493 %% 10000L, NA_integer_)] %>%
-                    setkeyv("E493") %>%
-                    Edu_level[., roll = -Inf] %>%
-                    setkey(NULL) %>%
-                    .[, Year_Max_edu_level_ante := if_else(Year_Max_edu_level_ante == 9999, NA_integer_, Year_Max_edu_level_ante)]
+                  DT[, Year_Max_edu_level_ante := if_else(E493 > 19999L, E493 %% 10000L, NA_integer_)]
+                  setkeyv(DT, "E493")
+                  out <- Edu_level[DT, roll = -Inf]
+                  setkey(out, NULL)
+                  out[, Year_Max_edu_level_ante := if_else(Year_Max_edu_level_ante == 9999, NA_integer_, Year_Max_edu_level_ante)]
+                  out
                 }),
   "E495" = list(long_name = "Indic_student_contr_amt",
                 orig_name = "E495",

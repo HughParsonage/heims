@@ -1,6 +1,9 @@
-#' Read raw heims file
-#' @param filename A text-delimeted file, passed to \code{fread} from \code{data.table}.
-#' @return A \code{data.table}.
+#' Read raw HEIMS file
+#' @param filename A text-delimited file, passed to \code{fread} from \code{data.table}.
+#' @return A \code{data.table} with column names in ascending (lexicographical) order and
+#' any columns starting with \code{e} will be uppercase.
+#' @details The strings \code{"" "NA" "?" "." "*" "**"} are treated as missing, as well as \code{ZZZZZZZZZZ}
+#' (so students without a CHESSN will be marked with the \code{integer64} missing value).
 #' @export
 
 fread_heims <- function(filename){
