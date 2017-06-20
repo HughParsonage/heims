@@ -2,16 +2,21 @@
 % Please edit documentation in R/fread_heims.R
 \name{fread_heims}
 \alias{fread_heims}
-\title{Read raw heims file}
+\title{Read raw HEIMS file}
 \usage{
 fread_heims(filename)
 }
 \arguments{
-\item{filename}{A text-delimeted file, passed to \code{fread} from \code{data.table}.}
+\item{filename}{A text-delimited file, passed to \code{fread} from \code{data.table}.}
 }
 \value{
-A \code{data.table}.
+A \code{data.table} with column names in ascending (lexicographical) order and
+any columns starting with \code{e} will be uppercase.
 }
 \description{
-Read raw heims file
+Read raw HEIMS file
+}
+\details{
+The strings \code{"" "NA" "?" "." "*" "**"} are treated as missing, as well as \code{ZZZZZZZZZZ}
+(so students without a CHESSN will be marked with the \code{integer64} missing value).
 }

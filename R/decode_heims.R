@@ -1,12 +1,22 @@
 #' Decode HEIMS elements
 #' @param DT A \code{data.table} with the original HEIMS column names.
-#' @param show_progress Display the progress of the function (which is likely to be slow).
+#' @param show_progress Display the progress of the function (which is likely to be slow on real data).
 #' @param check_valid Check the variable is valid before decoding. Setting to \code{FALSE} is faster, but should only be done when you know the data has been validated.
 #' @param selector Original HEIMS names to restrict the decoding to. Other names will be preserved.
-#' @return DT with the values decoded and the names renamed.
+#' @return \code{DT} with the values decoded and the names renamed.
 #' @details Each variable in \code{DT} is validated according \code{\link{heims_data_dict}} before being decoded. Any failure stops the validation.
 #'
-#' This function takes a long time to finish.
+#' If \code{DT} has a key, the output will have a key, but set on the \strong{decoded} columns and
+#' the ordering will most likely change (to reflect the decoded values).
+#'
+#' This function will, on the full HEIMS data, take a long time to finish. Typically in the order of
+#' 10 minutes for the enrol file.
+#' @examples
+#' \dontrun{
+#' # (E488 is made up so won't work if validation is attempted.)
+#' decode_heims(dummy_enrol)
+#' }
+#' decode_heims(dummy_enrol, show_progress = TRUE, check_valid = FALSE)
 #' @export decode_heims
 
 decode_heims <- function(DT, show_progress = FALSE, check_valid = TRUE, selector){
