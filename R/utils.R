@@ -82,7 +82,7 @@ coalesce <- function(...) dplyr::coalesce(...)
 #' @rdname utilities
 #' @export rm_leading_0s
 rm_leading_0s <- function(v){
-  if (is.character(v)){
+  if (is.character(v)) {
     v <- gsub("^0+", "", v, perl = TRUE)
   }
   v
