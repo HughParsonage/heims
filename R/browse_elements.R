@@ -1,9 +1,11 @@
 #' Browse elements for description
-#' @param pattern A case-insensitive perl expression or expressions to match in the long name as in \code{\link{heims_data_dict}}.
+#' @param pattern A case-insensitive perl expression or expressions to match in the long name of \code{\link{heims_data_dict}}.
+#' @return A \code{data.table} of all element-long name combinations matching the perl regular expression.
+#' @examples browse_elements(c("ProViDer", "Maj"))
 #' @export browse_elements
 
 browse_elements <- function(pattern){
-  if (length(pattern) > 1){
+  if (length(pattern) > 1) {
     pattern <- paste0("(", paste0(pattern, collapse = ")|("), ")")
   }
 

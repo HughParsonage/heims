@@ -13,7 +13,7 @@ test_that("Given a raw load data file, correctly decoded", {
 test_that("Given a raw completions data file, correctly decoded", {
   skip_if_not(file.exists("~/Students/heims-tests/completion_2015_sample50.csv"))
   raw_enrol <-
-    fread("~/Students/heims-tests/completion_2015_sample50.csv", na.strings = "ZZZZZZZZZZ")
+    fread_heims("~/Students/heims-tests/completion_2015_sample50.csv")
 
   decode_heims(copy(raw_enrol))
 
@@ -22,7 +22,7 @@ test_that("Given a raw completions data file, correctly decoded", {
 test_that("Given a raw enrol data file, correctly decoded", {
   skip_if_not(file.exists("~/Students/heims-tests/enrol_2015_sample50.csv"))
   raw_enrol <-
-    fread("~/Students/heims-tests/enrol_2015_sample50.csv", na.strings = "ZZZZZZZZZZ")
+    fread_heims("~/Students/heims-tests/enrol_2015_sample50.csv")
 
   decode_heims(copy(raw_enrol))
 
@@ -49,7 +49,18 @@ test_that("Given the course 2015 file, won't error", {
   skip_if_not(file.exists(file))
   raw_course2015 <- fread(file, na.strings = c("", "NA", "?", ".", "*", "**", "ZZZZZZZZZZ"))
 
-  decode_heims(copy(raw_course2015))
+  decode_heims(copy(raw_course2015), show_progress = TRUE)
+  decode_heims(copy(raw_course2015), show_progress = TRUE, check_valid = FALSE)
+})
+
+test_that("Decodes course 2015 file, retains key", {
+  file <- "~/Students/course2015/course2015.csv"
+  skip_if_not(file.exists(file))
+
+  raw_course2015_keyed <- fread_heims(file)
+  setkeyv(raw_course2015_keyed, c("E306", "E307"))
+  course2015_keyed_decoded <- decode_heims(raw_course2015_keyed, check_valid = FALSE)
+  expect_equal(key(course2015_keyed_decoded), c("HE_Provider_name", "Course_cd"))
 })
 
 test_that("Given the load 2015 file, won't error", {
@@ -84,6 +95,30 @@ test_that("Known load decoded correctly", {
   expect_equal(load_2012_9456_decoded[["Attendance_type"]], "Full-time")
   expect_equal(load_2012_9456_decoded[["Discipline"]], "Economics")
   expect_equal(load_2012_9456_decoded[["FOE_name"]], "Business Management")
+})
+
+test_that("#17: Country of birth", {
+  noE346_helper <- data.table(E347 = c("0001", "1999", "A998"))
+  noE346_helper_decoded <- decode_heims(noE346_helper)
+  expect_identical(noE346_helper_decoded[["Year_arrived_Aust"]], c(NA_integer_, 1999L, NA_integer_))
+  expect_identical(noE346_helper_decoded[["Born_in_Aust"]], c(TRUE, NA, NA))
+
+  wE346_helper <- data.table(E346 = as.integer(c(1101, 9232, 9231, 1101)),
+                             E347 = c("0001", "1999", "A998", "A999"))
+
+  wE346_helper_decoded <- decode_heims(wE346_helper)
+
+  # Now the other way around
+  wE346_helper_rev <- data.table(E347 = c("0001", "1999", "A998", "A999"),
+                                 E346 = as.integer(c(1101, 9232, 9231, 1101)))
+
+  wE346_helper_decoded_rev <- decode_heims(wE346_helper_rev)[]
+
+  expect_identical(wE346_helper_rev[["Year_arrived_Aust"]], c(NA_integer_, 1999L, NA_integer_, NA_integer_))
+  expect_identical(wE346_helper_rev[["Born_in_Aust"]], c(TRUE, FALSE, FALSE, TRUE))
+  expect_identical(wE346_helper_decoded_rev[["Year_arrived_Aust"]], c(NA_integer_, 1999L, NA_integer_, NA_integer_))
+  expect_identical(wE346_helper_decoded_rev[["Born_in_Aust"]], c(TRUE, FALSE, FALSE, TRUE))
+
 })
 
 

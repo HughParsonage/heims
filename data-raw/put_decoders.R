@@ -7,10 +7,28 @@ library(heims)
 # In case library(fastmatch) in effect
 coalesce <- function(...) dplyr::coalesce(...)
 
+has_unique_key <- function(DT){
+  haskey(DT) && (uniqueN(DT, by = key(DT)) == length(.subset2(DT, 1)))
+}
+
+setuniquekey <- function(DT, ...){
+  setkey(DT, ...)
+  if (has_unique_key(DT)){
+    return(DT)
+  } else {
+    stop("Key is not unique.")
+  }
+}
+
+
 E089_decoder <-
   data.table(E089 = c(1L, 2L),
              is_1st_completion_record = c(TRUE, FALSE),
              key = "E089")
+
+E095_decoder <-
+  fread("./data-raw/decoders/E095-decoder.csv") %>%
+  setuniquekey(E095)
 
 E306_decoder <-
   HE_Provider_decoder <-
@@ -18,7 +36,9 @@ E306_decoder <-
   setnames("Provider Code", "E306") %>%
   setnames("Provider Name", "HE_Provider_name") %>%
   setnames("Provider Type", "HE_Provider_type") %>%
-  setkey(E306)
+  .[, TableA := any(grepl("Table A", HE_Provider_type)), by = HE_Provider_name] %>%
+  unique(by = "E306", fromLast = TRUE) %>%
+  setuniquekey(E306)
 
 E310_decoder <-
   fread("./data-raw/decoders/E310-decoder.csv") %>%
@@ -89,6 +109,9 @@ E346_decoder <-
   .[, Country_code := NULL] %>%
   .[, Country_of_birth := trimws(gsub("[\\(,].*$", "", Country_name))] %>%
   .[, .(E346, Country_of_birth, Region_name)] %>%
+  .[, Country_of_birth := if_else(Country_of_birth %in% c("England", "Wales", "Scotland"),
+                                  "United Kingdom",
+                                  Country_of_birth)] %>%
   setkey(E346) %>%
   .[]
 
@@ -202,12 +225,25 @@ E919_decoder <-
   fread("./data-raw/decoders/E919-decoder.txt", na.strings = "") %>%
   setkey(E919)
 
+E920_decoder <-
+  fread("./data-raw/decoders/E919-decoder.txt", na.strings = "") %>%
+  setnames("E919", "E920") %>%
+  setnames("State_permanent_home", "State_term_location") %>%
+  setkey(E920)
+
 E922_decoder <-
   data.table(E922 = c(1L, 2L),
              Commencing_student = c(TRUE, FALSE),
              key = "E922")
 
+lapply(mget(ls(pattern = "decoder")), function(dt){
+  if (!has_unique_key(dt)){
+    print(names(dt))
+    stop("DT has non-unique key")
+  }})
+
 devtools::use_data(E089_decoder,
+                   E095_decoder,
                    E306_decoder, HE_Provider_decoder,
                    E310_decoder,
                    E312_decoder,
@@ -231,8 +267,11 @@ devtools::use_data(E089_decoder,
                    E551_decoder,
                    E562_decoder,
                    E919_decoder,
+                   E920_decoder,
                    E922_decoder,
                    FOE_uniter,
                    internal = FALSE, overwrite = TRUE)
 
+# The dictionary depends on the decoders themselves
+source("./data-raw/put-heims_data_dict.R")
 

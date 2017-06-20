@@ -40,9 +40,7 @@ list(
                 mark_missing = never,
                 validate = function(v) is.integer(v) && all(between(v, 1, 2)),
                 valid = function(v) if (is.integer(v)) between(v, 1, 2) else v %fin% c(1, 2),
-                decoder = data.table(E095 = c(1L, 2L),
-                                     Student_course_combn_is_first = c(TRUE, FALSE),
-                                     key = "E095")),
+                decoder = E095_decoder),
   "E300" = list(long_name = "Record_type_cd",
                 orig_name = "E300",
                 mark_missing = never,
@@ -50,7 +48,7 @@ list(
                 validate = function(v) is.integer(v) && all(between(v, 1, 3), na.rm = TRUE),
                 ad_hoc_validation_note = "Only 2 used in 2005-2015, so not character vector despite characters AVBL",
                 valid = function(v) v == 2),
-  "E306" = list(long_name = "HE_Provider_cd",
+  "E306" = list(long_name = "HE_Provider_name",
                 orig_name = "E306",
                 mark_missing = function(v) v == 0L,
                 validate = function(v) is.integer(v) && all(or(v == 0L,
@@ -127,20 +125,23 @@ list(
   "E319" = list(long_name = "Term_location",
                 orig_name = "E319",
                 mark_missing = function(v) substr(v, 2, 5) == "9999",
-                validate = function(v) AND(is.character(v),
+                validate = function(v) AND(AND(is.character(v),
+                                               all(nchar(v) == 5)),
                                            all(or(substr(v, 2, 5) == "9999",
                                                   or(v %fin% paste0("X", 1200:9299),
                                                      between(as.integer(substr(v, 2, 5)), 1, 9998))))),
-                valid = function(v) or(substr(v, 2, 5) == "9999",
-                                       or(v %fin% paste0("X", 1200:9299),
-                                          between(as.integer(substr(v, 2, 5)), 1, 9998)))),
+                valid = function(v) and(nchar(v) == 5,
+                                        or(substr(v, 2, 5) == "9999",
+                                           or(v %fin% paste0("X", 1200:9299),
+                                              between(as.integer(substr(v, 2, 5)), 1, 9998))))),
 
   "E320" = list(long_name = "Home_location",
                 orig_name = "E320",
                 mark_missing = function(v) substr(v, 2, 5) == "9999",
                 validate = function(v){
                   v <- v[!is.na(v)]
-                  AND(is.character(v),
+                  AND(AND(is.character(v),
+                          all(nchar(v) == 5)),
                       all(or(substr(v, 2, 5) == "9999",
                              or(v %fin% paste0("X", 1200:9299),
                                 between(as.integer(substr(v, 2, 5)), 1, 9998)))))
@@ -244,10 +245,28 @@ list(
                                                       2099),
                                               "A998",
                                               "A999"),
-                decoder = function(DT){
+                decoder = function(DT) {
                   DT[, Year_arrived_Aust := force_integer(E347)]
-                  DT[, Year_arrived_Aust := if_else(E347 == "0000", NA_integer_, Year_arrived_Aust)]
-                  DT[, Born_in_Aust := if_else(E347 == "A999", NA, Year_arrived_Aust == 1L)]
+                  DT[, Year_arrived_Aust := if_else(E347 %fin% c("0000", "0001"),
+                                                    NA_integer_,
+                                                    Year_arrived_Aust)]
+                  # If year of arrival does not assert the person was born in Australia,
+                  # it is unknown.
+                  DT[, Born_in_Aust := E347 == "0001" | NA]
+
+                  # However, if the Country of birth is Australia, we can assert whether
+                  # the person was born in Australia.
+                  if (any(c("E346", "Country_of_birth") %in% names(DT))) {
+                    switch(intersect(c("E346", "Country_of_birth"), names(DT)),
+                           "E346" = {
+                             DT[, Born_in_Aust := coalesce(Born_in_Aust, DT[["E346"]] %fin% c(1100, 1101))]
+                           },
+                           "Country_of_birth" = {
+                             DT[, Born_in_Aust := coalesce(Born_in_Aust, DT[["Country_of_birth"]] == "Australia")]
+                           })
+                  }
+                  DT[, E347 := NULL]
+                  DT
                 }),
 
   "E348" = list(long_name = "Language_home",
@@ -285,7 +304,8 @@ list(
                 orig_name = "E355",
                 mark_missing = never,
                 ad_hoc_prepare = function(v) {v[v == 0L] <- NA_integer_; v},
-                validate = function(v) is.integer(v) && all(between(v, 1, 5), na.rm = TRUE),
+                ad_hoc_validation_note = "Many 0s observed. Irreconciable. (Use roll=TRUE).",
+                validate = function(v) is.integer(v) && all(between(v, 0, 5), na.rm = TRUE),
                 valid = function(v) v %fin% seq.int(1, 5),
                 decoder = E355_decoder),
 
@@ -314,7 +334,7 @@ list(
                                           v == 9999))),
   "E369" = list(long_name = "TER",
                 orig_name = "E369",
-                mark_missing = function(v) v >= 800,
+                mark_missing = function(v) v >= 800 | v == 1L,
                 ad_hoc_prepare = function(v) if_else(between(v, 2L, 29L), 998L, v),
                 validate = function(v) is.integer(v) && all(or(or(v == 1L | between(v, 2, 29),
                                                                   between(v, 30L, 100L)),
@@ -513,7 +533,7 @@ list(
                 } else {
                   v %fin% c(0, seq.int(10e3, 129999))
                 },
-                decoder = FOE_uniter[, .(FOE_cd, foename, foegrattan)] %>% setnames(c("FOE_cd", "foename", "foegrattan"), c("E461", "FOE_name", "FOE_Grattan"))),
+                decoder = FOE_uniter[, .(FOE_cd, foename, foegrattan)] %>% setnames(c("FOE_cd", "foename", "foegrattan"), c("E461", "FOE_name", "FOE_Grattan")) %>% .[, FOE_cd_orig := E461]),
   "E462" = list(long_name = "FOE_supp_cd",
                 orig_name = "E462",
                 mark_missing = never,
@@ -641,7 +661,7 @@ list(
                 validate = function(v) is.integer(v) && v %in% c(0, 1, 2, 6, 7)),
   "E488" = list(long_name = "CHESSN",
                 orig_name = "E488",
-                mark_missing = function(v) v == "00",
+                mark_missing = function(v) v == 0,
                 ad_hoc_validation_note = "Treat as number, because it is. Import Z's as NA (only value that requires char).",
                 validate = function(v) is.integer(v) || is.integer64(v),
                 post_fst = function(DT){
@@ -653,9 +673,7 @@ list(
                 validate = function(v) all(is.Date(v)),
                 valid = function(v) is.Date(v),
                 decoder = function(DT){
-                  stopifnot("E489" %in% names(DT))
-                  E314 <- NULL
-                  DT[, "Census_date" := as.Date(paste(E489 %/% 10e3, (E489 %% 10e3) %/% 100, E489 %% 100, sep = "-"))]
+                  DT[, "Census_date" := ymd(E489)]
                   DT[, E489 := NULL]
                 },
                 post_fst = function(DT){
@@ -762,9 +780,14 @@ list(
   "E522" = list(long_name = "Cohort_year",
                 orig_name = "E522",
                 mark_missing = function(v) between(v, 0, 1),
-                validate = function(v) is.integer(v) && or(between(v, 0, 1),
-                                                           between(v, 2005, 2009)),
-                valid = function(v) v %fin% c(0, 1, seq.int(2005, 2009))),
+                ad_hoc_validation_note = "Not used due to invalid codes.",
+                validate = always,
+                valid = every,
+                decoder = function(DT) DT[, E522 := NULL]),
+                # http://heimshelp.education.gov.au/sites/heimshelp/2005_data_requirements/2005dataelements/pages/522
+                # validate = function(v) is.integer(v) && or(between(v, 0, 1),
+                #                                            between(v, 2005, 2009)),
+                # valid = function(v) v %fin% c(0, 1, seq.int(2005, 2009))),
   "E523" = list(long_name = "Qld_entry_cut_off_CSP",
                 orig_name = "E523",
                 mark_missing = function(v) v == 0L,
@@ -860,7 +883,8 @@ list(
                 ad_hoc_prepare = function(v) if_else(v %fin% c(1, 2), v * 100L, v),
                 validate = function(v) is.integer(v) && all(or(v == 0,
                                                                between(v, 100, 1299))),
-                valid = function(v) or(v == 0, between(v, 100, 1299))),
+                valid = function(v) or(v == 0, between(v, 100, 1299)),
+                decoder = E562_decoder),
   "E563" = list(long_name = "Edu_level_creditable_VET_study",
                 orig_name = "E563",
                 mark_missing = function(v) v == 0 | v == 999,
@@ -954,7 +978,7 @@ list(
                   edu_decoder <- data.table(d1 = c(0:6),
                                             Education_parent1 = c("Postgrad",
                                                                   "Bachelor",
-                                                                  "Other HE",
+                                                                  "Other post-school",
                                                                   "Year 12",
                                                                   "Not Year 12",
                                                                   "Year 10",
@@ -978,7 +1002,7 @@ list(
                   edu_decoder <- data.table(d1 = c(0:6),
                                             Education_parent2 = c("Postgrad",
                                                                   "Bachelor",
-                                                                  "Other HE",
+                                                                  "Other post-school",
                                                                   "Year 12",
                                                                   "Not Year 12",
                                                                   "Year 10",
@@ -1087,7 +1111,8 @@ list(
                 orig_name = "E920",
                 mark_missing = function(v) v == 9, # not idempotent
                 validate = function(v) is.integer(v) && all(between(v, 0, 9), na.rm = TRUE),
-                valid = function(v) v %fin% seq.int(0, 9)),
+                valid = function(v) v %fin% seq.int(0, 9),
+                decoder = E920_decoder),
   "E922" = list(long_name = "Commencing_student_ind",
                 orig_name = "E922",
                 mark_missing = never,
@@ -1135,7 +1160,34 @@ list(
                 mark_missing = function(v) v %fin% c(0, 2) | !between(v, 0, 99),
                 ad_hoc_validation_note = "Some ages 115 and 11: guessing 11 is genuine.",
                 validate = function(v) is.integer(v) && all(v %fin% c(0, 2, seq.int(0, 115)), na.rm = TRUE),
-                valid = function(v) v %fin% c(0, 2, seq.int(0, 115)))
+                valid = function(v) v %fin% c(0, 2, seq.int(0, 115))),
+
+  "ses_cd" = list(long_name = "ses_cd",
+                     orig_name = "SES_CD",
+                     mark_missing = function(v) v == "x",
+                     validate = function(v) all(v %fin% c("h", "m", "l", "x")),
+                     valid = function(v) v %fin% c("h", "m", "l", "x"),
+                     decoder = function(DT){
+                       DT[, CD_SES := factor(ses_cd,
+                                             levels = c("l", "m", "h"),
+                                             labels = c("Low", "Medium", "High"),
+                                             ordered = TRUE)]
+                       DT[, c("ses_cd") := NULL]
+                       DT
+                     }),
+  "A_SES2011" = list(long_name = "SES_2011",
+                     orig_name = "A_SES2011",
+                     mark_missing = function(v) v == "x",
+                     validate = function(v) all(v %fin% c("h", "m", "l", "x")),
+                     valid = function(v) v %fin% c("h", "m", "l", "x"),
+                     decoder = function(DT){
+                       DT[, SES_2011 := factor(A_SES2011,
+                                               levels = c("l", "m", "h"),
+                                               labels = c("Low", "Medium", "High"),
+                                               ordered = TRUE)]
+                       DT[, c("A_SES2011") := NULL]
+                       DT
+                     })
 ) -> heims_data_dict
 
 devtools::use_data(heims_data_dict, overwrite = TRUE)
