@@ -117,7 +117,9 @@ E346_decoder <-
 
 E348_decoder <-
   fread("./data-raw/decoders/E348-decoder.csv", na.strings = "") %>%
-  setkey(E348)
+  setkey(E348) %>%
+  # Extended languages: Choose the first.
+  unique(by = key(.))
 
 E355_decoder <-
   fread("./data-raw/decoders/E355-decoder.csv") %>%
