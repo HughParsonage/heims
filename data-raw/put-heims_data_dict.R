@@ -46,7 +46,7 @@ list(
                 mark_missing = never,
                 # validate = function(v) is.character(v) && all(v %fin% c("#", "$", "%", "1", "2", "3")),
                 validate = function(v) is.integer(v) && all(between(v, 1, 3), na.rm = TRUE),
-                ad_hoc_validation_note = "Only 2 used in 2005-2015, so not character vector despite characters AVBL",
+                ad_hoc_validation_note = "HEIMS dictionary says this is a character field, but the only value used in 2005-20015 was '2' so cast as integer for efficiency",
                 valid = function(v) v == 2),
   "E306" = list(long_name = "HE_Provider_name",
                 orig_name = "E306",
@@ -107,7 +107,7 @@ list(
                 orig_name = "E315",
                 mark_missing = function(v) v %fin% c("X", "U"),
                 validate = function(v) all(v %fin% c("M", "F", "X", "U")),
-                ad_hoc_validation_note = "U was also used in 14 cases.",
+                ad_hoc_validation_note = "The value 'U' was also used in 14 cases. Cast as 'M'.",
                 valid = function(v) v %fin% c("M", "F", "X", "U"),
                 decoder = function(DT){
                   coalesce_gender <- function(g) {g[!{g %fin% c("M", "F")}] <- "M"; g}
@@ -155,7 +155,7 @@ list(
   "E327" = list(long_name = "New_admission_basis",
                 orig_name = "E327",
                 mark_missing = function(v) v %fin% c(2L, 3L, 99L),
-                ad_hoc_validation_note = "2 & 3 not in dicts but in file.",
+                ad_hoc_validation_note = "Values 2 and 3 were observed and preserved despite being not valid according to the dictionary.",
                 validate = function(v) is.integer(v) && all(v %fin% c(1L, 2L, 3L, 31L, 33L, 34L, 36L, 37L, 29L, 99L), na.rm = TRUE),
                 valid = function(v) v %fin% c(1L, 2L, 3L, 31L, 33L, 34L, 36L, 37L, 29L, 99L),
                 decoder = E327_decoder),
@@ -190,7 +190,7 @@ list(
   "E331" = list(long_name = "Maj_course_ind",
                 orig_name = "E331",
                 mark_missing = never,
-                ad_hoc_validation_note = "4 present in 11 entries.",
+                ad_hoc_validation_note = "Value of '4' present in 11 entries but not valid in dictionary. Left as-is.",
                 validate = function(v) is.integer(v) && all(between(v, 1, 4)),
                 valid = function(v) if (is.integer(v)) between(v, 1, 4) else v %fin% c(1, 2, 3),
                 decoder = E331_decoder),
@@ -219,7 +219,7 @@ list(
                 # but due to three elements EFTSL = {1.25, 1.50, 3.00}
                 # now use
                 validate = function(v) is.double(v) && all(between(v, 0, 3)),
-                ad_hoc_validation_note = "Three elements had EFTSL of 1.25, 1.50, and 3.00. The EFTSL = 3.00 load also had a start date of 2003, suggesting coalescing of loads into one insert.",
+                ad_hoc_validation_note = "Three elements had EFTSL of 1.25, 1.50, and 3.00. The EFTSL = 3.00 load also had a start date of 2003, suggesting coalescing of loads into one insert. Left as-is.",
                 valid = function(v) between(v, 0, 3)),
 
   "E346" = list(long_name = "Country_of_birth",
@@ -304,7 +304,7 @@ list(
                 orig_name = "E355",
                 mark_missing = never,
                 ad_hoc_prepare = function(v) {v[v == 0L] <- NA_integer_; v},
-                ad_hoc_validation_note = "Many 0s observed. Irreconciable. (Use roll=TRUE).",
+                ad_hoc_validation_note = "Many 0s observed despite not being in dictionary. Cast to NA (int) via roll=TRUE.",
                 validate = function(v) is.integer(v) && all(between(v, 0, 5), na.rm = TRUE),
                 valid = function(v) v %fin% seq.int(1, 5),
                 decoder = E355_decoder),
@@ -340,7 +340,7 @@ list(
                                                                   between(v, 30L, 100L)),
                                                                v %fin% c(800L, 998L,
                                                                          999L))),
-                ad_hoc_validation_note = "v == 800 appears for two entries (in 2007 and 2008): assumed to be NA. Otherwise missing >= 998. Values 15 25 28 29 also present ",
+                ad_hoc_validation_note = "v == 800 appears for two entries (in 2007 and 2008): assumed to be NA. Otherwise missing if >= 998. Values 15 25 28 29 also present and cast as missing.",
                 valid = function(v) or(or(v == 1L | between(v, 2, 29),
                                           between(v, 30L, 100L)),
                                        v %fin% c(800L, 998L,
@@ -494,7 +494,7 @@ list(
                  orig_name = "E446A",
                  mark_missing = never,
                  validate = function(v) is.character(v) && all(v %fin% c("N", "Y"), na.rm = TRUE),
-                 ad_hoc_validation_note = "Not present in data dictionary but inferred due to only non-missing values being Y, N.",
+                 ad_hoc_validation_note = "Field not present in data dictionary but values inferred as logical due to only non-missing values being Y, N.",
                  valid = function(v) v %fin% c("N", "Y"),
                  decoder = data.table(E446A = c("N", "Y"), Variation_reason_cd_init = c(FALSE, TRUE), key = "E446A")),
   "E455" = list(long_name = "is_Combined_course",
@@ -517,7 +517,7 @@ list(
                   v <- if_else(v > 10, v / 1000, v)
                   all(between(v, 0, 10))
                 },
-                ad_hoc_validation_note = "Put as double, despite data dictionary. Some values were nonetheless left in thousands, in particular Shafston Institute of Technology 4369 entries. Assume values above 10 are thousandths.",
+                ad_hoc_validation_note = "Put as double, despite data dictionary. Some values were nonetheless left in thousands, in particular Shafston Institute of Technology 4369 entries. Values above 10 assumed to be thousandths.",
                 valid = function(v){
                   v <- as.double(v)
                   v <- if_else(v > 10, v / 1000, v)
@@ -636,7 +636,7 @@ list(
                 validate = function(v) is.character(v) && all(v %fin% c(paste0("X", c(1200:9299, 9999, c(1100, 9998))),
                                                                         paste0("A", formatC(1:9998, width = 4, flag = "0")),
                                                                         "99999")),
-                ad_hoc_validation_note = "Two values 'X9998' and 'X1100' were also observed.",
+                ad_hoc_validation_note = "Two values 'X9998' and 'X1100' were also observed. Cast as overseas postcodes.",
                 valid = function(v) v %fin% c(paste0("X", c(1200:9299, 9999)),
                                               paste0("A", formatC(1:9998, width = 4, flag = "0")),
                                               "99999"),
@@ -667,7 +667,7 @@ list(
   "E488" = list(long_name = "CHESSN",
                 orig_name = "E488",
                 mark_missing = function(v) v == 0,
-                ad_hoc_validation_note = "Treat as number, because it is. Import Z's as NA (only value that requires char).",
+                ad_hoc_validation_note = "Treated as 64-bit integer. Import Z's as NA (only value that requires char).",
                 validate = function(v) is.integer(v) || is.integer64(v),
                 post_fst = function(DT){
                   setattr(DT[["CHESSN"]], "class", "integer64")
@@ -707,7 +707,7 @@ list(
                                                                                # likely some are MMDD dates of birth rather than YYYY
                                                      (v %/% 10000L) * 10000L + 9999L, # force year component to be missing
                                                      v),
-                ad_hoc_validation_note = "e.g. 40000 -> 49999; treat values leq 19999 as missing (including years without edu level)",
+                ad_hoc_validation_note = "If value between 20000 and 119999, and the year component is \\leq 1899, then we force year component to be missing. Treat values \\leq 19999 as missing.",
                 validate = function(v) is.integer(v) && all(or(between(v, 0, 19999),
                                                                and(between(v %/% 10000, 2, 11),
                                                                    or(or(between(v %% 10000, 1900, 2017),
@@ -770,7 +770,7 @@ list(
                 orig_name = "E500",
                 mark_missing = never,
                 validate = function(v) is.integer(v) && all(between(v, 0, 999999)),
-                ad_hoc_validation_note = "Some fees exceed 100,000 (not by much)",
+                ad_hoc_validation_note = "Some fees exceed 100,000 (not by much). Left as-is.",
                 valid = function(v) if (is.integer(v)){
                   between(v, 0, 999999)
                 } else {
@@ -785,7 +785,7 @@ list(
   "E522" = list(long_name = "Cohort_year",
                 orig_name = "E522",
                 mark_missing = function(v) between(v, 0, 1),
-                ad_hoc_validation_note = "Not used due to invalid codes.",
+                ad_hoc_validation_note = "Not used due to excessive invalid codes.",
                 validate = always,
                 valid = every,
                 decoder = function(DT) DT[, E522 := NULL]),
@@ -821,7 +821,7 @@ list(
                 orig_name = "E529",
                 mark_missing = never,
                 validate = function(v) is.double(v) && all(between(v, 0, 99999999 / 10)),
-                ad_hoc_validation_note = "Due to upstream reencoding, assumed to be in dollars.",
+                ad_hoc_validation_note = "Due to apparent upstream reencoding, assumed to be in dollars.",
                 valid = function(v) between(v, 0, 99999999 / 10)),
   "E533" = list(long_name = "Course_of_study_cd",
                 orig_name = "E533",
@@ -863,7 +863,7 @@ list(
                 orig_name = "E558",
                 mark_missing = never,
                 # validate = function(v) is.integer(v) && all(between(v, 0, 99999999)),
-                ad_hoc_validation_note = "NAs not meant to be permitted but are here. Due to upstream reencoding, interpretable as dollars.",
+                ad_hoc_validation_note = "NAs not meant to be permitted but present, left as-is. Due to upstream reencoding, interpretable as dollars.",
                 validate = function(v) is.double(v) && all(between(v, 0, 99999999 / 100), na.rm = TRUE),
                 valid = function(v) between(v, 0, 99999999 / 100)),
   "E560" = list(long_name = "Credit_used_value",
@@ -873,7 +873,7 @@ list(
                 # validate = function(v) is.integer(v) && all(between(v, 0, 9999)),
                 # but due to upstream reencoding:
                 ad_hoc_prepare = function(v) if_else(v > 10, v / 1000, v),
-                ad_hoc_validation_note = "Mixture of thousandths and doubles.",
+                ad_hoc_validation_note = "Mixture of thousandths and doubles. Anything above 10 assumed to be thousandths",
                 validate = function(v) is.double(v) && all(between(v, 0, 10), na.rm = TRUE),
                 valid = function(v) between(v, 0, 10)),
 
@@ -919,7 +919,7 @@ list(
                 mark_missing = never,
                 validate = function(v) AND(is.integer(v) || is.double(v),
                                            all(between(v, 0, 9999))),
-                ad_hoc_validation_note = "Mixture of doubles and integers in EFTSL",
+                ad_hoc_validation_note = "Mixture of doubles and integers in EFTSL. Anything above 10 assumed to be thousandths.",
                 valid = function(v) if (is.integer(v)){
                   between(v, 0, 9999)
                 } else {
@@ -934,7 +934,7 @@ list(
   "E566" = list(long_name = "Credit_offered_as_EFTSL_by",
                 orig_name = "E566",
                 mark_missing = function(v) v %fin% c(0L, 1L, 3L, 10L, 2L, 4L, 7L, 5L, 9998L, 9999L),
-                ad_hoc_validation_note = "c(1L, 3L, 10L, 2L, 4L, 7L, 5L, 9998L) were also observed.",
+                ad_hoc_validation_note = "c(1L, 3L, 10L, 2L, 4L, 7L, 5L, 9998L) were also observed. Assumed to be missing.",
                 validate = function(v) is.integer(v) && all(or(v %fin% c(0L, 1L, 3L, 10L, 2L, 4L, 7L, 5L, 9998L, 9999L),
                                                                between(v, 1000, 7997))),
                 valid = function(v) if (is.integer(v)){
@@ -1101,7 +1101,7 @@ list(
                 valid = function(v) v %fin% c(9999, 10000, seq.int(20e3, 29999))),
   "E913" = list(long_name = "Age_EOY",
                 orig_name = "E913",
-                ad_hoc_validation_note = "High ages most likely due to DOBs",
+                ad_hoc_validation_note = "High ages most likely due to high DOBs. Left as-is.",
                 mark_missing = function(v) v == 0 | !between(v, 0, 115),
                 validate = function(v) is.integer(v) && all(v == 0 | between(v, 0, 115)),
                 valid = function(v) v %fin% c(0, seq.int(0, 115))),
@@ -1163,7 +1163,7 @@ list(
   "E997" = list(long_name = "Participation_age",
                 orig_name = "E997",
                 mark_missing = function(v) v %fin% c(0, 2) | !between(v, 0, 99),
-                ad_hoc_validation_note = "Some ages 115 and 11: guessing 11 is genuine.",
+                ad_hoc_validation_note = "Some ages 115 and 11: guessing 11 is genuine. Anything below 2 and above 100 cast to missing.",
                 validate = function(v) is.integer(v) && all(v %fin% c(0, 2, seq.int(0, 115)), na.rm = TRUE),
                 valid = function(v) v %fin% c(0, 2, seq.int(0, 115))),
 
