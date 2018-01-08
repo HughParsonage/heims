@@ -1,0 +1,27 @@
+E310	Course_type	Course_type_short
+1	Higher Doctorate	Doctorate
+2	Doctorate by research	Doctorate
+3	Masters (Research)	Masters
+4	Masters (Coursework)	Masters
+5	Postgraduate Qualifying or Preliminary	Masters
+6	Graduate Diploma/ Postgraduate Diploma	GradDip
+7	Graduate Diploma/ Postgraduate Diploma	GradDip
+8	Bachelors Graduate Entry	Bachelors
+9	Bachelors Honours	BachelorsHons
+10	Bachelors Pass	Bachelors
+11	Graduate Certificate	GradCert
+12	Doctorate by coursework	Doctorate
+13	Associate degree	AssocDegree
+14	Masters (Extended)	Masters
+20	Advanced Diploma	AdvDip
+21	Diploma	Dip
+22	Other undergraduate award course	Other
+30	Enabling course	Enabling
+41	Cross Institutional program for underg	Xinst. prog undergrad
+42	Cross Institutional program for postgr	Xinst. prog postgrad
+50	Non-award course (including Bridging f	Non-award
+60	Open Universities Australia undergradu	OUAUndergrad
+61	Open Universities Australia postgradua	OUAPostgrad
+80	VET Graduate Certificate	VETGradCert
+81	VET Graduate Diploma	VETGradDip
+82	Certificate IV	CertIV

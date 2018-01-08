@@ -1,15 +1,8 @@
 library(data.table)
-library(dplyr)
-library(dtplyr)
 library(magrittr)
 library(heims)
+library(hutils)
 
-# In case library(fastmatch) in effect
-coalesce <- function(...) dplyr::coalesce(...)
-
-has_unique_key <- function(DT){
-  haskey(DT) && (uniqueN(DT, by = key(DT)) == length(.subset2(DT, 1)))
-}
 
 setuniquekey <- function(DT, ...){
   setkey(DT, ...)
@@ -42,10 +35,9 @@ E306_decoder <-
 
 E310_decoder <-
   fread("./data-raw/decoders/E310-decoder.csv") %>%
-  mutate(Course_type = substr(Course_type, 0, 38)) %>%
-  mutate(Course_type = factor(Course_type, levels = unique(.$Course_type), ordered = TRUE)) %>%
-  mutate(Course_type_short = factor(Course_type_short, levels = unique(.$Course_type_short), ordered = TRUE)) %>%
-  as.data.table %>%
+  .[, Course_type := substr(Course_type, 0, 38)] %>%
+  .[, Course_type := factor(Course_type, levels = unique(.$Course_type), ordered = TRUE)] %>%
+  .[, Course_type_short := factor(Course_type_short, levels = unique(.$Course_type_short), ordered = TRUE)] %>%
   setkey(E310)
 
 E312_decoder <-
@@ -84,18 +76,15 @@ force_integer <- function(x){
 }
 
 E346_decoder <-
-  fread("./data-raw/decoders/ABS-country-codes.csv", na.strings = "") %>%
-  mutate(Region_code = as.integer(force_integer(V1) * 1000),
-         Country_broad_code = as.integer(force_integer(V2) * 100)) %>%
+  fread("./data-raw/decoders/ABS-country-codes.csv", na.strings = "", header = FALSE) %>%
+  setnames(1:4, paste0("V", 1:4)) %>%
+  .[, Region_code := as.integer(force_integer(V1) * 1000)] %>%
+  .[, Country_broad_code := as.integer(force_integer(V2) * 100)] %>%
   .[] %>%
-  mutate(
-    Region_name = if_else(!is.na(V1), V2, NA_character_),
-    Country_name = coalesce(V4, V3, V2),
-    Region_name = zoo::na.locf(Region_name, na.rm = FALSE),
-    # Country_name = zoo::na.locf(Country_name, na.rm = FALSE),
-    Country_code = force_integer(V3)
-    # Country_code = zoo::na.locf(Country_code, na.rm = FALSE)
-  ) %>%
+  .[, Region_name := if_else(!is.na(V1), V2, NA_character_)] %>%
+  .[, Country_name := coalesce(V4, V3, V2)] %>%
+  .[, Region_name := zoo::na.locf(Region_name, na.rm = FALSE)] %>%
+  .[, Country_code := force_integer(V3)] %>%
   .[, Country_code := coalesce(Region_code, Country_broad_code, force_integer(V3))] %>%
   .[, .(Country_code, Country_name, Region_name)] %>%
   .[complete.cases(.)] %>%
@@ -104,8 +93,10 @@ E346_decoder <-
                    Country_code = c(9998L, 9999L),
                    Country_name = c(NA_character_, NA_character_),
                    Region_name = c(NA_character_, NA_character_))) %>%
-  rbind(fread("./data-raw/decoders/ABS-country-code-2006-2nd-edn.csv"), use.names = TRUE, fill = TRUE) %>%
-  rbind(fread("./data-raw/decoders/ABS-country-code-1998-suppl.csv"), use.names = TRUE, fill = TRUE) %>%
+  rbind(fread("./data-raw/decoders/ABS-country-code-2006-2nd-edn.csv"),
+        use.names = TRUE, fill = TRUE) %>%
+  rbind(fread("./data-raw/decoders/ABS-country-code-1998-suppl.csv"),
+        use.names = TRUE, fill = TRUE) %>%
   .[, Country_code := NULL] %>%
   .[, Country_of_birth := trimws(gsub("[\\(,].*$", "", Country_name))] %>%
   .[, .(E346, Country_of_birth, Region_name)] %>%
@@ -157,14 +148,14 @@ E386_decoder <-
               20000002L),
      digits = 1:8,
      v = 0:2) %>%
-  mutate(E386 = if_else(E386 == 2L, 20000000L, E386)) %>%
+  .[E386 == 2L, E386 := 20000000L] %>%
   merge(data.table(digits = 1:8,
                    disability = paste0(c("any", "hearing", "learning", "mobility", "visual", "medical", "other", "wants_services"), "_disability")),
         by = "digits") %>%
   merge(data.table(v = 0:2,
                    answer = c(NA, TRUE, FALSE)), by = "v") %>%
-  filter(nth_digit_of(E386, n = 9 - digits) == v) %>%
-  select(E386, disability, answer) %>%
+  .[nth_digit_of(E386, n = 9 - digits) == v] %>%
+  .[, .(E386, disability, answer)] %>%
   unique %>%
   dcast.data.table(E386 ~ disability) %>%
   setkey(E386)
@@ -186,29 +177,30 @@ E461_decoder <-
 E463_decoder <-
   FOE_uniter %>%
   copy %>%
-  select(E463 = FOE_cd,
-         Specialization = foename) %>%
+  .[, .(E463 = FOE_cd,
+        Specialization = foename)] %>%
   setkey(E463)
 
 E464_decoder <-
   FOE_uniter %>%
   copy %>%
-  select(E464 = FOE_cd,
-         Discipline = foename) %>%
+  .[, .(E464 = FOE_cd,
+        Discipline = foename)] %>%
   setkey(E464)
 
 
 # Abbreviated because actuals are ridic
 E490_decoder <-
-  data.table::fread("./data-raw/decoders/E490-decoders.txt") %>%
-  rename(E490 = CODE,
-         Student_status_cd = Meaning) %>%
-  mutate(Paid_upfront = if_else(grepl("^Paid( the)? full", Student_status_cd, perl = TRUE),
-                                TRUE,
-                                if_else(grepl("^Deferred", Student_status_cd, perl = TRUE),
-                                        FALSE,
-                                        NA))) %>%
-  select(E490, Paid_upfront) %>%
+  fread("./data-raw/decoders/E490-decoders.txt") %>%
+  setnames("CODE", "E490") %>%
+  setnames("Meaning", "Student_status_cd") %>%
+  .[,
+    .(E490,
+      Paid_upfront = if_else(grepl("^Paid( the)? full", Student_status_cd, perl = TRUE),
+                             TRUE,
+                             if_else(grepl("^Deferred", Student_status_cd, perl = TRUE),
+                                     FALSE,
+                                     NA)))] %>%
   setkey(E490)
 
 U490_decoder <-
@@ -273,6 +265,17 @@ devtools::use_data(E089_decoder,
                    E922_decoder,
                    FOE_uniter,
                    internal = FALSE, overwrite = TRUE)
+
+all_tables_char <- ls(pattern = "decoder")
+all_tables <- mget(all_tables_char)
+provide.dir("tsv")
+for (i in seq_along(all_tables_char)) {
+  if (is.data.table(all_tables[[i]])) {
+    fwrite(all_tables[[i]],
+           file.path("tsv", paste0(all_tables_char[[i]], ".tsv")),
+           sep = "\t")
+  }
+}
 
 # The dictionary depends on the decoders themselves
 source("./data-raw/put-heims_data_dict.R")
