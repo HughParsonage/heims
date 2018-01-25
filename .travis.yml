@@ -7,6 +7,10 @@ r:
 - devel
 - release
 
+env:
+  global:
+   - _R_CHECK_FORCE_SUGGESTS_=true
+
 r_packages:
   - covr
   - devtools
@@ -19,4 +23,3 @@ branches:
 
 after_success:
   - Rscript -e 'covr::codecov()'
-  - Rscript -e 'install.packages("grattan", dep = TRUE)'
