@@ -17,8 +17,12 @@ This is a package update:
 * `relevel_heims()` no longer errors when a variable's intended reference
   level does not occur in the data supplied.
 
+* The HEIMSHELP host cited in Description and in `?heims_data_dict` no longer
+  resolves. Those now cite the Internet Archive's copy of the page the shipped
+  dictionary was taken from, alongside the live successor collection (TCSI).
+
 ## Test environments
-* local Pop!_OS 24.04 (Ubuntu 24.04) install, R 4.6.1
+* local Pop!_OS 24.04 (Ubuntu 24.04) install, R 4.6.1, `R CMD check --as-cran`
 
 ## R CMD check results
 

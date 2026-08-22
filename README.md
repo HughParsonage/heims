@@ -1,4 +1,4 @@
-[![Travis-CI Build Status](https://travis-ci.org/HughParsonage/heims.svg?branch=master)](https://travis-ci.org/HughParsonage/heims)
+[![Travis-CI Build Status](https://app.travis-ci.com/HughParsonage/heims.svg?branch=master)](https://app.travis-ci.com/HughParsonage/heims)
 
 # heims
 Decoding and validating heims variable

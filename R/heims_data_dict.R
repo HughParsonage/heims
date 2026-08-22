@@ -10,7 +10,7 @@
 #' \item{\code{decoder}}{A function of the \code{data.table} decoding the variable decoded.}
 #' \item{\code{post_fst}}{A function of the \code{data.table} returned by fst to be used (for example to reset attributes).}
 #' }
-#' @source \url{http://heimshelp.education.gov.au/sites/heimshelp/dictionary/pages/data-element-dictionary}
+#' @source \url{https://web.archive.org/web/20180210074903/http://heimshelp.education.gov.au/sites/heimshelp/dictionary/pages/data-element-dictionary}
 #' @details Abbreviations in \code{long_name}:
 #' \describe{
 #' \item{\code{amt}}{Amount}

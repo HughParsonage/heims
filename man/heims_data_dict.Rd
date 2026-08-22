@@ -18,7 +18,7 @@ A named list each containing 5 elements:
 }
 }
 \source{
-\url{http://heimshelp.education.gov.au/sites/heimshelp/dictionary/pages/data-element-dictionary}
+\url{https://web.archive.org/web/20180210074903/http://heimshelp.education.gov.au/sites/heimshelp/dictionary/pages/data-element-dictionary}
 }
 \usage{
 heims_data_dict
