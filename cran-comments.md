@@ -1,3 +1,7 @@
+This is a resubmission of 0.4.2, which was submitted with a URL that no
+longer resolves. That citation has been corrected; the rest of the update
+is unchanged.
+
 This is a package update:
 
 * Package data.table has been moved from Depends to Imports.
@@ -20,6 +24,9 @@ This is a package update:
 * The HEIMSHELP host cited in Description and in `?heims_data_dict` no longer
   resolves. Those now cite the Internet Archive's copy of the page the shipped
   dictionary was taken from, alongside the live successor collection (TCSI).
+
+* The README's Travis badge has been removed. Travis stopped building this
+  package some time ago and the badge image no longer resolves either.
 
 ## Test environments
 * local Pop!_OS 24.04 (Ubuntu 24.04) install, R 4.6.1, `R CMD check --as-cran`
